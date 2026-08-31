@@ -1,0 +1,1693 @@
+<title>HALO WHMIS Colour Standards</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --ground: #F5F2ED;
+  --surface: #FFFFFF;
+  --surface-alt: #EDE9E3;
+  --ink: #1A1A1F;
+  --ink-secondary: #55524D;
+  --ink-tertiary: #8A8680;
+  --border: #D6D1CA;
+  --border-light: #E8E4DE;
+
+  --red: #B82828;
+  --red-bg: rgba(184, 40, 40, 0.07);
+  --blue: #1A6F8F;
+  --blue-bg: rgba(26, 111, 143, 0.07);
+  --yellow: #B8920A;
+  --yellow-bg: rgba(184, 146, 10, 0.07);
+  --white-col: #7A756E;
+  --white-bg: rgba(122, 117, 110, 0.06);
+  --black-col: #3A3A3E;
+  --black-bg: rgba(58, 58, 62, 0.07);
+  --green: #2A7A3A;
+  --green-bg: rgba(42, 122, 58, 0.07);
+  --gold: #9A7A10;
+  --gold-bg: rgba(154, 122, 16, 0.08);
+
+  --accent: #1A6F8F;
+  --accent-light: rgba(26, 111, 143, 0.10);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0F1118;
+    --surface: #181B24;
+    --surface-alt: #1E2130;
+    --ink: #E2DFD8;
+    --ink-secondary: #9A968F;
+    --ink-tertiary: #6A665F;
+    --border: #2C2F3A;
+    --border-light: #232630;
+
+    --red: #D04040;
+    --red-bg: rgba(208, 64, 64, 0.12);
+    --blue: #2A9AC0;
+    --blue-bg: rgba(42, 154, 192, 0.12);
+    --yellow: #D4A820;
+    --yellow-bg: rgba(212, 168, 32, 0.12);
+    --white-col: #B0ACA5;
+    --white-bg: rgba(176, 172, 165, 0.08);
+    --black-col: #A0A0A8;
+    --black-bg: rgba(160, 160, 168, 0.10);
+    --green: #3AAA50;
+    --green-bg: rgba(58, 170, 80, 0.12);
+    --gold: #D4A820;
+    --gold-bg: rgba(212, 168, 32, 0.12);
+
+    --accent: #2A9AC0;
+    --accent-light: rgba(42, 154, 192, 0.12);
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground: #0F1118;
+  --surface: #181B24;
+  --surface-alt: #1E2130;
+  --ink: #E2DFD8;
+  --ink-secondary: #9A968F;
+  --ink-tertiary: #6A665F;
+  --border: #2C2F3A;
+  --border-light: #232630;
+
+  --red: #D04040;
+  --red-bg: rgba(208, 64, 64, 0.12);
+  --blue: #2A9AC0;
+  --blue-bg: rgba(42, 154, 192, 0.12);
+  --yellow: #D4A820;
+  --yellow-bg: rgba(212, 168, 32, 0.12);
+  --white-col: #B0ACA5;
+  --white-bg: rgba(176, 172, 165, 0.08);
+  --black-col: #A0A0A8;
+  --black-bg: rgba(160, 160, 168, 0.10);
+  --green: #3AAA50;
+  --green-bg: rgba(58, 170, 80, 0.12);
+  --gold: #D4A820;
+  --gold-bg: rgba(212, 168, 32, 0.12);
+
+  --accent: #2A9AC0;
+  --accent-light: rgba(42, 154, 192, 0.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--ground);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* ── HEADER ── */
+.doc-header {
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 32px;
+  margin-bottom: 40px;
+}
+.doc-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.doc-title {
+  font-family: 'DM Serif Text', Georgia, serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--ink);
+  text-wrap: balance;
+  margin-bottom: 12px;
+}
+.doc-subtitle {
+  font-size: 15px;
+  color: var(--ink-secondary);
+  max-width: 680px;
+  line-height: 1.65;
+}
+.doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--ink-tertiary);
+  font-family: 'JetBrains Mono', monospace;
+}
+.doc-meta span { white-space: nowrap; }
+
+/* ── COLOUR BAND ── */
+.colour-band {
+  display: flex;
+  gap: 2px;
+  margin: 32px 0;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 6px;
+}
+.colour-band div { flex: 1; }
+
+/* ── SECTIONS ── */
+.section {
+  margin-bottom: 48px;
+}
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  margin-bottom: 6px;
+}
+.section-title {
+  font-family: 'DM Serif Text', Georgia, serif;
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--ink);
+  text-wrap: balance;
+  margin-bottom: 16px;
+}
+.section p {
+  font-size: 14.5px;
+  color: var(--ink-secondary);
+  max-width: 720px;
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+.section p strong { color: var(--ink); font-weight: 600; }
+
+/* ── COLOUR DOMAIN CARDS ── */
+.domain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+.domain-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 16px 18px;
+  border-left: 4px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.domain-card h4 {
+  font-family: 'DM Serif Text', Georgia, serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+.domain-card .domain-meta {
+  font-size: 12px;
+  color: var(--ink-tertiary);
+  font-family: 'JetBrains Mono', monospace;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.domain-card .domain-meta span {
+  background: var(--surface-alt);
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+.domain-card p {
+  font-size: 13px;
+  color: var(--ink-secondary);
+  line-height: 1.55;
+}
+
+/* ── TABLES ── */
+.table-wrap {
+  overflow-x: auto;
+  margin: 16px 0 24px;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+thead {
+  background: var(--surface-alt);
+}
+th {
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--ink-secondary);
+  vertical-align: top;
+  line-height: 1.5;
+}
+tr:last-child td { border-bottom: none; }
+.colour-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+  border: 1px solid var(--border);
+}
+
+/* ── FLOW DIAGRAM ── */
+.flow-container {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 24px;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+.flow-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.flow-box {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  text-align: center;
+  min-width: 120px;
+}
+.flow-box.accent {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: var(--accent);
+}
+.flow-arrow {
+  color: var(--ink-tertiary);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.flow-label {
+  font-size: 11px;
+  color: var(--ink-tertiary);
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.04em;
+}
+
+/* ── STRESSOR TRACKS ── */
+.track-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+@media (max-width: 700px) {
+  .track-container { grid-template-columns: 1fr; }
+}
+.track {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 18px;
+}
+.track-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.track-a .track-label { background: var(--blue-bg); color: var(--blue); }
+.track-b .track-label { background: var(--gold-bg); color: var(--gold); }
+.track h4 {
+  font-family: 'DM Serif Text', Georgia, serif;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+.track ul {
+  list-style: none;
+  padding: 0;
+}
+.track li {
+  font-size: 13px;
+  color: var(--ink-secondary);
+  padding: 4px 0;
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.45;
+}
+.track li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.track-a li::before { background: var(--blue); }
+.track-b li::before { background: var(--gold); }
+
+/* ── CROSS-REF BOX ── */
+.xref-box {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  padding: 16px 18px;
+  margin: 16px 0;
+}
+.xref-box h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.xref-box p {
+  font-size: 13px;
+  color: var(--ink-secondary);
+  line-height: 1.6;
+}
+
+/* ── FORMULA ── */
+.formula-block {
+  background: var(--surface-alt);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--ink);
+  text-align: center;
+  overflow-x: auto;
+}
+.formula-block .formula-note {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--ink-tertiary);
+  margin-top: 8px;
+}
+
+/* ── COLLAPSIBLE ── */
+details {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  margin: 12px 0;
+}
+details summary {
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--ink);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+details summary::before {
+  content: '▸';
+  font-size: 12px;
+  color: var(--ink-tertiary);
+  transition: transform 0.2s;
+}
+details[open] summary::before { transform: rotate(90deg); }
+details summary::-webkit-details-marker { display: none; }
+.details-body {
+  padding: 4px 16px 16px;
+  font-size: 13.5px;
+  color: var(--ink-secondary);
+  line-height: 1.65;
+}
+
+/* ── BADGE ROW ── */
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+.badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* ── CALLOUT ── */
+.callout {
+  background: var(--accent-light);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  padding: 14px 18px;
+  margin: 20px 0;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.callout em { color: var(--ink-secondary); font-style: normal; }
+
+/* ── FOOTER ── */
+.doc-footer {
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  margin-top: 48px;
+  font-size: 12px;
+  color: var(--ink-tertiary);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* ── PRINT ── */
+@media print {
+  body { background: white; color: black; }
+  .page-wrap { max-width: 100%; padding: 20px; }
+  details { border: none; }
+  details[open] { break-inside: avoid; }
+}
+</style>
+
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <header class="doc-header">
+    <div class="doc-eyebrow">HALO — Human Advocacy & Liberative Operations</div>
+    <h1 class="doc-title">WHMIS Colour Standards:<br>Synthesis & Standardization Rationale</h1>
+    <p class="doc-subtitle">A complete logic chain from WHMIS safety recognition through emotional/archetypical/neurochemical attributes, dual-track stressor architecture, clinical modalities, and intake routing — the case for expanding WHMIS colour standards to serve addiction recovery and mental health services. Developed by HALO Antifragile AI; proposed application includes Recovery Without Borders (RWOB) online intake system.</p>
+    <div class="doc-meta">
+      <span>Neil J. Schwab — Framework Architect</span>
+      <span>August 28, 2026</span>
+      <span>Document Status: Locked Synthesis — 34 Source Documents</span>
+    </div>
+  </header>
+
+  <!-- COLOUR BAND -->
+  <div class="colour-band">
+    <div style="background: var(--red)"></div>
+    <div style="background: var(--blue)"></div>
+    <div style="background: var(--yellow)"></div>
+    <div style="background: var(--white-col)"></div>
+    <div style="background: var(--black-col)"></div>
+    <div style="background: var(--green)"></div>
+    <div style="background: var(--gold)"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 1: THE UNIFYING INSIGHT -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 1</div>
+    <h2 class="section-title">The Unifying Insight</h2>
+    <p>The Workplace Hazardous Materials Information System has protected Canadian workers since 1988 using a colour-coded safety recognition system that every certified worker already understands. The foundational insight behind this framework: <strong>the colours that keep a worker safe from hazardous materials are the same colours that can describe the hazardous conditions within a person.</strong></p>
+    <p>The planet needs restoration from WHITE through GOLD. The human needs restoration from WHITE through GOLD. The work is the same work. This "same-denominator principle" means a single colour progression governs outer ecological restoration and inner psychological restoration — and, critically for Recovery Without Borders, governs the routing of people to the treatment services that match their actual needs.</p>
+
+    <div class="callout">
+      <strong>Why this matters for addiction services:</strong> Currently, intake systems route clients to treatment based on plain-language need categories, waitlist availability, or geographic proximity. None of these methods account for the <em>emotional, neurochemical, or archetypical profile</em> of the client's condition — or match it to the corresponding strengths of the treating organization. The WHMIS colour system provides that standardized matching language, built on recognition symbols 38 years of Canadian workers already carry. Recovery Without Borders (RWOB) is one proposed application — an online intake system that would use this colour-match architecture to route clients across 67+ Ontario organizations.
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 2: THE SEVEN COLOUR DOMAINS -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 2</div>
+    <h2 class="section-title">The Seven Colour Domains</h2>
+    <p>Five colours serve as <strong>identity Hues</strong> — computed as Hue = argmax(W, B, G, Bl, Go), a weighted read of curiosity and inclination over time. Two further domains — YELLOW and RED — are <strong>response energies</strong>: certifiable work tiers every participant can train into and out of, never an identity anyone is assigned.</p>
+
+    <div class="domain-grid">
+      <!-- WHITE -->
+      <div class="domain-card" style="border-left-color: var(--white-col);">
+        <h4 style="color: var(--white-col);">WHITE — Foundation</h4>
+        <div class="domain-meta">
+          <span>Identity Hue</span>
+          <span>Currently in WHMIS</span>
+        </div>
+        <p><strong>WHMIS:</strong> Special hazards, general information, biohazard background</p>
+        <p><strong>Inner:</strong> Clarity, beginning, openness</p>
+        <p><strong>Virtues:</strong> Humility, order, discernment</p>
+        <p><strong>D.O.S.E.:</strong> Serotonin — baseline regulation</p>
+        <p><strong>Stressor (Worker):</strong> Burnout / rescuer trap</p>
+        <p><strong>Curriculum:</strong> Materials sorting, basic stewardship</p>
+      </div>
+
+      <!-- BLUE -->
+      <div class="domain-card" style="border-left-color: var(--blue);">
+        <h4 style="color: var(--blue);">BLUE — Health & Depth</h4>
+        <div class="domain-meta">
+          <span>Identity Hue</span>
+          <span>Currently in WHMIS</span>
+        </div>
+        <p><strong>WHMIS:</strong> Health hazard, toxicity, corrosive materials</p>
+        <p><strong>Inner:</strong> Flow, depth, reflection</p>
+        <p><strong>Virtues:</strong> Care, adaptability, persistence</p>
+        <p><strong>D.O.S.E.:</strong> Oxytocin — connection and depth</p>
+        <p><strong>Stressor (Worker):</strong> Enmeshment / vicarious trauma</p>
+        <p><strong>Curriculum:</strong> Waterway restoration, aquatic remediation</p>
+      </div>
+
+      <!-- YELLOW -->
+      <div class="domain-card" style="border-left-color: var(--yellow);">
+        <h4 style="color: var(--yellow);">YELLOW — Reactivity & Response</h4>
+        <div class="domain-meta">
+          <span>Response Energy</span>
+          <span>Currently in WHMIS</span>
+        </div>
+        <p><strong>WHMIS:</strong> Reactivity hazard, instability, oxidizing materials</p>
+        <p><strong>Inner:</strong> Warmth, awareness, caution</p>
+        <p><strong>Virtues:</strong> Courage, compassion, readiness</p>
+        <p><strong>D.O.S.E.:</strong> Endorphins — action and recovery</p>
+        <p><strong>Note:</strong> A response energy, not an identity colour</p>
+        <p><strong>Curriculum:</strong> Emergency response, animal care</p>
+      </div>
+
+      <!-- RED -->
+      <div class="domain-card" style="border-left-color: var(--red);">
+        <h4 style="color: var(--red);">RED — Emergency & Crisis</h4>
+        <div class="domain-meta">
+          <span>Response Energy</span>
+          <span>Currently in WHMIS</span>
+        </div>
+        <p><strong>WHMIS:</strong> Fire hazard, flammability, immediate danger</p>
+        <p><strong>Inner:</strong> Panic, urgency, the body alarm</p>
+        <p><strong>Note:</strong> Not yet defined within the emotional wheel or D.O.S.E. framework — reserved for acute/emergency-level referral organizations, not ongoing treatment</p>
+        <p><strong>Current match count:</strong> 0 of 67 organizations</p>
+      </div>
+
+      <!-- BLACK -->
+      <div class="domain-card" style="border-left-color: var(--black-col);">
+        <h4 style="color: var(--black-col);">BLACK — Shadow & Transformation</h4>
+        <div class="domain-meta">
+          <span>Identity Hue</span>
+          <span>Currently in WHMIS</span>
+        </div>
+        <p><strong>WHMIS:</strong> Symbols, text, pictogram outlines — the warning itself</p>
+        <p><strong>Inner:</strong> Gravity, transformation, profundity</p>
+        <p><strong>Virtues:</strong> Resilience, courage, gravitas</p>
+        <p><strong>D.O.S.E.:</strong> Full activation, all four neurochemicals</p>
+        <p><strong>Stressor (Worker):</strong> Cortisol dominance / nervous system collapse</p>
+        <p><strong>Curriculum:</strong> Hazardous materials handling, crisis leadership</p>
+      </div>
+
+      <!-- GREEN (proposed) -->
+      <div class="domain-card" style="border-left-color: var(--green); border-style: dashed solid solid dashed;">
+        <h4 style="color: var(--green);">GREEN — Psychological Hazard</h4>
+        <div class="domain-meta">
+          <span>Identity Hue</span>
+          <span style="background: var(--green-bg); color: var(--green);">Proposed — Not in Force</span>
+        </div>
+        <p><strong>Proposed WHMIS:</strong> Psychological hazard — cumulative stress, vicarious trauma, compassion fatigue, moral injury</p>
+        <p><strong>Inner:</strong> Growth, nurturing, healing</p>
+        <p><strong>Virtues:</strong> Patience, stewardship, hope</p>
+        <p><strong>D.O.S.E.:</strong> Serotonin — sustained regulation</p>
+        <p><strong>Stressor (Worker):</strong> Moral injury / cynicism</p>
+        <p><strong>Status:</strong> Prepared for submission to Health Canada — not yet submitted</p>
+      </div>
+
+      <!-- GOLD -->
+      <div class="domain-card" style="border-left-color: var(--gold); border-style: dashed solid solid dashed;">
+        <h4 style="color: var(--gold);">GOLD — Mastery & Elderhood</h4>
+        <div class="domain-meta">
+          <span>Identity Hue, Elder Tier</span>
+          <span style="background: var(--gold-bg); color: var(--gold);">Internal Only</span>
+        </div>
+        <p><strong>Not a WHMIS category.</strong> Internal framework tier only.</p>
+        <p><strong>Inner:</strong> Wisdom, mastery, illumination</p>
+        <p><strong>Virtues:</strong> Integrity, sovereignty, joy</p>
+        <p><strong>D.O.S.E.:</strong> All four, sustained</p>
+        <p><strong>Stressor (Worker):</strong> Sovereign mastery</p>
+        <p><strong>Age provision:</strong> 55+ grants automatic Elder-GOLD standing</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 3: THE MATCHING LOGIC -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 3</div>
+    <h2 class="section-title">The Matching Logic — How Colours Route Clients to Services</h2>
+    <p>The HALO Outreach & Colour-Match Tracking system uses only the <strong>five WHMIS colours currently in force</strong> — RED, BLUE, YELLOW, WHITE, BLACK — to match 67 Ontario addiction and recovery organizations to clients. No proposed or internal-only category is used in the live matching system.</p>
+
+    <div class="flow-container">
+      <div class="flow-label">INTAKE-TO-SERVICE ROUTING PIPELINE</div>
+      <div class="flow-row">
+        <div class="flow-box">Client Intake<br><span style="font-size:10px;color:var(--ink-tertiary)">Questionnaire</span></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box accent">Stressor<br>Identification<br><span style="font-size:10px">PAWS / CENAPS / HALT</span></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Colour-Match<br>Assignment<br><span style="font-size:10px;color:var(--ink-tertiary)">5 WHMIS colours</span></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box accent">Organization<br>Match<br><span style="font-size:10px">67 agencies coded</span></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Referral &<br>Follow-up</div>
+      </div>
+      <div style="margin-top: 16px;">
+        <div class="flow-label">DUAL CROSS-REFERENCE</div>
+        <div class="flow-row" style="margin-top:8px;">
+          <div class="flow-box" style="border-color: var(--blue); min-width: 200px;">
+            <strong style="color:var(--blue)">Side A — Client Stressors</strong><br>
+            <span style="font-size:10px;color:var(--ink-tertiary)">PAWS 7 hurdles, CENAPS 3 stages,<br>Marlatt high-risk taxonomy, HALT</span>
+          </div>
+          <div class="flow-arrow">⟷</div>
+          <div class="flow-box" style="border-color: var(--accent); background: var(--accent-light);">
+            <strong style="color:var(--accent)">WHMIS Colour<br>Attributes</strong><br>
+            <span style="font-size:10px">D.O.S.E. + Emotional Wheel<br>+ Virtues + Archetypes</span>
+          </div>
+          <div class="flow-arrow">⟷</div>
+          <div class="flow-box" style="border-color: var(--gold); min-width: 200px;">
+            <strong style="color:var(--gold)">Side B — Org Modalities</strong><br>
+            <span style="font-size:10px;color:var(--ink-tertiary)">Treatment specialties, clinical<br>modalities offered by 67 agencies</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>The colour-match system operates in two directions simultaneously. <strong>Side A</strong> maps the client's identified stressors to WHMIS colour attributes — neurochemical, emotional, and archetypical. <strong>Side B</strong> maps each organization's treatment modalities to those same colour attributes. The match happens in the middle: a client whose stressor profile resolves to BLUE + BLACK gets routed to organizations also coded BLUE + BLACK, whose clinical specialties address the specific conditions that colour combination represents.</p>
+
+    <div class="xref-box">
+      <h4>Blend Logic</h4>
+      <p>Many organizations handle multiple colour domains. The tracking sheet records these as blends — e.g., "BLUE + BLACK" for an organization treating substance use with concurrent mental health in residential/crisis settings. Trafalgar Addiction Treatment Centres, for example, carries BLUE (health hazard / depth / oxytocin-connection work) + BLACK (gravity / transformation / full neurochemical activation) because their modalities span both domains.</p>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 4: DUAL-TRACK STRESSOR ARCHITECTURE -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 4</div>
+    <h2 class="section-title">Dual-Track Stressor Architecture</h2>
+    <p>The stressor architecture operates on two completely separate tracks feeding the same Human Value Function (W) from opposite directions. <strong>Track A identifies what destabilizes a participant's W; Track B identifies what destabilizes a worker's W.</strong> Both tracks are academically validated — Track A against peer-reviewed clinical literature (Gorski, Marlatt & Donovan, PAWS neuroscience), Track B through the Lighthouse Resilience Program (scored 100% at triOS College).</p>
+
+    <div class="formula-block">
+      W = (R + B + N + V + M + Gv + Fe + Fm) × Cs
+      <div class="formula-note">Where Cs (Secure Connection) is the multiplier — always required. Both tracks measure the same 9 variables from opposite sides of the therapeutic relationship.</div>
+    </div>
+
+    <div class="track-container">
+      <div class="track track-a">
+        <div class="track-label">Track A — Client / Participant</div>
+        <h4>G.A.P.S. Stressor Framework</h4>
+        <p style="font-size:12px;color:var(--ink-tertiary);margin-bottom:8px;">Built against: CENAPS (Gorski 2013), PAWS neuroscience, Marlatt & Donovan (2005), HALT</p>
+        <ul>
+          <li><strong>PAWS 7 Hurdles:</strong> Cognitive fog, emotional overreaction/numbness, sleep disruption, stress sensitivity, cravings/craving confusion, anhedonia, identity confusion</li>
+          <li><strong>CENAPS 3 Stages:</strong> Emotional relapse → Mental relapse → Physical relapse</li>
+          <li><strong>Marlatt High-Risk:</strong> Negative emotional states (~35% of relapses), interpersonal conflict, social pressure</li>
+          <li><strong>HALT:</strong> Hungry/Hurt, Angry, Lonely, Tired</li>
+          <li><strong>Client tools:</strong> G.A.P.S. at Home, PAWS Interruption Guide, Weekend Pass Edition</li>
+        </ul>
+      </div>
+      <div class="track track-b">
+        <div class="track-label">Track B — Worker / Practitioner</div>
+        <h4>LRP Stressor Framework</h4>
+        <p style="font-size:12px;color:var(--ink-tertiary);margin-bottom:8px;">Built against: Framework Architect's manuscripts, Lighthouse Resilience Program (100% at triOS)</p>
+        <ul>
+          <li><strong>Psychological (12):</strong> Burnout, compassion fatigue, vicarious trauma, hypervigilance, emotional enmeshment, rescuer trap, pathological altruism, identity erosion, moral injury, cynicism</li>
+          <li><strong>Neurological (7):</strong> Chronic sympathetic activation, prefrontal shutdown, cortisol dominance, dopamine-driven chaos seeking, oxytocin paradox, nervous system dysregulation, somatic collapse</li>
+          <li><strong>Relational (5):</strong> Boundary blurring, countertransference, professional isolation, team conflict, attachment system collapse</li>
+          <li><strong>Behavioural (5):</strong> Impaired judgment, avoidance, presenteeism, documentation neglect, substance use reliance</li>
+        </ul>
+      </div>
+    </div>
+
+    <details>
+      <summary>W-Function Cross-Reference — Both Tracks to the Same Variables</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>W Variable</th>
+                <th>Track A — Client Driver</th>
+                <th>Track B — Worker Driver</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>R</strong> — Resilience</td><td>Emotional relapse stage (CENAPS)</td><td>Burnout, compassion fatigue</td></tr>
+              <tr><td><strong>B</strong> — Boundary Clarity</td><td>Environmental cue reactivity</td><td>Boundary blurring, enmeshment</td></tr>
+              <tr><td><strong>N</strong> — Neurochemical Balance</td><td>PAWS cluster (all seven hurdles)</td><td>Cortisol dominance, dopamine-chaos seeking</td></tr>
+              <tr><td><strong>V</strong> — Virtue Value</td><td>Mental relapse stage (rationalizing)</td><td>Impaired professional judgment</td></tr>
+              <tr><td><strong>M</strong> — Meaning Quotient</td><td>Anhedonia (PAWS Hurdle 6)</td><td>Moral injury, cynicism</td></tr>
+              <tr><td><strong>Gv</strong> — Guest Virtue</td><td>Social pressure (Marlatt & Donovan)</td><td>Team conflict, professional isolation</td></tr>
+              <tr><td><strong>Fe</strong> — Emotional Satisfaction</td><td>Negative emotional states (~35%)</td><td>Identity erosion, rescuer trap</td></tr>
+              <tr><td><strong>Fm</strong> — Morality Alignment</td><td>Shame (identified gap)</td><td>Substance use reliance</td></tr>
+              <tr><td><strong>Cs</strong> — Secure Connection</td><td>Interpersonal conflict</td><td>Attachment system collapse</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 5: OPERATIONAL PIPELINE -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 5</div>
+    <h2 class="section-title">Operational Pipeline — From Crisis to Sovereignty</h2>
+    <p>The system operates through five sequential components. G.A.P.S. encompasses the client-facing pathway (LLJ → HAK → IDW), LRP runs in parallel to protect the workforce delivering those services, and GSRT absorbs graduates into dignified employment doing environmental restoration work.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Phase</th><th>Component</th><th>Duration</th><th>Function</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td>LLJ — Lifeguard's Life Jacket</td><td>90 minutes</td><td>Crisis stabilization and triage. Entry point for individuals in acute crisis. DEEDSPROOF protocol.</td></tr>
+          <tr><td><strong>2</strong></td><td>HAK — Home Anchor Kit</td><td>Ongoing</td><td>Private recovery tools for individuals not yet engaged with formal services. Self-directed bridge between treatment encounters.</td></tr>
+          <tr><td><strong>3</strong></td><td>IDW — In Deeper Waters</td><td>21 days</td><td>Structured family rebuilding program. Addresses the relational dimension of recovery — children, partners, family systems.</td></tr>
+          <tr><td><strong>4 (parallel)</strong></td><td>LRP — Lighthouse Resilience Program</td><td>12-month cycle</td><td>Worker-facing burnout prevention. Three tiers: observer basics → pattern literacy → co-regulation leadership. Scored 100% at triOS College.</td></tr>
+          <tr><td><strong>5</strong></td><td>GSRT — Global Stewardship & Reconciliation Trust</td><td>Ongoing</td><td>Purpose trust converting stabilized individuals into workforce producing environmental and social recovery. 200-person cohorts, dignity wage, trilateral governance.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>Integration logic:</strong> G.A.P.S. stabilizes the person, LRP protects the worker stabilizing them, and GSRT gives both a destination that produces measurable value. The same colour vocabulary (WHMIS) runs through all five phases — it routes the client at intake, measures the worker at assessment, and tracks the graduate at employment.
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 6: STRESSOR-TO-COLOUR MAPPING -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 6</div>
+    <h2 class="section-title">Stressor-to-Colour Mapping — The Intake Bridge</h2>
+    <p>This is where the intake questionnaire connects to the colour-match database. A client's stressor profile maps to WHMIS colours through the D.O.S.E. neurochemical framework, emotional wheel attributes, and virtues. The questionnaire identifies which neurochemical systems are depleted; the colour system tells you which organizations specialize in restoring them.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30px"></th>
+            <th>Colour</th>
+            <th>Neurochemical (D.O.S.E.)</th>
+            <th>Client Stressors That Map Here</th>
+            <th>Modalities That Address This</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="colour-dot" style="background:#E8E4DC;border-color:#999"></span></td>
+            <td><strong>WHITE</strong></td>
+            <td>Serotonin — baseline regulation</td>
+            <td>Cognitive fog (PAWS H1), orientation uncertainty, HALT: Tired, structural drift, first-contact overwhelm</td>
+            <td>Navigation services, system orientation, harm reduction, housing stabilization, primary care, information-only services</td>
+          </tr>
+          <tr>
+            <td><span class="colour-dot" style="background:var(--blue)"></span></td>
+            <td><strong>BLUE</strong></td>
+            <td>Oxytocin — connection & depth</td>
+            <td>Emotional overreaction/numbness (PAWS H2), unprocessed grief, enmeshment, interpersonal conflict, shame, HALT: Lonely</td>
+            <td>Community counselling, outpatient treatment, family therapy, grief work, concurrent-disorder counselling, 2SLGBTQ2S+-affirming care</td>
+          </tr>
+          <tr>
+            <td><span class="colour-dot" style="background:var(--yellow)"></span></td>
+            <td><strong>YELLOW</strong></td>
+            <td>Endorphins — action & recovery</td>
+            <td>Stress sensitivity / autonomic hyperreactivity (PAWS H4), cravings/craving confusion (PAWS H5), HALT: Angry, social pressure, environmental cue reactivity</td>
+            <td>Crisis support, withdrawal management, RAAM clinics, emergency response services, problem gambling intervention</td>
+          </tr>
+          <tr>
+            <td><span class="colour-dot" style="background:var(--black-col)"></span></td>
+            <td><strong>BLACK</strong></td>
+            <td>All four — full activation</td>
+            <td>Identity confusion (PAWS H7), anhedonia (PAWS H6), sleep architecture disruption (PAWS H3), mental relapse stage (CENAPS), cortisol dominance, negative emotional states</td>
+            <td>Residential treatment, hospital/inpatient care, intensive addiction medicine, trauma/PTSD programs, long-term recovery, eating disorder specialty</td>
+          </tr>
+          <tr>
+            <td><span class="colour-dot" style="background:var(--red)"></span></td>
+            <td><strong>RED</strong></td>
+            <td>Cortisol regulation</td>
+            <td>Physical relapse stage (CENAPS), acute crisis, immediate danger</td>
+            <td>Not currently matched — reserved for acute/emergency organizations not yet in the directory</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 6: CLINICAL MODALITIES CROSS-REFERENCE -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 7</div>
+    <h2 class="section-title">Clinical Modalities — Current Industry Cross-Reference</h2>
+    <p>The G.A.P.S. system (Gratitude, Acceptance, Presence, Surrender) provides the client-facing psychoeducational framework that bridges clinical stressor identification to actionable self-intervention. It integrates all currently accepted clinical modalities for recovery and withdrawal from addiction.</p>
+
+    <details open>
+      <summary>The Four Capacities — Neurochemical-to-Clinical Mapping</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Capacity</th><th>Neurochemical Target</th><th>Clinical Condition Addressed</th><th>Primary Function</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Gratitude</strong></td><td>Serotonin / Dopamine</td><td>PAWS Anhedonia (H6); Emotional relapse stage</td><td>Interrupts cortisol dominance; redirects from threat-scanning to resource-noticing</td></tr>
+              <tr><td><strong>Acceptance</strong></td><td>Oxytocin</td><td>PAWS Identity confusion (H7); Unprocessed grief</td><td>Fish Bowl Method — observing experience without being controlled by it</td></tr>
+              <tr><td><strong>Presence</strong></td><td>Endorphins</td><td>PAWS Stress hypersensitivity (H4); Cravings (H5)</td><td>Creates the gap between stimulus and response — where choice lives</td></tr>
+              <tr><td><strong>Surrender</strong></td><td>Oxytocin / Serotonin</td><td>Social isolation; PAWS H7; Identity erosion</td><td>Releases the need to control the outcome; reduces pathological load</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Worked Clinical Example — Alexia (Composite Dual-Substance Case)</summary>
+      <div class="details-body">
+        <p><strong>Profile:</strong> Alexia, 32, inpatient treatment for alcohol and cocaine dependence with co-occurring depressive disorder. Six months sobriety achieved, then textbook secondary PAWS cascade (6-month to 2-year window): cognitive fog, emotional numbness, sleep disruption, isolation withdrawal, relapse triggered by workplace confrontation. 11-year-old daughter Christine; grandmother as interim caregiver.</p>
+        <p>This is the cross-reference chain in action — every documented symptom maps through PAWS hurdles to specific G.A.P.S. interruptions:</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Alexia's Symptom</th><th>PAWS Hurdle</th><th>G.A.P.S. Interruption</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Fatigue, difficulty getting out of bed</td><td>H3 — Sleep Architecture Disruption</td><td>Acceptance: "My brain is rebuilding. This is temporary." Wind-down protocol.</td></tr>
+              <tr><td>Worthlessness, guilt, hopelessness</td><td>H6 — Anhedonia; H2 — Emotional Dysregulation</td><td>Gratitude: function before feeling. Presence: Fish Bowl — "There is grief. I am not grief."</td></tr>
+              <tr><td>Significant anxiety</td><td>H4 — Stress Hypersensitivity</td><td>Presence: Physiological sigh — double inhale, long exhale. Repeat three times.</td></tr>
+              <tr><td>Cognitive fog, concentration difficulty</td><td>H1 — Cognitive Fog</td><td>Presence: Reduce to smallest possible unit. Not the next month. The next hour.</td></tr>
+              <tr><td>Withdrawal from AA/NA; isolation</td><td>H5 — Cravings (amplified by isolation)</td><td>Surrender: "Make contact before the 20-minute window closes. The craving is loudest alone."</td></tr>
+              <tr><td>Boss confrontation → cocaine relapse</td><td>H4 + Marlatt: Interpersonal Conflict</td><td>Presence: Sacred Pause before responding. Acceptance: "The reaction is amplified. Both things are true."</td></tr>
+              <tr><td>Hopelessness about recovery</td><td>H7 — Identity Confusion</td><td>Acceptance: "I am allowed to not know who I am right now. Identity is not fixed."</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:12px;color:var(--ink-tertiary)"><strong>MI Spirit alignment for Alexia:</strong> Partnership → Gratitude (sees own strengths); Acceptance → Fish Bowl (sees patterns without shame); Compassion → Sacred Pause (creates space for choice); Empowerment → Surrender (recovery on her own terms). Source: gaps_alexia_crossreference_paper__20260506.docx</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>G.A.P.S. Client-Facing Modality Toolkit</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Stressor</th>
+                <th>G.A.P.S. Modality</th>
+                <th>D.O.S.E. Restored</th>
+                <th>Functional Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Cognitive Fog (PAWS H1)</td><td>Sacred Pause, Physiological Sigh, Acceptance Practice</td><td>Dopamine, Serotonin</td><td>Executive function recovery</td></tr>
+              <tr><td>Emotional Overreaction/Numbness (H2)</td><td>Fish Bowl Method, Physiological Sigh</td><td>Oxytocin, Serotonin</td><td>Emotional regulation restored</td></tr>
+              <tr><td>Sleep Disruption (H3)</td><td>Sacred Pause, Surrender Practice</td><td>Serotonin, Endorphins</td><td>Sleep architecture recovery</td></tr>
+              <tr><td>Stress Sensitivity (H4)</td><td>Physiological Sigh (double inhale, long exhale)</td><td>All four</td><td>Autonomic regulation</td></tr>
+              <tr><td>Cravings / Craving Confusion (H5)</td><td>Snap Practice (A-S-S-S-T), D.O.S.E. substitution</td><td>Dopamine, Endorphins</td><td>20-minute craving window managed</td></tr>
+              <tr><td>Anhedonia (H6)</td><td>Language Shift, movement in natural light</td><td>Dopamine, Serotonin</td><td>Function before feeling restored</td></tr>
+              <tr><td>Identity Confusion (H7)</td><td>Observer-Thought Distinction, Lighthouse Stance</td><td>Serotonin, Oxytocin</td><td>Values-based identity grounded</td></tr>
+              <tr><td>Shame / Self-Blame</td><td>Fish Bowl, Prodigal Son Protocol</td><td>Oxytocin</td><td>Shame circuit interrupted</td></tr>
+              <tr><td>Environmental Cue Reactivity</td><td>Snap Practice, 5-4-3-2-1 Grounding</td><td>Dopamine</td><td>Cue response redirected</td></tr>
+              <tr><td>Social Pressure</td><td>Clean No (scripted, rehearsed, deployed)</td><td>Dopamine, Serotonin</td><td>Boundary held under pressure</td></tr>
+              <tr><td>Structural Drift</td><td>Somatic Early Warning System, Sand Metaphor</td><td>Serotonin</td><td>Plan deviation caught early</td></tr>
+              <tr><td>Unprocessed Grief</td><td>Fish Bowl, Mandela Method</td><td>Oxytocin, Endorphins</td><td>Grief processed without relapse</td></tr>
+              <tr><td>HALT States</td><td>D.O.S.E. Framework, Somatic Early Warning</td><td>All four</td><td>Vulnerability window closed</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>LRP Worker-Facing Modality Toolkit (29 Stressors Across 4 Domains)</summary>
+      <div class="details-body">
+        <p><strong>Domain 1 — Psychological & Emotional (12 stressors)</strong></p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Worker Stressor</th><th>LRP Modality</th><th>Source Document</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Burnout / Existential Exhaustion</td><td>Lighthouse Stance, Sand Metaphor, D.O.S.E. replenishment</td><td>Phased Recovery Approach — Phase 1</td></tr>
+              <tr><td>Compassion Fatigue</td><td>Fish Bowl Method, end-of-session release</td><td>Consciousness, Love and Human Evolution</td></tr>
+              <tr><td>Vicarious Trauma</td><td>5-4-3-2-1 Grounding, Buddy Debrief</td><td>AW Thesis Ch. 4 & 9</td></tr>
+              <tr><td>Hypervigilance</td><td>Physiological Sigh, Lighthouse Stance</td><td>Personal Trauma & Transcendence</td></tr>
+              <tr><td>Emotional Enmeshment</td><td>Mine/Theirs Split, Schema Awareness</td><td>Fish Bowl Method (Loving Through Trauma)</td></tr>
+              <tr><td>Rescue Urge / Savior Complex</td><td>Lighthouse Stance, Mine/Theirs Split</td><td>Central to all framework documents</td></tr>
+              <tr><td>Pathological Altruism</td><td>Comprehensive Report, observer stance</td><td>Integrated Framework Section 2.0</td></tr>
+              <tr><td>Identity Erosion</td><td>Being/Ego distinction, observer capacity</td><td>Consciousness, Love (Being & Ego)</td></tr>
+              <tr><td>Black-and-White Thinking</td><td>Sovereignty Manual, limbic regulation</td><td>Sovereignty Manual Ch. 2</td></tr>
+              <tr><td>Emotional Contagion</td><td>Fish Bowl observer stance</td><td>Fish Bowl Method Part I</td></tr>
+              <tr><td>Moral Injury</td><td>Lighthouse Stance, Trauma-to-Wisdom</td><td>AW Thesis Ch. 1</td></tr>
+              <tr><td>Cynicism & Hopelessness</td><td>Scarcity-to-Abundance paradigm shift</td><td>Consciousness, Love (Scarcity-Abundance)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Domain 2 — Neurological & Biological (7 stressors)</strong></p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Worker Stressor</th><th>LRP Modality</th><th>Source Document</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Chronic Sympathetic Activation</td><td>Polyvagal restoration, Lighthouse Stance</td><td>Sovereignty Manual Ch. 3</td></tr>
+              <tr><td>Prefrontal Cortex Shutdown</td><td>Present-moment awareness gateway</td><td>AW Thesis Ch. 6</td></tr>
+              <tr><td>Cortisol Dominance</td><td>Scarcity Neurochemical Profile intervention</td><td>Sovereignty Manual Ch. 3</td></tr>
+              <tr><td>Dopamine-Driven Chaos Seeking</td><td>Conscious Choice Theory</td><td>Understanding Withdrawal Dynamics</td></tr>
+              <tr><td>Oxytocin Paradox (bonding = danger)</td><td>Attachment trauma repair</td><td>Conscious Healing (Attachment Dynamics)</td></tr>
+              <tr><td>Nervous System Dysregulation</td><td>Full polyvagal restoration protocol</td><td>Sovereignty Manual Ch. 3</td></tr>
+              <tr><td>Somatic Collapse</td><td>Somatic Early Warning System</td><td>Conscious Healing (Somatic section)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Domain 3 — Relational & Professional (5 stressors)</strong></p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Worker Stressor</th><th>LRP Modality</th><th>Source Document</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Boundary Blurring</td><td>"Boundaries as Shoreline" month, Sovereign Service Algorithm</td><td>Core calendar module</td></tr>
+              <tr><td>Projection & Countertransference</td><td>Fish Bowl Method, Mandela Method</td><td>Shows Each Other's Unconscious Projections</td></tr>
+              <tr><td>Withdrawal & Isolation</td><td>Beacon Network, Lighthouse Huddles</td><td>Understanding Withdrawal Dynamics</td></tr>
+              <tr><td>Team Conflict & Miscommunication</td><td>Anxious-avoidant dynamic awareness</td><td>Beacon Network calendar</td></tr>
+              <tr><td>Attachment System Collapse</td><td>Secure attachment capacity rebuilding</td><td>AW Thesis Ch. 5</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Domain 4 — Behavioural & Performance (5 stressors)</strong></p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Worker Stressor</th><th>LRP Modality</th><th>Source Document</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Impaired Professional Judgment</td><td>Limbic reactivity override protocol</td><td>Sovereignty Manual Ch. 2</td></tr>
+              <tr><td>Avoidance Behaviours</td><td>Dorsal vagal shutdown intervention</td><td>Sovereignty Manual Ch. 3</td></tr>
+              <tr><td>Presenteeism</td><td>Dissociation awareness, observer stance</td><td>AW Thesis Ch. 4</td></tr>
+              <tr><td>Neglect of Documentation</td><td>Prefrontal support, reduced decision load</td><td>Extension of Impaired Judgment protocol</td></tr>
+              <tr><td>Substance Use Reliance</td><td>Six-Link Unconscious Chain (applied to helpers)</td><td>Conscious Choice Theory / Healing Flagship</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>The 8 Intersection Points — Where Client and Worker Stressors Meet</summary>
+      <div class="details-body">
+        <p>These are the moments in the therapeutic relationship where both nervous systems are activated simultaneously — the critical cross-reference points:</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Intersection</th>
+                <th>Client Side</th>
+                <th>Worker Side</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>Two Dysregulated Systems in One Room</td><td>Stress sensitivity (PAWS H4)</td><td>Hypervigilance</td></tr>
+              <tr><td>2</td><td>Shame Meets Rescue</td><td>Client shame</td><td>Worker rescue urge</td></tr>
+              <tr><td>3</td><td>Grief Meets Vicarious Trauma</td><td>Unprocessed grief</td><td>Vicarious trauma</td></tr>
+              <tr><td>4</td><td>Identity Crisis on Both Sides</td><td>Identity confusion (H7)</td><td>Identity erosion</td></tr>
+              <tr><td>5</td><td>Craving Meets Rescue (Both Dopamine)</td><td>Cravings (H5)</td><td>Rescue urge</td></tr>
+              <tr><td>6</td><td>Social Pressure Meets Boundary Fatigue</td><td>Social pressure</td><td>Boundary fatigue</td></tr>
+              <tr><td>7</td><td>Structural Drift Mirrors Plan Abandonment</td><td>Client drift</td><td>Worker protocol neglect</td></tr>
+              <tr><td>8</td><td>Relapse Meets Moral Injury</td><td>Physical relapse</td><td>Moral injury</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 8: CROSS-DOCUMENT GAP AUDIT -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 8</div>
+    <h2 class="section-title">Cross-Document Gap Audit — Seven Identified Holes</h2>
+    <p>Intellectual honesty requires naming what the framework does <em>not</em> yet cover. Three client-facing guides (G.A.P.S. at Home, PAWS Interruption Guide, PAWS Weekend Pass) were reverse-engineered against CENAPS, PAWS, Marlatt & Donovan, and HALT. This audit identified seven gaps with recommended additions:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Gap</th><th>Why It Matters</th><th>Recommended Addition</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td><strong>Cannabis Ambivalence</strong></td><td>Most significant hole. No guide addresses unresolved ambivalence about a secondary substance.</td><td>Standalone section on navigating substance ambivalence — what research says, how to have the conversation with the treatment team.</td></tr>
+          <tr><td>2</td><td><strong>Shame as Distinct Interruption Target</strong></td><td>Shame appears across all guides but never has its own dedicated protocol. Shame activates the same limbic pathway as the substance itself.</td><td>Dedicated "Shame Interruption" section in the Interruption Guide with four-step protocol parallel to the PAWS hurdles.</td></tr>
+          <tr><td>3</td><td><strong>Direct Social Pressure — Scripted Response</strong></td><td>No guide gives the client a pre-scripted, rehearsed response for the moment someone directly offers a substance.</td><td>"Social Pressure Scripts" in the Weekend Pass guide — 2-3 pre-scripted responses calibrated to different relationship types.</td></tr>
+          <tr><td>4</td><td><strong>Structural Drift Without Use</strong></td><td>CENAPS Stage 2 (mental relapse) — the most interruptible point in the sequence. No guide addresses plan deviation before use.</td><td>"Drift Check" self-assessment: five-question internal audit — Am I still following the plan? If not, why? Who have I told?</td></tr>
+          <tr><td>5</td><td><strong>Anger as Distinct from Shame</strong></td><td>HALT names Angry as a vulnerability state but no guide gives anger its own interruption protocol. Anger externalizes; shame internalizes — different responses needed.</td><td>"Anger Interruption" sequence — name it, ground it, channel it (physical movement before verbal expression).</td></tr>
+          <tr><td>6</td><td><strong>PAWS Timeline in Guide 1</strong></td><td>G.A.P.S. at Home is the most portable document but contains no PAWS timeline orientation.</td><td>One-page insert: simplified three-phase summary — what Week 8 feels like, when it typically gets easier, what to do when a wave hits.</td></tr>
+          <tr><td>7</td><td><strong>Child Conflict De-Escalation</strong></td><td>No guide gives a concrete in-the-moment de-escalation tool for when both child and parent are dysregulated.</td><td>"When a Child Is Upset" protocol: regulate yourself first (physiological sigh), name what you see, reduce physical demand (sit on floor, wait).</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--ink-tertiary)">Source: stressor_guide_relationship_map__20260408.docx — 22-row cross-document coverage matrix with 7 gap entries. "CENAPS tells the clinician what is coming. PAWS tells the clinician why. Neither tells the client. These three guides are the translation layer."</p>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 9: ONTARIO DIRECTORY STATISTICS -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 9</div>
+    <h2 class="section-title">Ontario Directory — Colour Distribution Across 67 Organizations</h2>
+    <p>The HALO Ontario Agency Outreach Directory (2026 Regional Outreach Edition) catalogues 67 addiction, mental health, eating-disorder, behavioural-addiction and recovery organizations across 7 Ontario regions. Each organization has been pre-coded to WHMIS colours based on documented specialties — subject to confirmation on call. This directory serves as the matching database for the proposed RWOB online intake system.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Region</th>
+            <th>Orgs</th>
+            <th style="text-align:center"><span class="colour-dot" style="background:var(--red)"></span>RED</th>
+            <th style="text-align:center"><span class="colour-dot" style="background:var(--blue)"></span>BLUE</th>
+            <th style="text-align:center"><span class="colour-dot" style="background:var(--yellow)"></span>YEL</th>
+            <th style="text-align:center"><span class="colour-dot" style="background:#E8E4DC;border-color:#999"></span>WHT</th>
+            <th style="text-align:center"><span class="colour-dot" style="background:var(--black-col)"></span>BLK</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Province-wide & Navigation</td><td>8</td><td style="text-align:center">0</td><td style="text-align:center">2</td><td style="text-align:center">0</td><td style="text-align:center">4</td><td style="text-align:center">2</td></tr>
+          <tr><td>Central Ontario & GTA</td><td>23</td><td style="text-align:center">0</td><td style="text-align:center">12</td><td style="text-align:center">5</td><td style="text-align:center">7</td><td style="text-align:center">11</td></tr>
+          <tr><td>West-Central Ontario</td><td>10</td><td style="text-align:center">0</td><td style="text-align:center">4</td><td style="text-align:center">1</td><td style="text-align:center">3</td><td style="text-align:center">7</td></tr>
+          <tr><td>Eastern Ontario</td><td>8</td><td style="text-align:center">0</td><td style="text-align:center">3</td><td style="text-align:center">0</td><td style="text-align:center">3</td><td style="text-align:center">3</td></tr>
+          <tr><td>Southwestern Ontario</td><td>7</td><td style="text-align:center">0</td><td style="text-align:center">2</td><td style="text-align:center">0</td><td style="text-align:center">1</td><td style="text-align:center">5</td></tr>
+          <tr><td>Northeastern Ontario</td><td>6</td><td style="text-align:center">0</td><td style="text-align:center">1</td><td style="text-align:center">1</td><td style="text-align:center">0</td><td style="text-align:center">5</td></tr>
+          <tr><td>Northwestern Ontario</td><td>4</td><td style="text-align:center">0</td><td style="text-align:center">3</td><td style="text-align:center">0</td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--ink-tertiary)">Note: Organizations may carry multiple colour codes (blends). Counts reflect each colour-match checkbox, not unique organizations per colour.</p>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 8: THE STANDARDIZATION CASE -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 10</div>
+    <h2 class="section-title">The Case for Standardization</h2>
+    <p>The proposal to the Health & Safety Board / WHMIS Oversight Committee rests on four amendments. The first two are the primary requests and stand independently; the fluorescent proposals are parallel technical amendments.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Amendment</th>
+            <th>Substance</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. GREEN — New Category</strong></td>
+            <td>Official WHMIS hazard category for psychological and emotional hazards: cumulative stress, vicarious trauma, compassion fatigue, moral injury. Anchored to CCOHS evidence and CSA Z1003 (National Standard for Psychological Health and Safety in the Workplace).</td>
+            <td>Prepared for submission — not yet submitted</td>
+          </tr>
+          <tr>
+            <td><strong>2. BLACK — Expanded</strong></td>
+            <td>Formal recognition of BLACK as both biohazard/warning colour and the psychological shadow layer — the long-term chronic and archetypal weight of hazardous work.</td>
+            <td>Prepared for submission — not yet submitted</td>
+          </tr>
+          <tr>
+            <td><strong>3. Fluorescent Orange</strong></td>
+            <td>Standard text/symbol colour across all earthbound WHMIS labels for improved recognition under low-light and high-stress conditions.</td>
+            <td>Parallel technical amendment</td>
+          </tr>
+          <tr>
+            <td><strong>4. Fluorescent Yellow</strong></td>
+            <td>Reserved for BLACK label on space/orbital operations only — the Black Yellow Label.</td>
+            <td>Parallel technical amendment</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>The addiction services angle:</strong> Chapter 6 of the Canadian Health and Safety Workplace Fundamentals textbook already explicitly addresses psycho-social hazards educationally. The regulatory system must match what the educational system already recognizes. Workers in addiction services — who face vicarious trauma, compassion fatigue, and moral injury daily — carry occupational hazards that the current WHMIS system does not name. GREEN names them. BLACK names the long-term weight of carrying them. Once named in the regulatory system, support infrastructure can be built to match the burden — and the same colour vocabulary that protects the worker also routes the client to the right treatment.
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 11: ALGEBRAIC FOUNDATION -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 11</div>
+    <h2 class="section-title">Algebraic Foundation — Equations, Worked Examples & Verification</h2>
+    <p>Two mathematical models run in parallel: the <strong>LRP Cost Model</strong> (institutional/worker-facing, denominated in dollars) and the <strong>W Wellbeing Function</strong> (individual/client-facing, denominated in Sovereign Units). Dollar figures and Human Value points are always reported side by side — <strong>never combined into a single number.</strong></p>
+
+    <div class="callout">
+      <strong>Editorial Locks (8 binding constraints from Amendment V4R1-A1):</strong> (1) COG architecture only — "Systems 1/2/3" and "CIP" retired. (2) AI companion = "AI Halo IRF" — never "Optimizer." (3) Hue = argmax(W,B,G,Bl,Go) — YELLOW and RED are response energies, not identity Hues. (4) WHMIS throughout — never "WHIMS." (5) Regulatory status = "prepared for submission — not yet submitted." (6) Dollars and Sovereign Units never summed. (7) Realized-savings and avoided-exposure ROI lenses never blended. (8) Observed and Conservative tracks never blended in one document.
+    </div>
+
+    <details open>
+      <summary>LRP Institutional Cost Model — Worker-Facing (Track B)</summary>
+      <div class="details-body">
+        <div class="formula-block">
+          Current Cost = (T + S + P + H + C) × n<br>
+          Projected Cost = Current Cost × (1 − r)<br>
+          ΔCost = Current − Projected<br>
+          ROI = ΔCost / Programme Cost<br>
+          Payback (days) = Programme Cost / ΔCost × 365
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Variable</th><th>Definition</th><th>Conservative Value (/person/year)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>T</strong></td><td>Turnover cost per employee</td><td>$10,000</td></tr>
+              <tr><td><strong>S</strong></td><td>Sick day cost per employee</td><td>$800</td></tr>
+              <tr><td><strong>P</strong></td><td>Poor performance cost</td><td>$1,500</td></tr>
+              <tr><td><strong>H</strong></td><td>Healthcare cost (stress-related)</td><td>$1,000</td></tr>
+              <tr><td><strong>C</strong></td><td>Client impact cost</td><td>$2,000</td></tr>
+              <tr><td><strong>n</strong></td><td>Cohort size (canonical node)</td><td>20</td></tr>
+              <tr><td><strong>r</strong></td><td>Reduction factor</td><td>0.25 (25%)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Worked Example — 20-Person Node (Observed Track):</strong> Current Cost = $306,000 · Projected Cost = $229,500 · <strong>ΔCost = $76,500</strong> · Programme Cost = $9,238 · <strong>ROI = $8.28 per $1 invested</strong> · Payback = 44.1 days. Annual burnout exposure (cost of doing nothing): ~$456,500 per node.</p>
+        <p><strong>Conservative Floor Track (⅔ of Observed):</strong> Current Cost = $204,000 · Projected Cost = $153,000 · ΔCost = $51,000 · Programme Cost = $9,238 (unchanged — actual delivery cost) · <strong>ROI = $5.52 per $1</strong> · 10-year value: $510,000 (vs $918,000 Observed). Rule: State which track is in use; never blend them in one document.</p>
+        <p><strong>Laura — Individual Worker Proof (n=1):</strong> Per-worker cost = $15,300 ($306K ÷ 20). Projected = $11,475 (25% reduction). Savings = $3,825/year. Programme cost = ~$462 ($9,238 ÷ 20). <strong>ROI = $3,825 / $462 = 8.28:1</strong> — identical to the 20-person aggregate. The ratio isn't an artefact of aggregation; it holds at n=1. Laura's W: baseline 25.6 (Cs=0.8 Disrupted) → post-LRP 74.4 (Cs=1.2 Secure) = <strong>+48.8 units (191% increase)</strong> over 12-month Tier 1–3 cycle.</p>
+        <p style="font-size:12px;color:var(--ink-tertiary)">Conservative values represent one-quarter to two-thirds of published Health and Safety Canada benchmarks. All figures are institutional placeholders — agencies substitute their own data before procurement. Sources: marcus_laura_pilot_simulation.docx, halo_financial_equations_value_guide__20260717.docx</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Burnout Exposure Equation (E<sub>ab</sub>)</summary>
+      <div class="details-body">
+        <div class="formula-block">
+          E<sub>ab</sub> = (W × T<sub>r</sub> × 93,000) + (S<sub>d</sub> × W<sub>d</sub>) + (A<sub>r</sub> × A<sub>c</sub>) + M<sub>i</sub>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Variable</th><th>Definition</th><th>Conservative Value</th></tr></thead>
+            <tbody>
+              <tr><td>W</td><td>Workforce size</td><td>20 staff</td></tr>
+              <tr><td>T<sub>r</sub></td><td>Annual turnover rate</td><td>20% (some sectors report 33%)</td></tr>
+              <tr><td>$93,000</td><td>Replacement cost per worker</td><td>$62,000 salary × 1.5 multiplier</td></tr>
+              <tr><td>S<sub>d</sub></td><td>Stress-induced sick days/worker</td><td>12.5 days (national average)</td></tr>
+              <tr><td>W<sub>d</sub></td><td>Daily burdened wage</td><td>$238 ($62K + 20% benefits)</td></tr>
+              <tr><td>A<sub>r</sub></td><td>Client attrition due to counsellor burnout</td><td>Institution-specific</td></tr>
+              <tr><td>A<sub>c</sub></td><td>Client attrition cost</td><td>$2,500 per client lost</td></tr>
+              <tr><td>M<sub>i</sub></td><td>Mental injury claims (WSIB/insurance)</td><td>~$15,000 per claim</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details open>
+      <summary>W Human Value Function — Client-Facing (Track A)</summary>
+      <div class="details-body">
+        <div class="formula-block">
+          W = (R + B + N + V + M + Gv + Fe + Fm) × Cs
+          <div class="formula-note">Each variable scored 1–10 · Cs: Disrupted = 0.8, Developing = 1.0, Secure = 1.2</div>
+        </div>
+        <p><strong>Marcus Stillwater — Full Pipeline Worked Example:</strong></p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Stage</th><th>W Score</th><th>Cs</th><th>Total System Burden</th></tr></thead>
+            <tbody>
+              <tr><td>Intake Day 1</td><td><strong>11.2</strong></td><td>0.8 (Disrupted)</td><td>$120,000 status quo</td></tr>
+              <tr><td>MASH Discharge Day 88</td><td><strong>48.0</strong></td><td>1.0 (Developing)</td><td>$62,500</td></tr>
+              <tr><td>Earthworks Year 1 (GREEN/MUSCLE)</td><td><strong>60.5</strong></td><td>1.1</td><td>$49,600</td></tr>
+              <tr><td>HMA Year 2 (BLUE/HEART)</td><td><strong>67.9</strong></td><td>1.15</td><td>$44,200</td></tr>
+              <tr><td>HMA Year 3+ (BLACK/ANCHOR)</td><td><strong>76.8</strong></td><td>1.2 (Secure)</td><td>$39,100</td></tr>
+              <tr><td>GOLD Controller (derived: 67×1.2=80.4)</td><td><strong>80.4</strong></td><td>1.2</td><td>$185,000 annual swing</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Total W movement: 11.2 → 80.4 = <strong>+69.2 points (618% increase)</strong>. Note: 85.0 appears in earlier documents as an aspirational design ceiling, not a computed output; the derived figure is 67 × 1.2 = 80.4. Day-1 Earthworks R sub-score corrected from 2 to 6 (matching MASH discharge sub-scores). The Cs coefficient encodes decades of therapeutic alliance research (Bordin 1979, Horvath & Symonds 1991) — movement from Disrupted (0.8) to Secure (1.2) produces 50% amplification of all eight sub-variables.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Quarter-Value Method — Daniel Merrick (Fallen Worker Persona)</summary>
+      <div class="details-body">
+        <p><strong>Design principle:</strong> Set every input at 25% of its published Canadian benchmark. If the model returns positive ROI at quartered values, no reviewer can argue the published figures are overstated enough to threaten the conclusion.</p>
+        <p><strong>Persona:</strong> Daniel Merrick, composite, age 46, single father, former addiction-services support worker (9 years front-line, York Region). Collapse profile: WHITE-to-BLACK stressor descent — rescuer trap, vicarious trauma, moral injury, cortisol dominance. 46+ mental-health sick days in final year. On Ontario Works at intake. Intake W = 20.0 (25% of GOLD steady-state 80.0).</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Cost Component</th><th>Quarter Value</th><th>Full Published Value</th></tr></thead>
+            <tbody>
+              <tr><td>Public burden</td><td>$30,000/yr</td><td>$120,000/yr</td></tr>
+              <tr><td>Employer-side burnout</td><td>$5,750/yr</td><td>$23,000/yr</td></tr>
+              <tr><td>Replacement cost</td><td>$23,250</td><td>$93,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>W trajectory (men's track, slowest): Intake 20.0 → MASH 37.0 → HEART 49.9 → MUSCLE 65.3 → ANCHOR 72.0. 3-year avoided public burden: ~$64,463. Total investment: $40,500. <strong>3-year net return: 1.59:1 at quarter values</strong> (6.4:1 at full published values). 10-year future potential: ~$328,000 + 720 SU-years.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Scaling Architecture & Node-Based Deployment</summary>
+      <div class="details-body">
+        <p>20-person node is the canonical unit. ROI remains stable across scale (linear scaling of savings and programme cost):</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Cohort</th><th>Nodes</th><th>ΔCost</th><th>Programme Cost</th><th>ROI</th></tr></thead>
+            <tbody>
+              <tr><td>20-person</td><td>1</td><td>$76,500</td><td>$9,238</td><td>8.28:1</td></tr>
+              <tr><td>40-person</td><td>2</td><td>$153,000</td><td>$18,476</td><td>8.28:1</td></tr>
+              <tr><td>200-person</td><td>10</td><td>$765,000</td><td>$92,380</td><td>8.28:1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Validated Measurement Instruments</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Instrument</th><th>Measures</th><th>Collection Points</th></tr></thead>
+            <tbody>
+              <tr><td><strong>ProQOL</strong></td><td>Compassion satisfaction / fatigue</td><td>Baseline, Day 14/28/42, D+30, D+90</td></tr>
+              <tr><td><strong>PSS-10</strong></td><td>Perceived stress</td><td>Same cadence</td></tr>
+              <tr><td><strong>BAT</strong></td><td>Burnout assessment</td><td>Same cadence</td></tr>
+              <tr><td><strong>SAF</strong></td><td>Schema activation frequency</td><td>Same cadence</td></tr>
+              <tr><td><strong>OCI</strong></td><td>Observer capacity index</td><td>Same cadence</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>HIR target: >5.0 by Day +90. BRC target: positive delta across all five instruments by Day 42. Optional biometric: HRV, cortisol sampling.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>OSHA/NIOSH Compliance Cross-Reference</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>OSHA/NIOSH Guideline</th><th>Programme Component</th><th>Compliance Value</th></tr></thead>
+            <tbody>
+              <tr><td>Hazard Identification</td><td>Schema neuroscience & biometric tracking</td><td>Identifies "Mental Injury" liability exposure</td></tr>
+              <tr><td>Social Support</td><td>Beacon Huddles & Talisman Exchange</td><td>Meets NIOSH "Peer Support" guidance</td></tr>
+              <tr><td>Environmental Control</td><td>Nature immersion (neural repatterning)</td><td>"Administrative Control" for stress per OSHA hierarchy</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 10: INSTITUTIONAL VALUE -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 12</div>
+    <h2 class="section-title">Institutional Value Proposition</h2>
+
+    <details>
+      <summary>For the Agency Director — Burnout Cost & Programme ROI</summary>
+      <div class="details-body">
+        <div class="formula-block">
+          E<sub>ab</sub> (Annual Burnout Exposure) = $456,500 for a 20-person node
+          <div class="formula-note">ΔCost Model = $76,500 annual savings | ROI = $8.28 per $1 invested | Payback = 44.1 days</div>
+        </div>
+        <p>The Lighthouse Resilience Program generates a measurable return by reducing worker turnover, presenteeism, and burnout-driven errors. The Human Improvement Ratio (HIR) target is >5.0 by Day +90; the Burnout Recovery Coefficient (BRC) targets positive delta across all five instruments by Day 42. Ten-year projection per node: $918,540. The $9,238 programme cost against $76,500 ΔCost means breakeven inside 45 days.</p>
+        <p><strong>Second verification path (different cost basis):</strong> Savings on turnover (1 prevented resignation) = $93,000. Savings on absenteeism (25% sick-day reduction, 20 workers) = $23,800. Client performance (15% retention improvement) = $7,500+/worker. Total estimated annual savings: $124,300.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>For the Ministry / Government Funder — System-Level Savings</summary>
+      <div class="details-body">
+        <div class="formula-block">
+          $120,000 per person per year — Limbic Prison Cost (CIHI + Public Safety Canada + ESDC)
+          <div class="formula-note">$185,000 Sovereign ROI Swing per person per year | 3-Year single cohort savings: $62,250,000</div>
+        </div>
+        <p><strong>Counterfactual analysis (Marcus Stillwater):</strong> Path A (Standard System) = shelter waitlist, OW $733/month, discharge at Days 21–30, PAWS unaddressed, $120,000/year crisis cycling. Path B (Integrated Destination) = Camp bed Day 1, $22/hour Day 1, no discharge cliff, 4-month PAWS window, break-even by Month 4.</p>
+        <p>GSRT Justice Floor Waterfall: 20% Operations / 40% Participants / 20% Community & Elders / 10% Progression / 10% Scaling. The Total System Burden formula: TSB = (U+E+Wd+H+S) × Pop / W. Ten-year national scaling across 10 provinces: $3.64B cumulative savings.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>For the Academic & Research Partner — Published Evidence Floors</summary>
+      <div class="details-body">
+        <p>All claims are set at or below the conservative floor of the published evidence range. The $120K Limbic Prison cost is sourced from CIHI, Public Safety Canada, and ESDC. Land value increase of 30% is sourced from the Wharton School. The Lighthouse ROI of $8.28 per $1 is calculated at agency level (actual likely higher). The VVV Multiplier (3.16875, the antifragility constant) and ΔS_system (-0.23025, negative entropy = antifragility) are pending pilot calibration. Community ROI: $210,500 minimum per active node per year across four sectors.</p>
+        <p><strong>Quarter-value stress test:</strong> Even at 25% of all published benchmarks, the Daniel Merrick persona returns 1.59:1 at 3 years — confirming the model is robust against systematic overestimation.</p>
+        <p><strong>Status caveat:</strong> All W scores are modelled from framework logic and case documentation, not administered instruments. No pilot cohort has run. What would change it: first MASH cohort data at Day +90 with OCI and ProQOL, n ≥ 20.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Audience-Specific Presentation Matrix</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Audience</th><th>Lead With</th><th>Avoid Leading With</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Agency Director (20–50 staff)</strong></td><td>LRP Cost Model ($76,500 ΔCost, $8.28 ROI); Pricing model</td><td>National scaling figures, GSRT waterfall, VVV math</td></tr>
+              <tr><td><strong>Ministry / Government Funder</strong></td><td>$120K Limbic Prison floor, $185K swing, GSRT waterfall, $37M seed repayment</td><td>Firmware-layer mechanics (Trinity, Hue/Shade/Tint)</td></tr>
+              <tr><td><strong>Academic / Research Partner</strong></td><td>W function, TSB formula, instrument list (ProQOL/PSS/BAT/SAF/OCI)</td><td>Unverified national/billion-dollar projections without pilot data</td></tr>
+              <tr><td><strong>Franchise / Licensing Prospect</strong></td><td>Agency Model + Pricing, retreat-specific case</td><td>Blending retreat ROI with annual agency ΔCost</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Three Pricing Models</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Model</th><th>Rate</th><th>Customer</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Direct Agency Programme Fee</td><td>~12% of ΔCost (~$9,000/20-person node)</td><td>Agency</td><td>Confirmed — "Agency keeps ~88% of documented savings"</td></tr>
+              <tr><td>LRP Operator Franchise License</td><td>25% of first-year ΔCost (one-time)</td><td>Certified operator</td><td>Verify — possible truncated currency values</td></tr>
+              <tr><td>GSRT Government Success Fee</td><td>10% of avoided cost of trauma</td><td>Government</td><td>Proposed — derivation undocumented</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 11: FOUR-BOOK PATHWAY & ONTARIO GAP -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 13</div>
+    <h2 class="section-title">The Four-Book Pathway — Replacing Discharge with Development</h2>
+    <p>Ontario addiction services provide approximately 4 weeks of post-discharge support. PAWS lasts 6–24 months. This means the current system covers roughly <strong>5% of the actual neurological risk window</strong>. G.A.P.S. replaces the concept of discharge with a developmental continuum delivered through four books that map directly to the WHMIS colour progression:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Book</th><th>Name</th><th>Timeline</th><th>Colour Phase</th><th>Function</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td>DEEDSPROOF</td><td>Day 1 (90-minute protocol)</td><td>WHITE</td><td>Triage + Intake: PFD Assessment, DEED Protocol (Dignity Recognition → Entry Stabilization → Evaluation → Direction), HALT check, 72-hour micro-plan</td></tr>
+          <tr><td><strong>2</strong></td><td>SLOW SOAK</td><td>Year 1 (12-month stabilization)</td><td>GREEN / MUSCLE</td><td>Three-tier progression: Tier 1 (Months 1–4) observer basics, body as foundation; Tier 2 (5–8) pattern literacy, conscious communication; Tier 3 (9–12) co-regulation leadership, legacy</td></tr>
+          <tr><td><strong>3</strong></td><td>FISHING HOLE</td><td>Year 2 (6-week residential)</td><td>BLUE / HEART</td><td>Paid deep immersive: polyvagal, attachment, pursuit/withdrawal, ROI algebra, culture artifacts, Keeper's Manual v2</td></tr>
+          <tr><td><strong>4</strong></td><td>HMA 3-DAY</td><td>Year 3+ (annual retreat)</td><td>BLACK / ANCHOR</td><td>Algonquin Park sovereignty calibration: schema neuroscience, conscious canoeing, solo reflection, talisman creation</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details>
+      <summary>Ontario System vs. G.A.P.S. — Five-Stage Gap Analysis</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Stage</th><th>Current Ontario System</th><th>G.A.P.S. / GSRT Response</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Intake</strong></td><td>No standard pathway; no stabilization before documentation</td><td>DEEDSPROOF 90-minute LLJ stabilization + PFD + HALT + micro-plan</td></tr>
+              <tr><td><strong>Screening</strong></td><td>CAGE-AID, AUDIT/TWEAK — tells agency about client, nothing to client</td><td>PAWS Positioning Engine — 7 weighted hurdles, top 3 shown, client selects</td></tr>
+              <tr><td><strong>Assessment</strong></td><td>Biopsychosocial with PAWS as one bullet point; CENAPS not taught</td><td>12 Blocks operationalizing CENAPS: Blocks 1–4 (Emotional), 5–8 (Mental), 9–11 (Behavioural), Block 12 (The Fall/return)</td></tr>
+              <tr><td><strong>Modality</strong></td><td>MI with no tool for between sessions, no concrete change instruments</td><td>MI enhanced with client self-configuration, non-verbal HALT/somatic/Block flags</td></tr>
+              <tr><td><strong>Discharge</strong></td><td>4 weeks post-discharge; PAWS lasts up to 2 years</td><td>No discharge — Four-Book developmental continuum + Prodigal Son Protocol for return</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>G.A.P.S. ↔ Motivational Interviewing Alignment</summary>
+      <div class="details-body">
+        <p>G.A.P.S. maps directly onto MI's four guiding principles — it is MI's missing self-use toolkit:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>MI Spirit</th><th>G.A.P.S. Capacity</th><th>Neurochemical</th><th>Connection</th></tr></thead>
+            <tbody>
+              <tr><td>Partnership</td><td><strong>Gratitude</strong></td><td>Cortisol interruption</td><td>Both shift attention from deficit to resource</td></tr>
+              <tr><td>Acceptance</td><td><strong>Acceptance</strong> (Fish Bowl)</td><td>Serotonin regulation</td><td>MI: "I see you." G.A.P.S.: "I see myself."</td></tr>
+              <tr><td>Compassion</td><td><strong>Presence</strong> (Sacred Pause)</td><td>Oxytocin</td><td>Presence is the mechanism making compassion possible</td></tr>
+              <tr><td>Empowerment</td><td><strong>Surrender</strong></td><td>Dopamine, Endorphins</td><td>Empowerment IS surrender — both step into trust</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>13 G.A.P.S. Client-Use Tools — Quick Reference</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tool</th><th>G.A.P.S. Capacity</th><th>Primary Stressors Addressed</th></tr></thead>
+            <tbody>
+              <tr><td>HALT Check</td><td>All four</td><td>Internal vulnerability states</td></tr>
+              <tr><td>Sacred Pause</td><td>Presence</td><td>Reactive decision-making, stress sensitivity</td></tr>
+              <tr><td>Fish Bowl Method</td><td>Acceptance</td><td>Emotional overreaction, shame, countertransference</td></tr>
+              <tr><td>Snap Practice (A-S-S-S-T)</td><td>Presence</td><td>Cravings, environmental cue reactivity</td></tr>
+              <tr><td>Connection Text</td><td>Gratitude</td><td>Isolation, loneliness</td></tr>
+              <tr><td>Micro-Win</td><td>Gratitude</td><td>Anhedonia, motivation loss</td></tr>
+              <tr><td>Relapse Reframe</td><td>Surrender</td><td>Shame after slip, all-or-nothing thinking</td></tr>
+              <tr><td>Somatic Check-In</td><td>Presence</td><td>Structural drift, body disconnect</td></tr>
+              <tr><td>One-Breath Reset</td><td>Presence</td><td>Acute stress, hyperarousal</td></tr>
+              <tr><td>5-4-3-2-1 Ground</td><td>Presence</td><td>Dissociation, panic, cue reactivity</td></tr>
+              <tr><td>Name It to Tame It</td><td>Acceptance</td><td>Emotional flooding, identity confusion</td></tr>
+              <tr><td>Craving Analysis</td><td>Acceptance</td><td>Craving confusion, 20-minute window</td></tr>
+              <tr><td>72-Hour Micro-Plan</td><td>Surrender</td><td>Overwhelm, structural drift, planning</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <div class="callout">
+      <strong>The measurement gap G.A.P.S. addresses:</strong> Current assessment tools (ASI, Recovery Capital Index, LOCUS/CALOCUS) measure severity and impairment, creating a structural bias where funding follows crisis, not potential. The W function measures both — it tracks what is depleted AND what is restored, making recovery investment visible before discharge. The "discharge cliff" (Gorski & Miller 1986), where clients are released at Days 21–30 precisely as PAWS peaks, is the single most consistent failure point in the current system.
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 12: CURRICULUM BRIDGE -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 14</div>
+    <h2 class="section-title">GSRT Curriculum Bridge — From Recovery to Education</h2>
+    <p>The same colour framework maps directly to the GSRT school curriculum through the Four-Ring Structure. Every colour domain is taught through concentric rings around a WHMIS anchor: the physical hazard meaning sits at the centre, emotional literacy wraps it, academic content builds outward by age. This is how the recovery pipeline feeds into curiosity-driven schooling — the same colours, the same D.O.S.E. logic, applied to education instead of treatment routing.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Ring</th>
+            <th>Contains</th>
+            <th>Age Range</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Centre</strong></td><td>WHMIS definition — physical hazard meaning</td><td>All ages</td></tr>
+          <tr><td><strong>Ring 1</strong></td><td>Feelings and emotions — emotional literacy layer</td><td>All ages</td></tr>
+          <tr><td><strong>Ring 2</strong></td><td>Elementary curriculum</td><td>Ages 5–11</td></tr>
+          <tr><td><strong>Ring 3</strong></td><td>High school curriculum</td><td>Ages 14–18</td></tr>
+          <tr><td><strong>Ring 4</strong></td><td>University / life curriculum</td><td>Ages 18+</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The critical insight for the standardization case: <strong>if the colour system is adopted for addiction service routing (RWOB's use case), the same vocabulary is immediately available for school-age emotional literacy and WHMIS certification</strong> — creating a continuous pipeline from childhood education through adult recovery services, all using recognition symbols the workforce already carries.</p>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 13: STRESSOR-TO-W VARIABLE LOOKUP -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 15</div>
+    <h2 class="section-title">Stressor-to-W Variable Lookup — The Decision Engine</h2>
+    <p>This is the operational bridge between the intake questionnaire and the W-function. When a stressor is identified (client-side or worker-side), this lookup determines which W sub-variable it drives, which G.A.P.S. tool addresses it, and the reassessment protocol. The same table underpins the "Use Your Own Stressors Worksheet" — the field tool for agencies running their first real client through the pipeline.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>W Variable</th><th>Client-Side Stressor</th><th>Worker-Side Stressor</th><th>G.A.P.S. Tool</th></tr></thead>
+        <tbody>
+          <tr><td><strong>R</strong> (Resilience)</td><td>Emotional relapse (CENAPS Stage 1)</td><td>Burnout, compassion fatigue</td><td>Lighthouse Stance, Fish Bowl</td></tr>
+          <tr><td><strong>B</strong> (Boundary Clarity)</td><td>Environmental cue reactivity</td><td>Boundary blurring, enmeshment</td><td>Clean No, Mine/Theirs Split</td></tr>
+          <tr><td><strong>N</strong> (Neurochemical)</td><td>PAWS cluster (all 7 hurdles)</td><td>Cortisol dominance</td><td>Physiological Sigh, D.O.S.E. substitution</td></tr>
+          <tr><td><strong>V</strong> (Virtue Value)</td><td>Mental relapse / rationalizing</td><td>Impaired professional judgment</td><td>Relapse Reframe, Schema Awareness</td></tr>
+          <tr><td><strong>M</strong> (Meaning Quotient)</td><td>Anhedonia (PAWS Hurdle 6)</td><td>Moral injury, cynicism</td><td>Micro-Win, Trauma-to-Wisdom</td></tr>
+          <tr><td><strong>Gv</strong> (Guest Virtue)</td><td>Social pressure (Marlatt)</td><td>Team conflict, professional isolation</td><td>Connection Text, Buddy Debrief</td></tr>
+          <tr><td><strong>Fe</strong> (Emotional Satisfaction)</td><td>Negative emotional states (~35%)</td><td>Identity erosion, rescuer trap</td><td>Name It to Tame It, Mandela Method</td></tr>
+          <tr><td><strong>Fm</strong> (Morality Alignment)</td><td>Shame (identified gap)</td><td>Substance use reliance</td><td>Fish Bowl, Prodigal Son Protocol</td></tr>
+          <tr><td><strong>Cs</strong> (Secure Connection)</td><td>Interpersonal conflict</td><td>Attachment system collapse</td><td>Sacred Pause, full polyvagal restoration</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="xref-box">
+      <h4>Reassessment Decision Logic</h4>
+      <p><strong>ΔW positive →</strong> continue current tool. <strong>ΔW flat →</strong> revisit lookup, confirm tool matches stressor, adjust. <strong>ΔW declining →</strong> escalate: worker-side = 2+ flags in 7 days triggers pattern notice; client-side = immediate alert per 12 Blocks (Mayhem Intercept trigger). Recommended checkpoints: Day 42 (BRC target), Day 90 (HIR target > 5.0).</p>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SECTION 14: DOCUMENT INVENTORY -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-num">Section 16</div>
+    <h2 class="section-title">Source Document Inventory</h2>
+
+    <details open>
+      <summary>Core Architecture & Colour System (6 documents)</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Document</th><th>Role</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>WHMIS_Colour_System_MASTER.docx</td><td>Consolidated master reference — curriculum, colour architecture, R2 amendment</td><td>August 2026, canonical</td></tr>
+              <tr><td>WHMIS_Colour_Curriculum_Standalone_CORRECTED_v1.docx</td><td>School-facing standalone with editorial locks and corrections log</td><td>July 2026, Stage 1 of 3</td></tr>
+              <tr><td>WHMIS_Expansion_Amendment_R2_GSRT.docx</td><td>Formal regulatory amendment letter to WHMIS Oversight Committee</td><td>Prepared, not submitted</td></tr>
+              <tr><td>Amendment GTT CEP IRF V2 WHIMS.docx</td><td>Complete R2 amendment — School/Colour Wheel/WHMIS/Halo/GTT/CEP integration</td><td>R2 ready for integration</td></tr>
+              <tr><td>Global Restoration Stewardship Trust Initiative WHIMS AMDMT.docx</td><td>GSRT-framed WHMIS amendment letter</td><td>Earlier version of R2</td></tr>
+              <tr><td>Deeds_Peak_Alignment_DPA.html</td><td>GSRT Earthworks onboarding tool — 3-wheel palette formation</td><td>Working prototype</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Outreach Directory & Matching (2 documents)</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Document</th><th>Role</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>RWOB_Outreach_ColourMatch_TrackingV2.docx</td><td>67-organization colour-match tracking sheet with 5 in-force colours</td><td>Active working document</td></tr>
+              <tr><td>RWOB_Ontario_Agency_Directory_2026.docx</td><td>Full outreach directory — 7 regions, verification checklists, gap analysis</td><td>Version 2026.1, unverified</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Client-Side / G.A.P.S. Framework (5 documents)</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Document</th><th>Role</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>gaps_clinical_backing_paper.docx</td><td>G.A.P.S. as translation layer for CENAPS/PAWS-informed relapse prevention — proposed pilot protocol</td><td>July 2026, theoretical framework</td></tr>
+              <tr><td>gaps_framework_cross_reference__2.docx</td><td>MI-G.A.P.S. alignment, Ontario system gap analysis, 13 tools, stressor-to-document maps</td><td>April 2026</td></tr>
+              <tr><td>gaps_framework_cross_reference__20260711.docx</td><td>Updated cross-reference — five-stage Ontario comparison, 35+ document inventory</td><td>July 2026</td></tr>
+              <tr><td>Stressor_Guide_Relationship_Map_CORRECTED.docx</td><td>Reverse-engineered stressor-to-guide mapping with 7 identified gaps</td><td>Corrected working draft</td></tr>
+              <tr><td>Use_Your_Own_Stressors_Worksheet.docx</td><td>Field tool — real client/worker through W pipeline, Part F lookup, reassessment protocol</td><td>Operational worksheet</td></tr>
+              <tr><td>gaps_alexia_crossreference_paper__20260506.docx</td><td>Alexia composite case — symptom-to-PAWS-to-G.A.P.S. cross-reference, MI Spirit alignment, family system impact</td><td>May 2026</td></tr>
+              <tr><td>stressor_guide_relationship_map__20260408.docx</td><td>22-row cross-document gap audit — 3 guides vs CENAPS/PAWS/Marlatt/HALT, 7 identified holes</td><td>April 2026, working draft</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Worker-Side / LRP Framework (8 documents)</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Document</th><th>Role</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>lrp_academic_paper_full_scope.docx</td><td>Lighthouse Resilience Program — consciousness-based burnout prevention, three core practices, neurobiological basis</td><td>January 2026, 100% at triOS</td></tr>
+              <tr><td>GAPS_Stressor_Guide_Full_Reference.docx</td><td>29 worker stressors × 4 domains, each cross-referenced to source chapters</td><td>Scored 100% at triOS</td></tr>
+              <tr><td>PPDC_STRESSOR_TO_CONTENT_MAP.docx</td><td>Lighthouse Resilience Model presentation content map</td><td>Presentation-ready</td></tr>
+              <tr><td>quarter_value_worker_persona_paper.docx</td><td>Daniel Merrick composite persona — quarter-value stress test, fallen worker re-commissioning</td><td>Case 3 of persona series</td></tr>
+              <tr><td>GSRT_Stressor_Architecture_INTEGRATED.docx</td><td>Dual-track manual — Track A (participant/G.A.P.S.) + Track B (practitioner/LRP)</td><td>Integrated reference</td></tr>
+              <tr><td>GAPS_Stressors_Modalities_Institutional_Value.docx</td><td>Four-section reference: client, worker, cross-reference, institution</td><td>Complete</td></tr>
+              <tr><td>ppdc_lrp_stressor_relationship.docx</td><td>29 worker stressors across 4 domains — each mapped to LRP modality and source chapter</td><td>January 2026</td></tr>
+              <tr><td>marcus_laura_pilot_simulation.docx</td><td>Marcus (n=20) and Laura (n=1) side-by-side — proves 8.28:1 ROI holds at individual scale</td><td>Simulation — composite/modelled</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Algebraic & Institutional Measurement (8 documents)</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Document</th><th>Role</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>lighthouse_algebraic_equations.docx</td><td>All equations: Immediate Impact, W function, Financial Impact, Future Potential — with worked examples and Cs correction</td><td>January 2026, corrected</td></tr>
+              <tr><td>lrp_standard_input_values.docx</td><td>Conservative benchmarks: salary, turnover multiplier, replacement cost, burnout exposure equation, OSHA/NIOSH compliance</td><td>Internal working notes</td></tr>
+              <tr><td>lrp_gaps_instutional_measurements.docx</td><td>HALO Antifragile AI Framework Suite — core equations, scaling architecture, stressor-to-outcome mapping, validated instruments</td><td>June 2026</td></tr>
+              <tr><td>lrp_gaps_mathematical_case_study.docx</td><td>Verification-ready worked examples — both LRP cost model and W function with Marcus Stillwater progression</td><td>Auditable case study</td></tr>
+              <tr><td>fishing_rods_to_financial_equations__20260815.docx</td><td>Composite model integrating W, institutional cost, and societal impact — Marcus Stillwater full pipeline, counterfactual analysis, MI transcript</td><td>August 2026, corrected (GPA 88.8%)</td></tr>
+              <tr><td>gsrt_value_guide__2.docx</td><td>Audience-specific presentation matrix, Conservative Floor track ($5.52 ROI), firmware equations, editorial locks, pricing models</td><td>Value guide v2</td></tr>
+              <tr><td>halo_financial_equations_value_guide__20260717.docx</td><td>Complete variable reference table with instruments, three pricing models, audience selector</td><td>July 2026</td></tr>
+              <tr><td>halo_financial_human_value_reference_guider2.docx</td><td>Versioning corrections (W formula Cs addition), Marcus trajectory corrections, open items/conflict log, dollar/sovereign separation rule</td><td>R2 reference</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Master Integration (3 documents)</summary>
+      <div class="details-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Document</th><th>Role</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>gsrt_hma_integrated_master__20260304.docx</td><td>Unified master manual — 3-year human development timeline, MUSCLE/HEART/ANCHOR curriculum, measurement/ROI pack, franchise/licensing, governance firewalls</td><td>March 2026, master</td></tr>
+              <tr><td>master_manual_gaps_lrp_gsrt__2.docx</td><td>System architecture: LLJ → HAK → IDW → LRP → GSRT pipeline, 5-component operational structure, scaling model</td><td>Architectural overview</td></tr>
+              <tr><td>gsrt_master_manual_vol1_coreframework.pdf</td><td>Professional PDF edition Vol. 1 — Sections 1-10 (stub edition for institutional due diligence)</td><td>March 2026, Gov/AFN/Vatican</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- COLOUR BAND -->
+  <div class="colour-band">
+    <div style="background: var(--red)"></div>
+    <div style="background: var(--blue)"></div>
+    <div style="background: var(--yellow)"></div>
+    <div style="background: var(--white-col)"></div>
+    <div style="background: var(--black-col)"></div>
+    <div style="background: var(--green)"></div>
+    <div style="background: var(--gold)"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="doc-footer">
+    <span>Neil J. Schwab — Framework Architect, GSRT / HALO Antifragile AI</span>
+    <span>neil.schwab@live.ca · +1 (905) 868-6985 · Newmarket, Ontario</span>
+    <span>Synthesis generated August 28, 2026</span>
+  </footer>
+
+</div>

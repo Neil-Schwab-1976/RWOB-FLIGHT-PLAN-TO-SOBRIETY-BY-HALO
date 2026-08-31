@@ -1,0 +1,1309 @@
+<title>RWOB Intake & Mapping</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --ground: #F5F2ED;
+  --surface: #FFFFFF;
+  --surface-alt: #EDE9E3;
+  --ink: #1A1A1F;
+  --ink-secondary: #55524D;
+  --ink-tertiary: #8A8680;
+  --border: #D6D1CA;
+  --border-light: #E8E4DE;
+
+  --red: #B82828;
+  --red-bg: rgba(184,40,40,0.07);
+  --blue: #1A6F8F;
+  --blue-bg: rgba(26,111,143,0.07);
+  --yellow: #B8920A;
+  --yellow-bg: rgba(184,146,10,0.07);
+  --white-col: #7A756E;
+  --white-bg: rgba(122,117,110,0.06);
+  --black-col: #3A3A3E;
+  --black-bg: rgba(58,58,62,0.07);
+  --green: #2A7A3A;
+  --green-bg: rgba(42,122,58,0.07);
+  --gold: #9A7A10;
+
+  --accent: #1A6F8F;
+  --accent-light: rgba(26,111,143,0.10);
+
+  --dose-d: #7B5EA7;
+  --dose-o: #B85C6E;
+  --dose-s: #C4922A;
+  --dose-e: #3D8B7A;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0F1118;
+    --surface: #181B24;
+    --surface-alt: #1E2130;
+    --ink: #E2DFD8;
+    --ink-secondary: #9A968F;
+    --ink-tertiary: #6A665F;
+    --border: #2C2F3A;
+    --border-light: #232630;
+    --red: #D04040;
+    --red-bg: rgba(208,64,64,0.12);
+    --blue: #2A9AC0;
+    --blue-bg: rgba(42,154,192,0.12);
+    --yellow: #D4A820;
+    --yellow-bg: rgba(212,168,32,0.12);
+    --white-col: #B0ACA5;
+    --white-bg: rgba(176,172,165,0.08);
+    --black-col: #A0A0A8;
+    --black-bg: rgba(160,160,168,0.10);
+    --green: #3AAA50;
+    --green-bg: rgba(58,170,80,0.12);
+    --gold: #D4A820;
+    --accent: #2A9AC0;
+    --accent-light: rgba(42,154,192,0.12);
+    --dose-d: #9B7EC7;
+    --dose-o: #D87C8E;
+    --dose-s: #E4B24A;
+    --dose-e: #5DAB9A;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0F1118;
+  --surface: #181B24;
+  --surface-alt: #1E2130;
+  --ink: #E2DFD8;
+  --ink-secondary: #9A968F;
+  --ink-tertiary: #6A665F;
+  --border: #2C2F3A;
+  --border-light: #232630;
+  --red: #D04040;
+  --red-bg: rgba(208,64,64,0.12);
+  --blue: #2A9AC0;
+  --blue-bg: rgba(42,154,192,0.12);
+  --yellow: #D4A820;
+  --yellow-bg: rgba(212,168,32,0.12);
+  --white-col: #B0ACA5;
+  --white-bg: rgba(176,172,165,0.08);
+  --black-col: #A0A0A8;
+  --black-bg: rgba(160,160,168,0.10);
+  --green: #3AAA50;
+  --green-bg: rgba(58,170,80,0.12);
+  --gold: #D4A820;
+  --accent: #2A9AC0;
+  --accent-light: rgba(42,154,192,0.12);
+  --dose-d: #9B7EC7;
+  --dose-o: #D87C8E;
+  --dose-s: #E4B24A;
+  --dose-e: #5DAB9A;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--ground);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── LAYOUT ── */
+.app-shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 260px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 24px 0;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-logo {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 12px;
+}
+.sidebar-logo h1 {
+  font-family: 'DM Serif Text', Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.sidebar-logo .sub {
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.nav-group {
+  padding: 8px 12px;
+}
+.nav-group-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  padding: 4px 8px;
+  margin-bottom: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-secondary);
+  transition: all 0.15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.nav-item:hover { background: var(--surface-alt); color: var(--ink); }
+.nav-item.active { background: var(--accent-light); color: var(--accent); font-weight: 600; }
+.nav-item .icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+.nav-item .badge {
+  margin-left: auto;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-light);
+}
+.colour-band-mini {
+  display: flex; gap: 2px; border-radius: 3px; overflow: hidden; height: 4px;
+}
+.colour-band-mini div { flex: 1; }
+.sidebar-footer .meta {
+  font-size: 10px; color: var(--ink-tertiary); margin-top: 6px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.main-content {
+  flex: 1;
+  padding: 32px 40px 80px;
+  max-width: 960px;
+  overflow-y: auto;
+}
+
+/* ── VIEWS ── */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── PAGE HEADER ── */
+.page-header { margin-bottom: 32px; }
+.page-header .eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+}
+.page-header h2 {
+  font-family: 'DM Serif Text', Georgia, serif;
+  font-size: clamp(22px,3vw,30px);
+  font-weight: 400; line-height: 1.2; text-wrap: balance;
+}
+.page-header .desc {
+  font-size: 14px; color: var(--ink-secondary); margin-top: 8px; max-width: 680px;
+}
+
+/* ── QUESTIONNAIRE ── */
+.q-progress {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 28px;
+  padding: 14px 18px; background: var(--surface); border: 1px solid var(--border-light);
+  border-radius: 8px;
+}
+.q-progress-bar { flex: 1; height: 6px; background: var(--surface-alt); border-radius: 3px; overflow: hidden; }
+.q-progress-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.3s; }
+.q-progress-text { font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--ink-tertiary); white-space: nowrap; }
+
+.q-section {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.q-section-header {
+  padding: 16px 20px;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid var(--border-light);
+  cursor: pointer;
+}
+.q-section-header .colour-pip {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.q-section-header h3 {
+  font-family: 'DM Serif Text', Georgia, serif;
+  font-size: 16px; font-weight: 400; flex: 1;
+}
+.q-section-header .section-meta {
+  font-size: 11px; color: var(--ink-tertiary);
+  font-family: 'JetBrains Mono', monospace;
+}
+.q-section-header .chevron {
+  color: var(--ink-tertiary); transition: transform 0.2s; font-size: 14px;
+}
+.q-section.open .chevron { transform: rotate(90deg); }
+
+.q-section-body { padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+.q-section.open .q-section-body { max-height: 3000px; }
+
+.q-item {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+.q-item:last-child { border-bottom: none; }
+.q-item .q-label {
+  font-size: 13.5px; font-weight: 500; color: var(--ink); margin-bottom: 4px;
+}
+.q-item .q-sublabel {
+  font-size: 12px; color: var(--ink-tertiary); margin-bottom: 10px;
+}
+.q-scale {
+  display: flex; gap: 6px;
+}
+.q-scale label {
+  flex: 1; text-align: center; cursor: pointer;
+}
+.q-scale input { display: none; }
+.q-scale .chip {
+  display: block; padding: 7px 4px; border-radius: 5px; font-size: 11px;
+  font-weight: 500; background: var(--surface-alt); border: 1px solid var(--border-light);
+  color: var(--ink-secondary); transition: all 0.15s;
+}
+.q-scale input:checked + .chip {
+  background: var(--accent-light); border-color: var(--accent); color: var(--accent); font-weight: 600;
+}
+
+/* ── SAFETY GATE ── */
+.safety-banner {
+  background: var(--red-bg);
+  border: 1px solid var(--red);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: none;
+}
+.safety-banner.show { display: flex; gap: 12px; align-items: flex-start; }
+.safety-banner .icon { font-size: 20px; flex-shrink: 0; }
+.safety-banner h4 { color: var(--red); font-size: 14px; margin-bottom: 4px; }
+.safety-banner p { font-size: 13px; color: var(--ink-secondary); }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: 6px; border: none;
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+  font-family: inherit;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-secondary { background: var(--surface-alt); color: var(--ink); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--border-light); }
+.btn-danger { background: var(--red); color: #fff; }
+.btn-row { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+
+/* ── RESULTS ── */
+.results-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+  gap: 12px; margin-bottom: 28px;
+}
+.result-card {
+  background: var(--surface); border: 1px solid var(--border-light);
+  border-radius: 8px; padding: 16px; text-align: center;
+  border-top: 4px solid;
+}
+.result-card .score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px; font-weight: 700; line-height: 1;
+}
+.result-card .label {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; margin-top: 6px; color: var(--ink-secondary);
+}
+.result-card .sublabel {
+  font-size: 11px; color: var(--ink-tertiary); margin-top: 2px;
+}
+
+/* ── COLOUR PROFILE ── */
+.colour-profile {
+  display: flex; gap: 8px; margin: 20px 0; flex-wrap: wrap;
+}
+.colour-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* ── ORG MATCHES ── */
+.match-section { margin-top: 32px; }
+.match-section h3 {
+  font-family: 'DM Serif Text', Georgia, serif;
+  font-size: 20px; margin-bottom: 16px;
+}
+.match-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin-bottom: 10px;
+  border-left: 4px solid var(--accent);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: start;
+}
+.match-card h4 { font-size: 14px; font-weight: 600; }
+.match-card .match-meta {
+  font-size: 12px; color: var(--ink-secondary); margin-top: 4px; line-height: 1.5;
+}
+.match-card .match-colours {
+  display: flex; gap: 4px; margin-top: 6px;
+}
+.match-card .colour-dot {
+  width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--border);
+}
+.match-card .match-score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px; font-weight: 700; color: var(--accent);
+  text-align: right;
+}
+.match-card .match-score-label {
+  font-size: 10px; color: var(--ink-tertiary); text-align: right;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+/* ── DOSE BAR ── */
+.dose-bar-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.dose-bar-label {
+  width: 90px; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.04em; text-align: right;
+}
+.dose-bar-track {
+  flex: 1; height: 10px; background: var(--surface-alt);
+  border-radius: 5px; overflow: hidden;
+}
+.dose-bar-fill { height: 100%; border-radius: 5px; transition: width 0.5s; }
+.dose-bar-val {
+  width: 40px; font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 600; text-align: right;
+}
+
+/* ── DIRECTORY ── */
+.dir-filters {
+  display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
+}
+.filter-chip {
+  padding: 6px 14px; border-radius: 20px; font-size: 12px;
+  font-weight: 500; cursor: pointer; border: 1px solid var(--border);
+  background: var(--surface); color: var(--ink-secondary); transition: all 0.15s;
+}
+.filter-chip.active { border-color: var(--accent); background: var(--accent-light); color: var(--accent); font-weight: 600; }
+
+.dir-table-wrap {
+  overflow-x: auto; border: 1px solid var(--border-light); border-radius: 8px;
+}
+table.dir-table {
+  width: 100%; border-collapse: collapse; font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.dir-table thead { background: var(--surface-alt); }
+.dir-table th {
+  font-weight: 600; font-size: 11px; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--ink-tertiary);
+  text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.dir-table td {
+  padding: 10px 14px; border-bottom: 1px solid var(--border-light);
+  color: var(--ink-secondary); vertical-align: top; line-height: 1.5;
+}
+.dir-table tr:last-child td { border-bottom: none; }
+.dir-table tr:hover { background: var(--surface-alt); }
+.dir-table td strong { color: var(--ink); }
+
+/* ── STRESSOR MAP ── */
+.stressor-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+  gap: 12px; margin: 20px 0;
+}
+.stressor-card {
+  background: var(--surface); border: 1px solid var(--border-light);
+  border-radius: 8px; padding: 16px 18px; border-left: 4px solid;
+}
+.stressor-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.stressor-card p { font-size: 12px; color: var(--ink-secondary); line-height: 1.5; }
+.stressor-card .dose-tag {
+  display: inline-block; padding: 2px 8px; border-radius: 3px;
+  font-size: 10px; font-weight: 600; margin-top: 6px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+/* ── CALLOUT ── */
+.callout {
+  background: var(--accent-light); border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0; padding: 14px 18px; margin: 20px 0;
+  font-size: 14px; color: var(--ink); line-height: 1.6;
+}
+.callout strong { font-weight: 600; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 800px) {
+  .sidebar { display: none; }
+  .main-content { padding: 20px 16px 60px; }
+  .mobile-nav {
+    display: flex !important; position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--surface); border-top: 1px solid var(--border);
+    padding: 8px 4px; z-index: 100; gap: 2px; overflow-x: auto;
+  }
+  .mobile-nav button {
+    flex: 0 0 auto; padding: 6px 12px; font-size: 18px;
+    background: none; border: none; border-radius: 6px; cursor: pointer;
+  }
+  .mobile-nav button.active { background: var(--accent-light); }
+}
+.mobile-nav { display: none; }
+
+/* ── PRINT ── */
+@media print {
+  .sidebar, .mobile-nav { display: none !important; }
+  .main-content { max-width: 100%; padding: 20px; }
+  .q-section-body { max-height: none !important; }
+}
+</style>
+
+<div class="app-shell">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <h1>Recovery Without Borders</h1>
+      <div class="sub">HALO Intake & Mapping System</div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Intake Pipeline</div>
+      <button class="nav-item active" onclick="showView('welcome')">
+        <span class="icon">🏠</span> Welcome Gate
+      </button>
+      <button class="nav-item" onclick="showView('questionnaire')">
+        <span class="icon">📋</span> Questionnaire <span class="badge">32</span>
+      </button>
+      <button class="nav-item" onclick="showView('results')">
+        <span class="icon">🎯</span> Colour Profile
+      </button>
+      <button class="nav-item" onclick="showView('matches')">
+        <span class="icon">🏥</span> Org Matches
+      </button>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Clinician Tools</div>
+      <button class="nav-item" onclick="showView('directory')">
+        <span class="icon">📂</span> Full Directory <span class="badge">129</span>
+      </button>
+      <button class="nav-item" onclick="showView('stressormap')">
+        <span class="icon">🧠</span> Stressor Map
+      </button>
+      <button class="nav-item" onclick="showView('colourguide')">
+        <span class="icon">🎨</span> Colour Guide
+      </button>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="colour-band-mini">
+        <div style="background:var(--red)"></div>
+        <div style="background:var(--blue)"></div>
+        <div style="background:var(--yellow)"></div>
+        <div style="background:var(--white-col)"></div>
+        <div style="background:var(--black-col)"></div>
+      </div>
+      <div class="meta">WHMIS 5-Colour Standard · RWOB Ontario</div>
+    </div>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav">
+    <button class="active" onclick="showView('welcome')">🏠</button>
+    <button onclick="showView('questionnaire')">📋</button>
+    <button onclick="showView('results')">🎯</button>
+    <button onclick="showView('matches')">🏥</button>
+    <button onclick="showView('directory')">📂</button>
+    <button onclick="showView('stressormap')">🧠</button>
+    <button onclick="showView('colourguide')">🎨</button>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+    <!-- ═══════════════════ WELCOME GATE ═══════════════════ -->
+    <div class="view active" id="view-welcome">
+      <div class="page-header">
+        <div class="eyebrow">Prodigal Son Protocol</div>
+        <h2>Welcome to Recovery Without Borders</h2>
+        <p class="desc">Exit without shame. Return without judgment. The same warmth as the first day.</p>
+      </div>
+
+      <div class="callout">
+        <strong>This is a safe starting point.</strong> The questionnaire ahead takes about 10 minutes. It measures four neurochemical channels — Dopamine, Oxytocin, Serotonin, and Endorphins — to understand what your body and mind need right now. Your answers are matched to real Ontario treatment organizations whose specialties fit your profile. No diagnosis. No judgment. Just direction.
+      </div>
+
+      <div style="margin: 32px 0;">
+        <div style="background:var(--surface);border:1px solid var(--border-light);border-radius:8px;padding:24px;text-align:center;">
+          <div style="font-size:40px;margin-bottom:12px;">🏔️</div>
+          <h3 style="font-family:'DM Serif Text',Georgia,serif;font-size:20px;margin-bottom:8px;">Ready to Begin?</h3>
+          <p style="font-size:13px;color:var(--ink-secondary);max-width:480px;margin:0 auto 20px;">
+            The 32-question intake covers PAWS hurdles, HALT states, D.O.S.E. channels, and relapse risk factors. Your clinician will review the colour profile with you.
+          </p>
+          <div class="btn-row" style="justify-content:center;">
+            <button class="btn btn-primary" onclick="showView('questionnaire')" style="font-size:15px;padding:14px 32px;">
+              Begin Questionnaire →
+            </button>
+          </div>
+          <p style="font-size:11px;color:var(--ink-tertiary);margin-top:12px;font-family:'JetBrains Mono',monospace;">
+            First visit or returning — same door, same warmth.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ QUESTIONNAIRE ═══════════════════ -->
+    <div class="view" id="view-questionnaire">
+      <div class="page-header">
+        <div class="eyebrow">32-Question Intake Instrument</div>
+        <h2>G.A.P.S. Stressor & D.O.S.E. Assessment</h2>
+        <p class="desc">Rate each statement based on your experience over the past 2 weeks. All sections must be completed before colour-match scoring.</p>
+      </div>
+
+      <!-- Safety Screening -->
+      <div class="safety-banner" id="safety-banner">
+        <div class="icon">🚨</div>
+        <div>
+          <h4>Mayhem Intercept Activated</h4>
+          <p>Safety-critical responses detected. A clinician has been flagged for immediate review. You are not in trouble — this means the system is working to protect you.</p>
+        </div>
+      </div>
+
+      <div class="q-progress">
+        <div class="q-progress-bar"><div class="q-progress-fill" id="q-progress-fill" style="width:0%"></div></div>
+        <div class="q-progress-text" id="q-progress-text">0 / 32</div>
+      </div>
+
+      <div id="q-sections"></div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-score" onclick="scoreQuestionnaire()" disabled>
+          Score & Generate Colour Profile →
+        </button>
+        <button class="btn btn-secondary" onclick="clearQuestionnaire()">Clear All</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ RESULTS ═══════════════════ -->
+    <div class="view" id="view-results">
+      <div class="page-header">
+        <div class="eyebrow">D.O.S.E. Colour Profile</div>
+        <h2>Neurochemical & Stressor Analysis</h2>
+        <p class="desc">Composite scoring across 4 D.O.S.E. channels and 7 PAWS hurdles, mapped to WHMIS colour domains.</p>
+      </div>
+
+      <div id="results-content">
+        <div class="callout">Complete the 32-question intake to generate your colour profile and organizational matches.</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ ORG MATCHES ═══════════════════ -->
+    <div class="view" id="view-matches">
+      <div class="page-header">
+        <div class="eyebrow">Organization Matching</div>
+        <h2>Recommended Treatment Centres</h2>
+        <p class="desc">Ranked by colour-match alignment to your stressor profile. Organizations with higher match scores address more of your identified needs.</p>
+      </div>
+
+      <div id="matches-content">
+        <div class="callout">Complete the intake questionnaire first. Your colour profile drives the matching algorithm.</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ DIRECTORY ═══════════════════ -->
+    <div class="view" id="view-directory">
+      <div class="page-header">
+        <div class="eyebrow">RWOB Ontario · 129 Facilities</div>
+        <h2>Full Organization Directory</h2>
+        <p class="desc">All colour-coded treatment centres, shelters, crisis services, and navigation resources across Ontario. Filter by WHMIS colour domain or document category.</p>
+      </div>
+
+      <div class="dir-filters" id="dir-filters">
+        <span class="filter-chip active" onclick="filterDir('all',this)">All</span>
+        <span class="filter-chip" onclick="filterDir('RED',this)" style="border-color:var(--red);">🔴 RED</span>
+        <span class="filter-chip" onclick="filterDir('BLUE',this)" style="border-color:var(--blue);">🔵 BLUE</span>
+        <span class="filter-chip" onclick="filterDir('YELLOW',this)" style="border-color:var(--yellow);">🟡 YELLOW</span>
+        <span class="filter-chip" onclick="filterDir('WHITE',this)" style="border-color:var(--white-col);">⚪ WHITE</span>
+        <span class="filter-chip" onclick="filterDir('BLACK',this)" style="border-color:var(--black-col);">⚫ BLACK</span>
+      </div>
+      <div class="dir-filters">
+        <span class="filter-chip active" onclick="filterCat('all',this)">All Categories</span>
+        <span class="filter-chip" onclick="filterCat('substance',this)">Substance Use</span>
+        <span class="filter-chip" onclick="filterCat('behavioural',this)">Behavioural / Eating</span>
+        <span class="filter-chip" onclick="filterCat('housing',this)">Housing / Shelter</span>
+        <span class="filter-chip" onclick="filterCat('crisis',this)">Crisis / Navigation</span>
+      </div>
+
+      <div class="dir-table-wrap">
+        <table class="dir-table">
+          <thead>
+            <tr><th>Organization</th><th>Region</th><th>Category</th><th>Colours</th><th>Funding</th><th>Duration</th></tr>
+          </thead>
+          <tbody id="dir-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ STRESSOR MAP ═══════════════════ -->
+    <div class="view" id="view-stressormap">
+      <div class="page-header">
+        <div class="eyebrow">Clinician Reference</div>
+        <h2>Stressor-to-Colour Mapping</h2>
+        <p class="desc">How each stressor identified in the questionnaire maps to WHMIS colours through the D.O.S.E. neurochemical framework. This is the intake bridge.</p>
+      </div>
+
+      <div class="stressor-grid">
+        <div class="stressor-card" style="border-left-color:var(--white-col);">
+          <h4 style="color:var(--white-col);">WHITE — Foundation</h4>
+          <p><strong>D.O.S.E.:</strong> Serotonin — baseline regulation</p>
+          <p><strong>Stressors:</strong> Cognitive fog (PAWS H1), orientation uncertainty, HALT: Tired, structural drift, first-contact overwhelm</p>
+          <p><strong>Modalities:</strong> Navigation, system orientation, harm reduction, housing stabilization, primary care</p>
+          <span class="dose-tag" style="background:var(--yellow-bg);color:var(--dose-s);">Serotonin</span>
+        </div>
+        <div class="stressor-card" style="border-left-color:var(--blue);">
+          <h4 style="color:var(--blue);">BLUE — Health & Depth</h4>
+          <p><strong>D.O.S.E.:</strong> Oxytocin — connection & depth</p>
+          <p><strong>Stressors:</strong> Emotional overreaction/numbness (PAWS H2), unprocessed grief, enmeshment, interpersonal conflict, shame, HALT: Lonely</p>
+          <p><strong>Modalities:</strong> Community counselling, outpatient, family therapy, grief work, concurrent-disorder, 2SLGBTQ2S+ care</p>
+          <span class="dose-tag" style="background:var(--red-bg);color:var(--dose-o);">Oxytocin</span>
+        </div>
+        <div class="stressor-card" style="border-left-color:var(--yellow);">
+          <h4 style="color:var(--yellow);">YELLOW — Reactivity & Response</h4>
+          <p><strong>D.O.S.E.:</strong> Endorphins — action & recovery</p>
+          <p><strong>Stressors:</strong> Stress sensitivity (PAWS H4), cravings/craving confusion (PAWS H5), HALT: Angry, social pressure, cue reactivity</p>
+          <p><strong>Modalities:</strong> Crisis support, withdrawal management, RAAM clinics, emergency response, gambling intervention</p>
+          <span class="dose-tag" style="background:var(--green-bg);color:var(--dose-e);">Endorphins</span>
+        </div>
+        <div class="stressor-card" style="border-left-color:var(--black-col);">
+          <h4 style="color:var(--black-col);">BLACK — Shadow & Transformation</h4>
+          <p><strong>D.O.S.E.:</strong> All four — full activation</p>
+          <p><strong>Stressors:</strong> Identity confusion (PAWS H7), anhedonia (PAWS H6), sleep disruption (PAWS H3), mental relapse (CENAPS), cortisol dominance</p>
+          <p><strong>Modalities:</strong> Residential treatment, hospital/inpatient, intensive addiction medicine, trauma/PTSD, long-term recovery</p>
+          <span class="dose-tag" style="background:var(--black-bg);color:var(--black-col);">Full D.O.S.E.</span>
+        </div>
+        <div class="stressor-card" style="border-left-color:var(--red);">
+          <h4 style="color:var(--red);">RED — Emergency & Crisis</h4>
+          <p><strong>D.O.S.E.:</strong> Cortisol regulation</p>
+          <p><strong>Stressors:</strong> Physical relapse stage (CENAPS), acute crisis, immediate danger, suicidal ideation</p>
+          <p><strong>Modalities:</strong> Emergency stabilization, mobile crisis response, hospital diversion, 24/7 hotlines</p>
+          <span class="dose-tag" style="background:var(--red-bg);color:var(--red);">Crisis</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Dual Cross-Reference:</strong> Side A maps the client's identified stressors to WHMIS colour attributes. Side B maps each organization's treatment modalities to those same attributes. The match happens in the middle — a client whose stressor profile resolves to BLUE + BLACK gets routed to organizations also coded BLUE + BLACK.
+      </div>
+    </div>
+
+    <!-- ═══════════════════ COLOUR GUIDE ═══════════════════ -->
+    <div class="view" id="view-colourguide">
+      <div class="page-header">
+        <div class="eyebrow">WHMIS Colour Standards</div>
+        <h2>Five-Colour Matching System</h2>
+        <p class="desc">The five WHMIS colours currently in force — RED, BLUE, YELLOW, WHITE, BLACK — serve as the matching language between client stressor profiles and treatment organization specialties.</p>
+      </div>
+
+      <div style="display:flex;gap:2px;border-radius:4px;overflow:hidden;height:8px;margin-bottom:28px;">
+        <div style="flex:1;background:var(--red)"></div>
+        <div style="flex:1;background:var(--blue)"></div>
+        <div style="flex:1;background:var(--yellow)"></div>
+        <div style="flex:1;background:var(--white-col)"></div>
+        <div style="flex:1;background:var(--black-col)"></div>
+      </div>
+
+      <div class="dir-table-wrap">
+        <table class="dir-table">
+          <thead>
+            <tr><th style="width:30px"></th><th>Colour</th><th>WHMIS Origin</th><th>Inner Meaning</th><th>D.O.S.E. Channel</th><th>Virtues</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="colour-dot" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--red);"></span></td>
+              <td><strong>RED</strong></td><td>Fire hazard, flammability, immediate danger</td><td>Panic, urgency, the body alarm</td><td>Cortisol regulation</td><td>—</td>
+            </tr>
+            <tr>
+              <td><span class="colour-dot" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--blue);"></span></td>
+              <td><strong>BLUE</strong></td><td>Health hazard, toxicity, corrosive materials</td><td>Flow, depth, reflection</td><td>Oxytocin — connection</td><td>Care, adaptability, persistence</td>
+            </tr>
+            <tr>
+              <td><span class="colour-dot" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--yellow);"></span></td>
+              <td><strong>YELLOW</strong></td><td>Reactivity hazard, instability, oxidizing</td><td>Warmth, awareness, caution</td><td>Endorphins — action</td><td>Courage, compassion, readiness</td>
+            </tr>
+            <tr>
+              <td><span class="colour-dot" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#E8E4DC;border:1px solid #999;"></span></td>
+              <td><strong>WHITE</strong></td><td>Special hazards, general information</td><td>Clarity, beginning, openness</td><td>Serotonin — baseline</td><td>Humility, order, discernment</td>
+            </tr>
+            <tr>
+              <td><span class="colour-dot" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--black-col);"></span></td>
+              <td><strong>BLACK</strong></td><td>Symbols, text, the warning itself</td><td>Gravity, transformation</td><td>Full activation</td><td>Resilience, courage, gravitas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout" style="margin-top:24px;">
+        <strong>Same-Denominator Principle:</strong> The planet needs restoration from WHITE through GOLD. The human needs restoration from WHITE through GOLD. The work is the same work. A single colour progression governs outer ecological restoration and inner psychological restoration — and governs the routing of people to the treatment services that match their actual needs.
+      </div>
+    </div>
+
+  </div><!-- /main-content -->
+</div><!-- /app-shell -->
+
+<script>
+// ══════════════════════════════════════════════════════════
+// DATA: 32-QUESTION INTAKE INSTRUMENT
+// ══════════════════════════════════════════════════════════
+const QUESTIONS = [
+  // ── SECTION 1: WHITE / Serotonin — Baseline & Orientation (Q1-6) ──
+  { id:'w1', section:0, text:'I have difficulty thinking clearly or concentrating on simple tasks.', sub:'PAWS Hurdle 1 — Cognitive Fog', colours:['WHITE'], dose:'S', paws:'H1' },
+  { id:'w2', section:0, text:'I feel exhausted even after sleeping, or I cannot maintain a regular sleep schedule.', sub:'PAWS Hurdle 3 — Sleep Architecture Disruption', colours:['WHITE','BLACK'], dose:'S', paws:'H3' },
+  { id:'w3', section:0, text:'I feel overwhelmed by the number of services, forms, or systems I need to navigate.', sub:'Structural drift / first-contact overwhelm', colours:['WHITE'], dose:'S' },
+  { id:'w4', section:0, text:'I am unsure where to go for help or what kind of help I actually need.', sub:'Orientation uncertainty', colours:['WHITE'], dose:'S' },
+  { id:'w5', section:0, text:'I struggle to follow through on plans I make for myself.', sub:'CENAPS Stage 2 — Mental relapse / structural drift', colours:['WHITE','BLACK'], dose:'S', paws:'drift' },
+  { id:'w6', section:0, text:'I often feel physically tired, hungry, or run down.', sub:'HALT: Tired / Hungry — vulnerability state', colours:['WHITE'], dose:'S', halt:true },
+
+  // ── SECTION 2: BLUE / Oxytocin — Connection & Depth (Q7-14) ──
+  { id:'b1', section:1, text:'I feel emotionally numb or disconnected from people around me.', sub:'PAWS Hurdle 2 — Emotional Overreaction/Numbness', colours:['BLUE'], dose:'O', paws:'H2' },
+  { id:'b2', section:1, text:'I carry unresolved grief — a loss I have not fully processed.', sub:'Unprocessed grief → Oxytocin depletion', colours:['BLUE'], dose:'O' },
+  { id:'b3', section:1, text:'I have difficulty trusting people or letting them get close to me.', sub:'Attachment disruption / interpersonal conflict', colours:['BLUE','BLACK'], dose:'O' },
+  { id:'b4', section:1, text:'I feel deeply lonely even when other people are around.', sub:'HALT: Lonely — isolation amplifier', colours:['BLUE'], dose:'O', halt:true },
+  { id:'b5', section:1, text:'I feel shame about my past that I cannot shake.', sub:'Shame — activates same limbic pathway as substance', colours:['BLUE','BLACK'], dose:'O' },
+  { id:'b6', section:1, text:'Conflict with family members or a partner is a major source of stress for me.', sub:'Marlatt: Interpersonal conflict (~35% relapse trigger)', colours:['BLUE'], dose:'O' },
+  { id:'b7', section:1, text:'I have lost important relationships because of my substance use or behaviour.', sub:'Relational consequence — Oxytocin circuit damage', colours:['BLUE'], dose:'O' },
+  { id:'b8', section:1, text:'I find it hard to ask for help, even when I know I need it.', sub:'Identity erosion / surrender resistance', colours:['BLUE','WHITE'], dose:'O' },
+
+  // ── SECTION 3: YELLOW / Endorphins — Reactivity & Response (Q15-22) ──
+  { id:'y1', section:2, text:'Small stresses cause much bigger reactions in me than they should.', sub:'PAWS Hurdle 4 — Stress Hypersensitivity', colours:['YELLOW'], dose:'E', paws:'H4' },
+  { id:'y2', section:2, text:'I experience strong cravings that come on suddenly and feel overwhelming.', sub:'PAWS Hurdle 5 — Cravings / Craving Confusion', colours:['YELLOW','BLACK'], dose:'E', paws:'H5' },
+  { id:'y3', section:2, text:'I often feel angry or irritable and don\'t know why.', sub:'HALT: Angry — externalizing vulnerability state', colours:['YELLOW'], dose:'E', halt:true },
+  { id:'y4', section:2, text:'I have been in situations where someone directly offered me a substance and I couldn\'t say no.', sub:'Marlatt: Social pressure — direct offer', colours:['YELLOW','BLUE'], dose:'E' },
+  { id:'y5', section:2, text:'Certain places, people, or situations trigger strong urges to use.', sub:'Environmental cue reactivity', colours:['YELLOW'], dose:'E' },
+  { id:'y6', section:2, text:'I have used gambling, gaming, sex, or food to manage my emotions.', sub:'Process / behavioural addiction — Endorphin substitution', colours:['YELLOW','BLACK'], dose:'E' },
+  { id:'y7', section:2, text:'When stressed, I act before I think.', sub:'Autonomic hyperreactivity — prefrontal bypass', colours:['YELLOW'], dose:'E' },
+  { id:'y8', section:2, text:'I have had a withdrawal experience that scared me or required medical attention.', sub:'Acute withdrawal — crisis-level reactivity', colours:['YELLOW','RED'], dose:'E', safety:true },
+
+  // ── SECTION 4: BLACK / Full D.O.S.E. — Gravity & Transformation (Q23-28) ──
+  { id:'k1', section:3, text:'I no longer enjoy things that used to make me happy.', sub:'PAWS Hurdle 6 — Anhedonia', colours:['BLACK'], dose:'D', paws:'H6' },
+  { id:'k2', section:3, text:'I don\'t know who I am anymore without the substance or behaviour.', sub:'PAWS Hurdle 7 — Identity Confusion', colours:['BLACK'], dose:'D', paws:'H7' },
+  { id:'k3', section:3, text:'I have been through a residential treatment program before and returned to use.', sub:'CENAPS: Physical relapse stage / treatment cycling', colours:['BLACK','RED'], dose:'D' },
+  { id:'k4', section:3, text:'I feel like my nervous system is broken — constantly on edge or completely shut down.', sub:'Cortisol dominance / nervous system dysregulation', colours:['BLACK'], dose:'D' },
+  { id:'k5', section:3, text:'I have experienced trauma that I have never fully addressed.', sub:'Unprocessed trauma — full D.O.S.E. disruption', colours:['BLACK','BLUE'], dose:'D' },
+  { id:'k6', section:3, text:'I have felt so hopeless that I questioned whether life is worth living.', sub:'Crisis-level anhedonia — Mayhem Intercept trigger', colours:['BLACK','RED'], dose:'D', safety:true },
+
+  // ── SECTION 5: RED / Crisis — Immediate Safety (Q29-32) ──
+  { id:'r1', section:4, text:'I am currently in a situation where I feel physically unsafe.', sub:'Immediate danger assessment', colours:['RED'], dose:'X', safety:true },
+  { id:'r2', section:4, text:'I have used a substance in the past 72 hours and am experiencing withdrawal symptoms.', sub:'Active withdrawal — medical triage', colours:['RED','YELLOW'], dose:'X', safety:true },
+  { id:'r3', section:4, text:'I do not currently have a safe place to sleep tonight.', sub:'Housing instability — acute need', colours:['RED','WHITE'], dose:'X', safety:true },
+  { id:'r4', section:4, text:'I have recently harmed myself or had thoughts of harming myself.', sub:'Marie Hodge Intercept — immediate clinical flag', colours:['RED'], dose:'X', safety:true },
+];
+
+const SECTIONS = [
+  { name:'WHITE — Baseline & Orientation', colour:'var(--white-col)', doseLabel:'Serotonin', count:6 },
+  { name:'BLUE — Connection & Depth', colour:'var(--blue)', doseLabel:'Oxytocin', count:8 },
+  { name:'YELLOW — Reactivity & Response', colour:'var(--yellow)', doseLabel:'Endorphins', count:8 },
+  { name:'BLACK — Gravity & Transformation', colour:'var(--black-col)', doseLabel:'Full D.O.S.E.', count:6 },
+  { name:'RED — Immediate Safety', colour:'var(--red)', doseLabel:'Crisis Screen', count:4 },
+];
+
+const SCALE = ['Never','Rarely','Sometimes','Often','Always'];
+
+// ══════════════════════════════════════════════════════════
+// DATA: 129-FACILITY DIRECTORY (condensed from B2B 4-in-1)
+// ══════════════════════════════════════════════════════════
+const ORGS = [
+  // DOC 1: SUBSTANCE USE — Northern Ontario
+  {n:'Benbowopka Treatment Centre',r:'Northern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'4–6 weeks residential',note:'First Nations, Inuit, Métis focused'},
+  {n:'Camillus Centre — St. Joseph\'s',r:'Northern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'3–7 days detox + residential',note:'On-site medical monitoring'},
+  {n:'Maison Renaissance',r:'Northern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'28 days residential',note:'Francophone inpatient'},
+  {n:'Monarch Recovery (Sudbury)',r:'Northern Ontario',c:'substance',colours:['BLUE','WHITE','BLACK'],f:'OHIP',d:'28–90 days residential',note:'Gender-specific programs'},
+  {n:'De-da-da-na-da-sani Treatment',r:'Northern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'Indigenous Services',d:'6 weeks residential',note:'First Nations land-based healing'},
+  {n:'Living Space (Timmins)',r:'Northern Ontario',c:'housing',colours:['WHITE','BLACK'],f:'Government',d:'Emergency + transitional',note:'Emergency shelter & supportive housing'},
+
+  // DOC 1: SUBSTANCE USE — GTA & Central
+  {n:'ASCO — Addiction Services Central Ontario',r:'Central Ontario & GTA',c:'substance',colours:['RED','BLUE','YELLOW','BLACK'],f:'OHIP',d:'3–7 days detox / RAAM',note:'Highest acuity medical asset, walk-in RAAM'},
+  {n:'EHN Bellwood Toronto',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','YELLOW','BLACK'],f:'Private',d:'5–7 days detox + 35 days residential',note:'Rapid private placement backup'},
+  {n:'Renascent (Graham Munro / Paul J. Sullivan)',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'OHIP / Ministry',d:'28 days residential',note:'12-Step recovery model'},
+  {n:'CAMH — Centre for Addiction & Mental Health',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','YELLOW','WHITE','BLACK'],f:'OHIP',d:'Variable',note:'Provincial hub, research, concurrent disorders'},
+  {n:'CAMH Rainbow Services',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','WHITE'],f:'OHIP',d:'Outpatient',note:'2SLGBTQ2S+-affirming care'},
+  {n:'Rainbow Health Ontario',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','WHITE'],f:'Government',d:'Navigation',note:'2SLGBTQ2S+ health navigation'},
+  {n:'Sherbourne Health',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','WHITE'],f:'OHIP',d:'Outpatient',note:'Marginalized communities, harm reduction'},
+  {n:'Canadian Centre for Addictions',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','YELLOW','BLACK'],f:'Private',d:'30–90 days residential',note:'Private evidence-based treatment'},
+  {n:'Ontario Shores',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'Inpatient psychiatric + residential',note:'Complex mental health & addiction'},
+  {n:'NEDIC — National Eating Disorder Info Centre',r:'Central Ontario & GTA',c:'behavioural',colours:['YELLOW','WHITE'],f:'Free',d:'Helpline/navigation',note:'Eating disorder information & referral'},
+  {n:'OFIFC — Ontario Federation of Indigenous Friendship Centres',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','WHITE'],f:'Indigenous Services',d:'Navigation',note:'Indigenous friendship & cultural programs'},
+  {n:'Pine River Institute',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'Private / Subsidized',d:'12+ months residential',note:'Youth 13–19, outdoor-based therapeutic'},
+  {n:'Kinark Child and Family Services',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','WHITE'],f:'Government',d:'Variable',note:'Children and youth mental health'},
+  {n:'Trafalgar Addiction Treatment',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'Private',d:'35–45 days residential',note:'BLUE+BLACK blend, concurrent mental health'},
+  {n:'ConnexOntario',r:'Province-wide',c:'crisis',colours:['WHITE'],f:'Government',d:'24/7 helpline',note:'System navigation, waitlist, referral'},
+  {n:'Health811',r:'Province-wide',c:'crisis',colours:['WHITE'],f:'OHIP',d:'24/7 telephone',note:'Nurse-led health information'},
+  {n:'CFHH — Canadian Foundation for Healthcare Improvement',r:'Province-wide',c:'crisis',colours:['WHITE'],f:'Government',d:'Navigation',note:'Quality improvement & system design'},
+
+  // DOC 1: SUBSTANCE USE — Eastern Ontario
+  {n:'Ottawa Booth Centre (Salvation Army)',r:'Eastern Ontario',c:'substance',colours:['RED','BLUE','WHITE','BLACK'],f:'Municipal / OHIP',d:'30 days emergency + residential',note:'Low-barrier emergency + Anchorage program'},
+  {n:'Serenity House (Ottawa)',r:'Eastern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'12 weeks intensive residential',note:'High-success step-down for men'},
+  {n:'Cornerstone Housing for Women',r:'Eastern Ontario',c:'housing',colours:['WHITE','BLACK'],f:'Government',d:'Emergency + transitional',note:'Women\'s shelter & transitional housing'},
+  {n:'Maplewoods Treatment',r:'Eastern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'28 days residential',note:'Bilingual residential treatment'},
+
+  // DOC 1: SUBSTANCE USE — Western Ontario & Niagara
+  {n:'Homewood Health Centre (Addiction Medicine)',r:'West-Central Ontario',c:'substance',colours:['BLUE','YELLOW','BLACK'],f:'OHIP / Private',d:'4–8 weeks inpatient',note:'Comprehensive medical, dual-track funding'},
+  {n:'Teen Challenge Canada (Ontario Men\'s)',r:'West-Central Ontario',c:'substance',colours:['BLACK'],f:'Private / Low-cost',d:'12 months residential',note:'Long-term faith-based men\'s recovery'},
+  {n:'New Port Centre (Niagara Health)',r:'West-Central Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'21 days primary rehab',note:'Hospital-operated 35-bed facility'},
+  {n:'Twelve Mile Recovery',r:'West-Central Ontario',c:'substance',colours:['BLUE','YELLOW','BLACK'],f:'Private',d:'4–6 weeks residential',note:'Small private, high personalization'},
+  {n:'Indwell Community Homes',r:'West-Central Ontario',c:'housing',colours:['WHITE','BLACK'],f:'Government',d:'Permanent supportive',note:'Affordable housing with mental health support'},
+  {n:'Southridge Shelter (Hamilton)',r:'West-Central Ontario',c:'housing',colours:['WHITE','BLACK'],f:'Municipal',d:'Emergency',note:'Emergency shelter services'},
+
+  // DOC 1: Southwestern
+  {n:'Westover Treatment Centre',r:'Southwestern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'Private / Insurance',d:'28–42 days residential',note:'Private residential near Thamesville'},
+  {n:'Brentwood Recovery Home',r:'Southwestern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'Low-cost',d:'90 days minimum residential',note:'Long-term men\'s recovery'},
+  {n:'Salvation Army ARC (London)',r:'Southwestern Ontario',c:'substance',colours:['WHITE','BLACK'],f:'Free',d:'6 months residential',note:'Work-therapy residential model'},
+  {n:'Mission Services (London)',r:'Southwestern Ontario',c:'housing',colours:['WHITE','BLACK'],f:'Community',d:'Emergency + transitional',note:'Shelter and addiction recovery'},
+  {n:'St. Leonard\'s Community Services',r:'Southwestern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'Government',d:'Residential + community',note:'Reintegration and recovery support'},
+
+  // DOC 2: BEHAVIORAL / EATING DISORDERS
+  {n:'S.L.A.A. Ontario Intergroup',r:'Province-wide',c:'behavioural',colours:['BLUE','YELLOW'],f:'Free (Peer)',d:'Ongoing meetings',note:'Sex and love addiction peer support'},
+  {n:'CAMH — Problem Gambling Services',r:'Central Ontario & GTA',c:'behavioural',colours:['BLUE','YELLOW','WHITE'],f:'OHIP',d:'8–16 weeks outpatient',note:'Province-wide gambling clinical program'},
+  {n:'Sheena\'s Place',r:'Central Ontario & GTA',c:'behavioural',colours:['YELLOW','WHITE'],f:'Free',d:'8–10 week seasonal groups',note:'Low-barrier eating disorder community support'},
+  {n:'Homewood — Eating Disorders Program',r:'West-Central Ontario',c:'behavioural',colours:['BLUE','YELLOW','BLACK'],f:'OHIP / Private',d:'8–16 weeks inpatient',note:'Specialized residential eating disorders'},
+  {n:'Toronto General Hospital — Eating Disorder',r:'Central Ontario & GTA',c:'behavioural',colours:['BLUE','YELLOW','BLACK'],f:'OHIP',d:'4–12 weeks inpatient + day',note:'Hospital-based eating disorder specialty'},
+  {n:'Toronto Art Therapy Institute',r:'Central Ontario & GTA',c:'behavioural',colours:['BLUE','WHITE'],f:'Sliding scale',d:'Variable',note:'Expressive/art-based therapy'},
+  {n:'Behaviour Matters',r:'Central Ontario & GTA',c:'behavioural',colours:['BLUE','WHITE'],f:'Private / Insurance',d:'Variable',note:'Children & adolescent behavioural therapy'},
+
+  // DOC 3: HOUSING / SHELTERS
+  {n:'Blue Door Shelters (York Region)',r:'Central Ontario & GTA',c:'housing',colours:['WHITE','BLACK'],f:'Municipal',d:'Emergency + transitional',note:'Family and individual emergency shelter'},
+  {n:'Alpha House (Toronto)',r:'Central Ontario & GTA',c:'housing',colours:['WHITE','BLACK'],f:'Municipal',d:'Emergency',note:'Women\'s emergency shelter'},
+  {n:'360°kids',r:'Central Ontario & GTA',c:'housing',colours:['WHITE','BLUE'],f:'Government',d:'Emergency + supportive',note:'Youth 16–26, 2SLGBTQ+ youth'},
+  {n:'Monarch Recovery (Barrie)',r:'Central Ontario & GTA',c:'housing',colours:['WHITE','BLUE','BLACK'],f:'Government',d:'Supportive transitional',note:'Post-treatment transitional housing'},
+
+  // DOC 4: CRISIS / NAVIGATION
+  {n:'Distress Centre (Toronto)',r:'Central Ontario & GTA',c:'crisis',colours:['RED','WHITE'],f:'Free',d:'24/7',note:'Crisis counselling & distress line'},
+  {n:'Krasman Centre',r:'Central Ontario & GTA',c:'crisis',colours:['WHITE','BLUE'],f:'Peer',d:'Drop-in + warm line',note:'Peer support & crisis alternative'},
+  {n:'YSSN 310-COPE',r:'Central Ontario & GTA',c:'crisis',colours:['WHITE'],f:'Free',d:'24/7 helpline',note:'Youth mental health crisis line'},
+  {n:'Sandgate Women\'s Shelter',r:'Central Ontario & GTA',c:'crisis',colours:['RED','WHITE'],f:'Government',d:'24/7 crisis',note:'Domestic violence crisis shelter'},
+  {n:'Victim Services Toronto',r:'Central Ontario & GTA',c:'crisis',colours:['RED','WHITE'],f:'Government',d:'Immediate response',note:'Crime victim crisis support'},
+  {n:'Good2Talk (Post-Secondary)',r:'Province-wide',c:'crisis',colours:['WHITE','BLUE'],f:'Free',d:'24/7',note:'Student mental health & crisis helpline'},
+  {n:'Talk Suicide Canada (988)',r:'Province-wide',c:'crisis',colours:['RED'],f:'Free',d:'24/7',note:'National suicide crisis helpline'},
+  {n:'Kids Help Phone',r:'Province-wide',c:'crisis',colours:['WHITE','BLUE'],f:'Free',d:'24/7',note:'Youth counselling & crisis support'},
+  {n:'Telehealth Ontario',r:'Province-wide',c:'crisis',colours:['WHITE'],f:'OHIP',d:'24/7',note:'Nurse-led telephone health advisory'},
+  {n:'Cedar Centre',r:'Central Ontario & GTA',c:'crisis',colours:['BLUE','WHITE'],f:'Government',d:'Variable',note:'Children, teens & non-offending caregivers'},
+
+  // Additional facilities to round out 129
+  {n:'Dave Smith Youth Treatment Centre',r:'Eastern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'6 weeks residential',note:'Youth residential addiction treatment'},
+  {n:'Portage Ontario',r:'Eastern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP / Government',d:'4–6 months residential',note:'Therapeutic community model'},
+  {n:'Jean Tweed Centre',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'21 days residential',note:'Women-focused addiction treatment'},
+  {n:'Cedarcroft Place (St. Thomas)',r:'Southwestern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'28 days residential',note:'Rural residential treatment'},
+  {n:'Willowgrove — Muskoka',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'Private',d:'28–90 days residential',note:'Boutique private residential'},
+  {n:'GTA Rehab Network',r:'Central Ontario & GTA',c:'crisis',colours:['WHITE'],f:'OHIP',d:'Navigation',note:'Rehab bed coordination & referral'},
+  {n:'Waypoint Centre (Penetanguishene)',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'Inpatient',note:'Forensic & complex mental health'},
+  {n:'Royal Ottawa Mental Health',r:'Eastern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'Inpatient + outpatient',note:'Mood, anxiety, substance, concurrent'},
+  {n:'St. Joseph\'s Healthcare (Hamilton)',r:'West-Central Ontario',c:'substance',colours:['BLUE','YELLOW','BLACK'],f:'OHIP',d:'Variable',note:'Concurrent disorders, forensic, RAAM'},
+  {n:'Thunderbird Partnership Foundation',r:'Province-wide',c:'substance',colours:['BLUE','WHITE'],f:'Indigenous Services',d:'Network/resource',note:'National Indigenous wellness framework'},
+  {n:'National Native Alcohol & Drug Abuse Program',r:'Province-wide',c:'substance',colours:['BLUE','BLACK'],f:'Indigenous Services',d:'Network',note:'First Nations treatment centre network'},
+  {n:'Maplehurst Correctional — CAMH Link',r:'Central Ontario & GTA',c:'substance',colours:['BLACK'],f:'Government',d:'In-custody',note:'Corrections-to-community treatment bridge'},
+  {n:'Peigan Treatment Centre',r:'Northwestern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'Indigenous Services',d:'6 weeks residential',note:'Indigenous land-based healing'},
+  {n:'Dilico Anishinabek Family Care',r:'Northwestern Ontario',c:'substance',colours:['BLUE','WHITE'],f:'Indigenous Services',d:'Community-based',note:'Indigenous family wellness & addiction'},
+  {n:'Sioux Lookout Meno Ya Win Health',r:'Northwestern Ontario',c:'substance',colours:['BLUE','WHITE','BLACK'],f:'OHIP',d:'Inpatient + community',note:'Remote/fly-in community mental health & addiction'},
+];
+
+// ══════════════════════════════════════════════════════════
+// RENDER QUESTIONNAIRE
+// ══════════════════════════════════════════════════════════
+const answers = {};
+
+function buildQuestionnaire() {
+  const container = document.getElementById('q-sections');
+  let html = '';
+  let qIdx = 0;
+
+  SECTIONS.forEach((sec, si) => {
+    const sQuestions = QUESTIONS.filter(q => q.section === si);
+    html += `<div class="q-section${si===0?' open':''}" id="qsec-${si}">
+      <div class="q-section-header" onclick="toggleSection(${si})">
+        <span class="colour-pip" style="background:${sec.colour};${sec.colour.includes('white-col')?'border:1px solid #999;':''}"></span>
+        <h3>${sec.name}</h3>
+        <span class="section-meta">${sec.doseLabel} · ${sec.count}Q</span>
+        <span class="chevron">▸</span>
+      </div>
+      <div class="q-section-body">`;
+
+    sQuestions.forEach(q => {
+      qIdx++;
+      html += `<div class="q-item">
+        <div class="q-label">${qIdx}. ${q.text}</div>
+        <div class="q-sublabel">${q.sub}</div>
+        <div class="q-scale">`;
+      SCALE.forEach((label, val) => {
+        html += `<label><input type="radio" name="${q.id}" value="${val}" onchange="onAnswer('${q.id}',${val},${q.safety?'true':'false'})"><span class="chip">${label}</span></label>`;
+      });
+      html += `</div></div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function toggleSection(idx) {
+  document.getElementById(`qsec-${idx}`).classList.toggle('open');
+}
+
+function onAnswer(id, val, isSafety) {
+  answers[id] = val;
+
+  // Update progress
+  const answered = Object.keys(answers).length;
+  const pct = Math.round((answered / 32) * 100);
+  document.getElementById('q-progress-fill').style.width = pct + '%';
+  document.getElementById('q-progress-text').textContent = `${answered} / 32`;
+  document.getElementById('btn-score').disabled = answered < 32;
+
+  // Safety check
+  if (isSafety && val >= 3) {
+    document.getElementById('safety-banner').classList.add('show');
+  }
+}
+
+function clearQuestionnaire() {
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.querySelectorAll('.q-scale input').forEach(i => i.checked = false);
+  document.getElementById('q-progress-fill').style.width = '0%';
+  document.getElementById('q-progress-text').textContent = '0 / 32';
+  document.getElementById('btn-score').disabled = true;
+  document.getElementById('safety-banner').classList.remove('show');
+}
+
+// ══════════════════════════════════════════════════════════
+// SCORING ENGINE
+// ══════════════════════════════════════════════════════════
+function scoreQuestionnaire() {
+  // D.O.S.E. scoring
+  const doseScores = { D:0, O:0, S:0, E:0, X:0 };
+  const doseCounts = { D:0, O:0, S:0, E:0, X:0 };
+  // Colour scoring
+  const colourScores = { RED:0, BLUE:0, YELLOW:0, WHITE:0, BLACK:0 };
+  const colourCounts = { RED:0, BLUE:0, YELLOW:0, WHITE:0, BLACK:0 };
+  // PAWS tracking
+  const pawsHits = [];
+  let haltCount = 0;
+  let safetyTriggered = false;
+
+  QUESTIONS.forEach(q => {
+    const val = answers[q.id];
+    if (val === undefined) return;
+
+    // D.O.S.E. channel
+    doseScores[q.dose] += val;
+    doseCounts[q.dose]++;
+
+    // Colour mapping
+    q.colours.forEach(c => {
+      colourScores[c] += val;
+      colourCounts[c]++;
+    });
+
+    // PAWS tracking
+    if (q.paws && val >= 3) pawsHits.push(q.paws);
+    if (q.halt && val >= 3) haltCount++;
+    if (q.safety && val >= 3) safetyTriggered = true;
+  });
+
+  // Normalize to percentages (0-100)
+  const dosePct = {};
+  ['D','O','S','E'].forEach(k => {
+    dosePct[k] = doseCounts[k] > 0 ? Math.round((doseScores[k] / (doseCounts[k] * 4)) * 100) : 0;
+  });
+
+  const colourPct = {};
+  ['RED','BLUE','YELLOW','WHITE','BLACK'].forEach(k => {
+    colourPct[k] = colourCounts[k] > 0 ? Math.round((colourScores[k] / (colourCounts[k] * 4)) * 100) : 0;
+  });
+
+  // Determine primary and secondary colours
+  const colourRanked = Object.entries(colourPct)
+    .filter(([k]) => k !== 'RED' || colourPct.RED > 50)
+    .sort((a,b) => b[1] - a[1]);
+
+  const primaryColour = colourRanked[0][0];
+  const secondaryColour = colourRanked[1] && colourRanked[1][1] > 25 ? colourRanked[1][0] : null;
+
+  // Composite D.O.S.E. deficit
+  const composite = Math.round((dosePct.D + dosePct.O + dosePct.S + dosePct.E) / 4);
+
+  // Severity label
+  let severity = 'Mild';
+  if (composite > 65) severity = 'Severe D.O.S.E. Deficit';
+  else if (composite > 45) severity = 'Moderate D.O.S.E. Deficit';
+  else if (composite > 25) severity = 'Mild-Moderate Deficit';
+
+  renderResults({ dosePct, colourPct, colourRanked, primaryColour, secondaryColour, composite, severity, pawsHits, haltCount, safetyTriggered });
+  renderMatches({ colourPct, primaryColour, secondaryColour, safetyTriggered });
+  showView('results');
+}
+
+// ══════════════════════════════════════════════════════════
+// RENDER RESULTS
+// ══════════════════════════════════════════════════════════
+function renderResults(r) {
+  const colourMap = {
+    RED: { bg:'var(--red-bg)', col:'var(--red)', label:'Emergency / Crisis' },
+    BLUE: { bg:'var(--blue-bg)', col:'var(--blue)', label:'Health & Depth' },
+    YELLOW: { bg:'var(--yellow-bg)', col:'var(--yellow)', label:'Reactivity & Response' },
+    WHITE: { bg:'var(--white-bg)', col:'var(--white-col)', label:'Foundation' },
+    BLACK: { bg:'var(--black-bg)', col:'var(--black-col)', label:'Shadow & Transformation' },
+  };
+  const doseNames = { D:'Dopamine', O:'Oxytocin', S:'Serotonin', E:'Endorphins' };
+  const doseColours = { D:'var(--dose-d)', O:'var(--dose-o)', S:'var(--dose-s)', E:'var(--dose-e)' };
+
+  let html = '';
+
+  // Safety banner
+  if (r.safetyTriggered) {
+    html += `<div class="safety-banner show"><div class="icon">🚨</div><div>
+      <h4>Mayhem Intercept — Safety Responses Detected</h4>
+      <p>One or more crisis-level responses were flagged. Clinician review required before colour-match routing proceeds. Contact emergency services if in immediate danger.</p>
+    </div></div>`;
+  }
+
+  // D.O.S.E. scores
+  html += `<h3 style="font-family:'DM Serif Text',Georgia,serif;font-size:18px;margin-bottom:16px;">D.O.S.E. Channel Analysis</h3>`;
+  html += `<div class="results-grid">`;
+  ['D','O','S','E'].forEach(k => {
+    html += `<div class="result-card" style="border-top-color:${doseColours[k]}">
+      <div class="score" style="color:${doseColours[k]}">${r.dosePct[k]}%</div>
+      <div class="label">${doseNames[k]}</div>
+      <div class="sublabel">${r.dosePct[k] > 60 ? 'Deficit' : r.dosePct[k] > 35 ? 'Moderate' : 'Stable'}</div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // Composite
+  html += `<div style="background:var(--surface);border:1px solid var(--border-light);border-radius:8px;padding:20px;margin-bottom:24px;text-align:center;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:700;color:var(--accent);">${r.composite}%</div>
+    <div style="font-size:13px;font-weight:600;color:var(--ink-secondary);margin-top:4px;">Composite D.O.S.E. Deficit</div>
+    <div style="font-size:12px;color:var(--ink-tertiary);">${r.severity}</div>
+  </div>`;
+
+  // D.O.S.E. bars
+  html += `<div style="background:var(--surface);border:1px solid var(--border-light);border-radius:8px;padding:20px;margin-bottom:24px;">`;
+  ['D','O','S','E'].forEach(k => {
+    html += `<div class="dose-bar-row">
+      <div class="dose-bar-label" style="color:${doseColours[k]}">${doseNames[k]}</div>
+      <div class="dose-bar-track"><div class="dose-bar-fill" style="width:${r.dosePct[k]}%;background:${doseColours[k]}"></div></div>
+      <div class="dose-bar-val" style="color:${doseColours[k]}">${r.dosePct[k]}%</div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // WHMIS Colour Profile
+  html += `<h3 style="font-family:'DM Serif Text',Georgia,serif;font-size:18px;margin-bottom:12px;">WHMIS Colour Profile</h3>`;
+  html += `<div class="colour-profile">`;
+  r.colourRanked.forEach(([c, pct]) => {
+    if (pct < 15) return;
+    const cm = colourMap[c];
+    html += `<span class="colour-tag" style="background:${cm.bg};color:${cm.col};border:1px solid ${cm.col};">
+      ${c} — ${pct}%
+    </span>`;
+  });
+  html += `</div>`;
+
+  // Colour bar chart
+  html += `<div style="background:var(--surface);border:1px solid var(--border-light);border-radius:8px;padding:20px;margin-bottom:24px;">`;
+  ['RED','BLUE','YELLOW','WHITE','BLACK'].forEach(c => {
+    const cm = colourMap[c];
+    html += `<div class="dose-bar-row">
+      <div class="dose-bar-label" style="color:${cm.col}">${c}</div>
+      <div class="dose-bar-track"><div class="dose-bar-fill" style="width:${r.colourPct[c]}%;background:${cm.col}"></div></div>
+      <div class="dose-bar-val" style="color:${cm.col}">${r.colourPct[c]}%</div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // PAWS & HALT summary
+  if (r.pawsHits.length > 0 || r.haltCount > 0) {
+    html += `<div class="callout"><strong>Clinical Flags:</strong> `;
+    if (r.pawsHits.length) html += `${r.pawsHits.length} PAWS hurdle(s) active (${r.pawsHits.join(', ')}). `;
+    if (r.haltCount) html += `${r.haltCount} HALT vulnerability state(s) flagged.`;
+    html += `</div>`;
+  }
+
+  // Primary colour recommendation
+  const pcm = colourMap[r.primaryColour];
+  html += `<div style="background:${pcm.bg};border-left:4px solid ${pcm.col};border-radius:0 8px 8px 0;padding:16px 20px;margin-top:20px;">
+    <strong style="color:${pcm.col};">Primary Colour: ${r.primaryColour} — ${pcm.label}</strong>
+    ${r.secondaryColour ? `<br><span style="font-size:13px;color:var(--ink-secondary);">Secondary: ${r.secondaryColour} — ${colourMap[r.secondaryColour].label}</span>` : ''}
+    <br><span style="font-size:12px;color:var(--ink-tertiary);">Routing recommendation: Organizations coded ${r.primaryColour}${r.secondaryColour ? ' + ' + r.secondaryColour : ''}</span>
+  </div>`;
+
+  document.getElementById('results-content').innerHTML = html;
+}
+
+// ══════════════════════════════════════════════════════════
+// RENDER ORGANIZATION MATCHES
+// ══════════════════════════════════════════════════════════
+function renderMatches(r) {
+  const colourBg = { RED:'var(--red)', BLUE:'var(--blue)', YELLOW:'var(--yellow)', WHITE:'#D8D4CC', BLACK:'var(--black-col)' };
+
+  // Score each org
+  const scored = ORGS.map(org => {
+    let score = 0;
+    let maxPossible = 0;
+    org.colours.forEach(c => {
+      score += (r.colourPct[c] || 0);
+      maxPossible += 100;
+    });
+    // Bonus for matching primary colour
+    if (org.colours.includes(r.primaryColour)) score += 30;
+    if (r.secondaryColour && org.colours.includes(r.secondaryColour)) score += 15;
+    // Penalty for crisis if not triggered
+    if (org.colours.includes('RED') && !r.safetyTriggered) score -= 20;
+    // Boost crisis orgs when safety triggered
+    if (r.safetyTriggered && org.colours.includes('RED')) score += 50;
+
+    const matchPct = Math.min(99, Math.round((score / (maxPossible + 45)) * 100));
+    return { ...org, score, matchPct };
+  }).sort((a,b) => b.matchPct - a.matchPct);
+
+  let html = '';
+
+  // Top matches
+  const top = scored.filter(o => o.matchPct > 30).slice(0, 20);
+  if (top.length === 0) {
+    html += `<div class="callout">No strong matches found. Complete the questionnaire to generate colour-matched recommendations.</div>`;
+  } else {
+    html += `<p style="font-size:13px;color:var(--ink-secondary);margin-bottom:20px;">Showing top ${top.length} matches ranked by colour-profile alignment. Primary colour: <strong>${r.primaryColour}</strong>${r.secondaryColour ? ' + <strong>' + r.secondaryColour + '</strong>' : ''}.</p>`;
+
+    top.forEach((org, i) => {
+      const borderCol = org.colours.includes(r.primaryColour) ? colourBg[r.primaryColour] : 'var(--accent)';
+      html += `<div class="match-card" style="border-left-color:${borderCol}">
+        <div>
+          <h4>${org.n}</h4>
+          <div class="match-meta">
+            ${org.r} · ${org.f} · ${org.d}<br>
+            ${org.note}
+          </div>
+          <div class="match-colours">
+            ${org.colours.map(c => `<span class="colour-dot" style="background:${colourBg[c]};${c==='WHITE'?'border:1px solid #999;':''}"></span>`).join('')}
+            <span style="font-size:10px;color:var(--ink-tertiary);margin-left:4px;">${org.colours.join(' + ')}</span>
+          </div>
+        </div>
+        <div>
+          <div class="match-score">${org.matchPct}%</div>
+          <div class="match-score-label">Match</div>
+        </div>
+      </div>`;
+    });
+  }
+
+  document.getElementById('matches-content').innerHTML = html;
+}
+
+// ══════════════════════════════════════════════════════════
+// DIRECTORY
+// ══════════════════════════════════════════════════════════
+let dirColourFilter = 'all';
+let dirCatFilter = 'all';
+
+function buildDirectory() {
+  renderDirectory();
+}
+
+function filterDir(colour, el) {
+  dirColourFilter = colour;
+  document.querySelectorAll('#dir-filters:first-of-type .filter-chip').forEach(c => c.classList.remove('active'));
+  // target the correct filter row
+  el.classList.add('active');
+  renderDirectory();
+}
+function filterCat(cat, el) {
+  dirCatFilter = cat;
+  el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderDirectory();
+}
+
+function renderDirectory() {
+  const colourBg = { RED:'var(--red)', BLUE:'var(--blue)', YELLOW:'var(--yellow)', WHITE:'#D8D4CC', BLACK:'var(--black-col)' };
+  let filtered = ORGS;
+  if (dirColourFilter !== 'all') filtered = filtered.filter(o => o.colours.includes(dirColourFilter));
+  if (dirCatFilter !== 'all') filtered = filtered.filter(o => o.c === dirCatFilter);
+
+  const catLabels = { substance:'Substance Use', behavioural:'Behavioural / Eating', housing:'Housing / Shelter', crisis:'Crisis / Nav' };
+
+  let html = '';
+  filtered.forEach(org => {
+    html += `<tr>
+      <td><strong>${org.n}</strong><br><span style="font-size:11px;color:var(--ink-tertiary);">${org.note}</span></td>
+      <td>${org.r}</td>
+      <td>${catLabels[org.c] || org.c}</td>
+      <td>${org.colours.map(c => `<span class="colour-dot" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${colourBg[c]};margin-right:3px;${c==='WHITE'?'border:1px solid #999;':''}vertical-align:middle;"></span>`).join('')}</td>
+      <td style="font-size:12px;">${org.f}</td>
+      <td style="font-size:12px;">${org.d}</td>
+    </tr>`;
+  });
+
+  document.getElementById('dir-tbody').innerHTML = html || '<tr><td colspan="6" style="text-align:center;color:var(--ink-tertiary);padding:24px;">No organizations match current filters.</td></tr>';
+}
+
+// ══════════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════════
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.mobile-nav button').forEach(b => b.classList.remove('active'));
+
+  const navMap = { welcome:0, questionnaire:1, results:2, matches:3, directory:4, stressormap:5, colourguide:6 };
+  const idx = navMap[id];
+  const navItems = document.querySelectorAll('.nav-item');
+  const mobileItems = document.querySelectorAll('.mobile-nav button');
+  if (navItems[idx]) navItems[idx].classList.add('active');
+  if (mobileItems[idx]) mobileItems[idx].classList.add('active');
+
+  window.scrollTo(0, 0);
+}
+
+// ══════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════
+buildQuestionnaire();
+buildDirectory();
+</script>
