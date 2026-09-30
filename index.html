@@ -603,7 +603,7 @@ table.dir-table {
         <div class="icon">🚨</div>
         <div>
           <h4>Mayhem Intercept Activated</h4>
-          <p>Safety-critical responses detected. A clinician has been flagged for immediate review. You are not in trouble — this means the system is working to protect you.</p>
+          <p>Some of your answers suggest you may not be safe right now. <strong>This page cannot contact anyone, and no one sees your answers.</strong> Please call or text <strong>9-8-8</strong> (Suicide Crisis Helpline, free, 24/7), or call <strong>9-1-1</strong> if you are in immediate danger. You are not in trouble — reaching out is the right step.</p>
         </div>
       </div>
 
@@ -832,7 +832,7 @@ const QUESTIONS = [
   { id:'r1', section:4, text:'I am currently in a situation where I feel physically unsafe.', sub:'Immediate danger assessment', colours:['RED'], dose:'X', safety:true },
   { id:'r2', section:4, text:'I have used a substance in the past 72 hours and am experiencing withdrawal symptoms.', sub:'Active withdrawal — medical triage', colours:['RED','YELLOW'], dose:'X', safety:true },
   { id:'r3', section:4, text:'I do not currently have a safe place to sleep tonight.', sub:'Housing instability — acute need', colours:['RED','WHITE'], dose:'X', safety:true },
-  { id:'r4', section:4, text:'I have recently harmed myself or had thoughts of harming myself.', sub:'Marie Hodge Intercept — immediate clinical flag', colours:['RED'], dose:'X', safety:true },
+  { id:'r4', section:4, text:'I have recently harmed myself or had thoughts of harming myself.', sub:'Immediate safety question', colours:['RED'], dose:'X', safety:true },
 ];
 
 const SECTIONS = [
@@ -919,7 +919,7 @@ const ORGS = [
   {n:'Sandgate Women\'s Shelter',r:'Central Ontario & GTA',c:'crisis',colours:['RED','WHITE'],f:'Government',d:'24/7 crisis',note:'Domestic violence crisis shelter'},
   {n:'Victim Services Toronto',r:'Central Ontario & GTA',c:'crisis',colours:['RED','WHITE'],f:'Government',d:'Immediate response',note:'Crime victim crisis support'},
   {n:'Good2Talk (Post-Secondary)',r:'Province-wide',c:'crisis',colours:['WHITE','BLUE'],f:'Free',d:'24/7',note:'Student mental health & crisis helpline'},
-  {n:'Talk Suicide Canada (988)',r:'Province-wide',c:'crisis',colours:['RED'],f:'Free',d:'24/7',note:'National suicide crisis helpline'},
+  {n:'9-8-8 Suicide Crisis Helpline (call or text 988)',r:'Province-wide',c:'crisis',colours:['RED'],f:'Free',d:'24/7',note:'National suicide crisis helpline'},
   {n:'Kids Help Phone',r:'Province-wide',c:'crisis',colours:['WHITE','BLUE'],f:'Free',d:'24/7',note:'Youth counselling & crisis support'},
   {n:'Telehealth Ontario',r:'Province-wide',c:'crisis',colours:['WHITE'],f:'OHIP',d:'24/7',note:'Nurse-led telephone health advisory'},
   {n:'Cedar Centre',r:'Central Ontario & GTA',c:'crisis',colours:['BLUE','WHITE'],f:'Government',d:'Variable',note:'Children, teens & non-offending caregivers'},
@@ -1098,7 +1098,7 @@ function renderResults(r) {
   if (r.safetyTriggered) {
     html += `<div class="safety-banner show"><div class="icon">🚨</div><div>
       <h4>Mayhem Intercept — Safety Responses Detected</h4>
-      <p>One or more crisis-level responses were flagged. Clinician review required before colour-match routing proceeds. Contact emergency services if in immediate danger.</p>
+      <p>One or more of your answers suggest you may not be safe right now. This page does not alert a clinician. Call or text <strong>9-8-8</strong> (24/7), or <strong>9-1-1</strong> if you are in immediate danger, before using the matches below.</p>
     </div></div>`;
   }
 
