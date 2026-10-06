@@ -1,16 +1,16 @@
 <title>RWOB Intake & Mapping</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --ground: #F5F2ED;
-  --surface: #FFFFFF;
-  --surface-alt: #EDE9E3;
-  --ink: #1A1A1F;
-  --ink-secondary: #55524D;
-  --ink-tertiary: #8A8680;
-  --border: #D6D1CA;
-  --border-light: #E8E4DE;
+  --ground: #FFFFFF;
+  --surface: #F5F2F7;
+  --surface-alt: #ECE7F0;
+  --ink: #25252A;
+  --ink-secondary: #4A4A50;
+  --ink-tertiary: #6A6A72;
+  --border: #C8C3B8;
+  --border-light: #E3DFD8;
 
   --red: #B82828;
   --red-bg: rgba(184,40,40,0.07);
@@ -26,8 +26,10 @@
   --green-bg: rgba(42,122,58,0.07);
   --gold: #9A7A10;
 
-  --accent: #1A6F8F;
-  --accent-light: rgba(26,111,143,0.10);
+  --accent: #752761;
+  --accent-light: rgba(117,39,97,0.10);
+  --accent-2: #3B7E7A;
+  --warm: #D6C3A8;
 
   --dose-d: #7B5EA7;
   --dose-o: #B85C6E;
@@ -58,8 +60,10 @@
     --green: #3AAA50;
     --green-bg: rgba(58,170,80,0.12);
     --gold: #D4A820;
-    --accent: #2A9AC0;
-    --accent-light: rgba(42,154,192,0.12);
+    --accent: #C98BB9;
+  --accent-2: #6FB5B0;
+  --warm: #D6C3A8;
+    --accent-light: rgba(201,139,185,0.14);
     --dose-d: #9B7EC7;
     --dose-o: #D87C8E;
     --dose-s: #E4B24A;
@@ -88,8 +92,10 @@
   --green: #3AAA50;
   --green-bg: rgba(58,170,80,0.12);
   --gold: #D4A820;
-  --accent: #2A9AC0;
-  --accent-light: rgba(42,154,192,0.12);
+  --accent: #C98BB9;
+  --accent-2: #6FB5B0;
+  --warm: #D6C3A8;
+  --accent-light: rgba(201,139,185,0.14);
   --dose-d: #9B7EC7;
   --dose-o: #D87C8E;
   --dose-s: #E4B24A;
@@ -129,15 +135,15 @@ body {
   margin-bottom: 12px;
 }
 .sidebar-logo h1 {
-  font-family: 'DM Serif Text', Georgia, serif;
+  font-family:'DM Sans',system-ui,sans-serif;font-weight:700;
   font-size: 18px;
-  font-weight: 400;
+  
   color: var(--ink);
   line-height: 1.2;
 }
 .sidebar-logo .sub {
   font-size: 11px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family:'DM Sans',system-ui,sans-serif;
   color: var(--accent);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -184,7 +190,7 @@ body {
   font-weight: 600;
   padding: 2px 7px;
   border-radius: 10px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family:'DM Sans',system-ui,sans-serif;
 }
 
 .sidebar-footer {
@@ -198,7 +204,7 @@ body {
 .colour-band-mini div { flex: 1; }
 .sidebar-footer .meta {
   font-size: 10px; color: var(--ink-tertiary); margin-top: 6px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family:'DM Sans',system-ui,sans-serif;
 }
 
 .main-content {
@@ -215,14 +221,14 @@ body {
 /* ── PAGE HEADER ── */
 .page-header { margin-bottom: 32px; }
 .page-header .eyebrow {
-  font-family: 'JetBrains Mono', monospace;
+  font-family:'DM Sans',system-ui,sans-serif;
   font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
 }
 .page-header h2 {
-  font-family: 'DM Serif Text', Georgia, serif;
+  font-family:'DM Sans',system-ui,sans-serif;font-weight:700;
   font-size: clamp(22px,3vw,30px);
-  font-weight: 400; line-height: 1.2; text-wrap: balance;
+   line-height: 1.2; text-wrap: balance;
 }
 .page-header .desc {
   font-size: 14px; color: var(--ink-secondary); margin-top: 8px; max-width: 680px;
@@ -236,7 +242,7 @@ body {
 }
 .q-progress-bar { flex: 1; height: 6px; background: var(--surface-alt); border-radius: 3px; overflow: hidden; }
 .q-progress-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.3s; }
-.q-progress-text { font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--ink-tertiary); white-space: nowrap; }
+.q-progress-text { font-size: 12px; font-family:'DM Sans',system-ui,sans-serif; color: var(--ink-tertiary); white-space: nowrap; }
 
 .q-section {
   background: var(--surface);
@@ -255,12 +261,12 @@ body {
   width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
 }
 .q-section-header h3 {
-  font-family: 'DM Serif Text', Georgia, serif;
-  font-size: 16px; font-weight: 400; flex: 1;
+  font-family:'DM Sans',system-ui,sans-serif;font-weight:700;
+  font-size: 16px;  flex: 1;
 }
 .q-section-header .section-meta {
   font-size: 11px; color: var(--ink-tertiary);
-  font-family: 'JetBrains Mono', monospace;
+  font-family:'DM Sans',system-ui,sans-serif;
 }
 .q-section-header .chevron {
   color: var(--ink-tertiary); transition: transform 0.2s; font-size: 14px;
@@ -318,7 +324,7 @@ body {
   font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s;
   font-family: inherit;
 }
-.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary { background: #752761; color: #fff; font-family:'DM Sans',system-ui,sans-serif; font-weight:600; }
 .btn-primary:hover { filter: brightness(1.1); }
 .btn-secondary { background: var(--surface-alt); color: var(--ink); border: 1px solid var(--border); }
 .btn-secondary:hover { background: var(--border-light); }
@@ -336,7 +342,7 @@ body {
   border-top: 4px solid;
 }
 .result-card .score {
-  font-family: 'JetBrains Mono', monospace;
+  font-family:'DM Sans',system-ui,sans-serif;
   font-size: 28px; font-weight: 700; line-height: 1;
 }
 .result-card .label {
@@ -360,7 +366,7 @@ body {
 /* ── ORG MATCHES ── */
 .match-section { margin-top: 32px; }
 .match-section h3 {
-  font-family: 'DM Serif Text', Georgia, serif;
+  font-family:'DM Sans',system-ui,sans-serif;font-weight:700;
   font-size: 20px; margin-bottom: 16px;
 }
 .match-card {
@@ -386,7 +392,7 @@ body {
   width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--border);
 }
 .match-card .match-score {
-  font-family: 'JetBrains Mono', monospace;
+  font-family:'DM Sans',system-ui,sans-serif;
   font-size: 20px; font-weight: 700; color: var(--accent);
   text-align: right;
 }
@@ -409,7 +415,7 @@ body {
 }
 .dose-bar-fill { height: 100%; border-radius: 5px; transition: width 0.5s; }
 .dose-bar-val {
-  width: 40px; font-family: 'JetBrains Mono', monospace;
+  width: 40px; font-family:'DM Sans',system-ui,sans-serif;
   font-size: 12px; font-weight: 600; text-align: right;
 }
 
@@ -577,7 +583,7 @@ table.dir-table {
       <div style="margin: 32px 0;">
         <div style="background:var(--surface);border:1px solid var(--border-light);border-radius:8px;padding:24px;text-align:center;">
           <div style="font-size:40px;margin-bottom:12px;">🏔️</div>
-          <h3 style="font-family:'DM Serif Text',Georgia,serif;font-size:20px;margin-bottom:8px;">Ready to Begin?</h3>
+          <h3 style="font-family:'DM Sans',system-ui,sans-serif;font-weight:700;font-size:20px;margin-bottom:8px;">Ready to Begin?</h3>
           <p style="font-size:13px;color:var(--ink-secondary);max-width:480px;margin:0 auto 20px;">
             The 32-question intake covers PAWS hurdles, HALT states, D.O.S.E. channels, and relapse risk factors. You will see your colour profile at the end. No one else sees your answers.
           </p>
@@ -586,7 +592,7 @@ table.dir-table {
               Begin Questionnaire →
             </button>
           </div>
-          <p style="font-size:11px;color:var(--ink-tertiary);margin-top:12px;font-family:'JetBrains Mono',monospace;">
+          <p style="font-size:11px;color:var(--ink-tertiary);margin-top:12px;font-family:'DM Sans',system-ui,sans-serif;">
             First visit or returning — same door, same warmth.
           </p>
         </div>
@@ -1106,7 +1112,7 @@ function renderResults(r) {
   }
 
   // D.O.S.E. scores
-  html += `<h3 style="font-family:'DM Serif Text',Georgia,serif;font-size:18px;margin-bottom:16px;">D.O.S.E. Channel Analysis</h3>`;
+  html += `<h3 style="font-family:'DM Sans',system-ui,sans-serif;font-weight:700;font-size:18px;margin-bottom:16px;">D.O.S.E. Channel Analysis</h3>`;
   html += `<div class="results-grid">`;
   ['D','O','S','E'].forEach(k => {
     html += `<div class="result-card" style="border-top-color:${doseColours[k]}">
@@ -1119,7 +1125,7 @@ function renderResults(r) {
 
   // Composite
   html += `<div style="background:var(--surface);border:1px solid var(--border-light);border-radius:8px;padding:20px;margin-bottom:24px;text-align:center;">
-    <div style="font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:700;color:var(--accent);">${r.composite}%</div>
+    <div style="font-family:'DM Sans',system-ui,sans-serif;font-size:36px;font-weight:700;color:var(--accent);">${r.composite}%</div>
     <div style="font-size:13px;font-weight:600;color:var(--ink-secondary);margin-top:4px;">Composite D.O.S.E. Deficit</div>
     <div style="font-size:12px;color:var(--ink-tertiary);">${r.severity}</div>
   </div>`;
@@ -1136,7 +1142,7 @@ function renderResults(r) {
   html += `</div>`;
 
   // HALO-WBBRY Colour Profile
-  html += `<h3 style="font-family:'DM Serif Text',Georgia,serif;font-size:18px;margin-bottom:12px;">HALO-WBBRY Colour Profile</h3>`;
+  html += `<h3 style="font-family:'DM Sans',system-ui,sans-serif;font-weight:700;font-size:18px;margin-bottom:12px;">HALO-WBBRY Colour Profile</h3>`;
   html += `<div class="colour-profile">`;
   r.colourRanked.forEach(([c, pct]) => {
     if (pct < 15) return;
