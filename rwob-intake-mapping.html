@@ -541,7 +541,7 @@ table.dir-table {
         <div style="background:var(--white-col)"></div>
         <div style="background:var(--black-col)"></div>
       </div>
-      <div class="meta">WHMIS 5-Colour Standard · RWOB Ontario</div>
+      <div class="meta">HALO-WBBRY 5-Colour Key · RWOB Ontario</div>
     </div>
   </nav>
 
@@ -558,6 +558,9 @@ table.dir-table {
 
   <!-- MAIN CONTENT -->
   <div class="main-content">
+    <div role="note" style="background:#FFF4D6;color:#5A4300;border:1px solid #E0C36A;border-radius:8px;padding:10px 14px;margin:0 0 16px 0;font-size:13px;line-height:1.5;">
+      <strong>DEMO — for review only, not yet in service.</strong> This page does not store your answers and cannot contact anyone. In an emergency call <strong>9-1-1</strong>. For crisis support call or text <strong>9-8-8</strong>.
+    </div>
 
     <!-- ═══════════════════ WELCOME GATE ═══════════════════ -->
     <div class="view active" id="view-welcome">
@@ -576,7 +579,7 @@ table.dir-table {
           <div style="font-size:40px;margin-bottom:12px;">🏔️</div>
           <h3 style="font-family:'DM Serif Text',Georgia,serif;font-size:20px;margin-bottom:8px;">Ready to Begin?</h3>
           <p style="font-size:13px;color:var(--ink-secondary);max-width:480px;margin:0 auto 20px;">
-            The 32-question intake covers PAWS hurdles, HALT states, D.O.S.E. channels, and relapse risk factors. Your clinician will review the colour profile with you.
+            The 32-question intake covers PAWS hurdles, HALT states, D.O.S.E. channels, and relapse risk factors. You will see your colour profile at the end. No one else sees your answers.
           </p>
           <div class="btn-row" style="justify-content:center;">
             <button class="btn btn-primary" onclick="showView('questionnaire')" style="font-size:15px;padding:14px 32px;">
@@ -603,7 +606,7 @@ table.dir-table {
         <div class="icon">🚨</div>
         <div>
           <h4>Mayhem Intercept Activated</h4>
-          <p>Safety-critical responses detected. A clinician has been flagged for immediate review. You are not in trouble — this means the system is working to protect you.</p>
+          <p>Some of your answers suggest you may not be safe right now. <strong>This page cannot contact anyone, and no one sees your answers.</strong> Please call or text <strong>9-8-8</strong> (Suicide Crisis Helpline, free, 24/7), or call <strong>9-1-1</strong> if you are in immediate danger. You are not in trouble — reaching out is the right step.</p>
         </div>
       </div>
 
@@ -627,7 +630,7 @@ table.dir-table {
       <div class="page-header">
         <div class="eyebrow">D.O.S.E. Colour Profile</div>
         <h2>Neurochemical & Stressor Analysis</h2>
-        <p class="desc">Composite scoring across 4 D.O.S.E. channels and 7 PAWS hurdles, mapped to WHMIS colour domains.</p>
+        <p class="desc">Composite scoring across 4 D.O.S.E. channels and 7 PAWS hurdles, mapped to HALO-WBBRY colour domains.</p>
       </div>
 
       <div id="results-content">
@@ -653,7 +656,7 @@ table.dir-table {
       <div class="page-header">
         <div class="eyebrow">RWOB Ontario · 129 Facilities</div>
         <h2>Full Organization Directory</h2>
-        <p class="desc">All colour-coded treatment centres, shelters, crisis services, and navigation resources across Ontario. Filter by WHMIS colour domain or document category.</p>
+        <p class="desc">All colour-coded treatment centres, shelters, crisis services, and navigation resources across Ontario. Filter by HALO-WBBRY colour domain or document category.</p>
       </div>
 
       <div class="dir-filters" id="dir-filters">
@@ -687,7 +690,7 @@ table.dir-table {
       <div class="page-header">
         <div class="eyebrow">Clinician Reference</div>
         <h2>Stressor-to-Colour Mapping</h2>
-        <p class="desc">How each stressor identified in the questionnaire maps to WHMIS colours through the D.O.S.E. neurochemical framework. This is the intake bridge.</p>
+        <p class="desc">How each stressor identified in the questionnaire maps to HALO-WBBRY colours through the D.O.S.E. neurochemical framework. This is the intake bridge.</p>
       </div>
 
       <div class="stressor-grid">
@@ -729,16 +732,16 @@ table.dir-table {
       </div>
 
       <div class="callout">
-        <strong>Dual Cross-Reference:</strong> Side A maps the client's identified stressors to WHMIS colour attributes. Side B maps each organization's treatment modalities to those same attributes. The match happens in the middle — a client whose stressor profile resolves to BLUE + BLACK gets routed to organizations also coded BLUE + BLACK.
+        <strong>Dual Cross-Reference:</strong> Side A maps the client's identified stressors to HALO-WBBRY colour attributes. Side B maps each organization's treatment modalities to those same attributes. The match happens in the middle — a client whose stressor profile resolves to BLUE + BLACK gets routed to organizations also coded BLUE + BLACK.
       </div>
     </div>
 
     <!-- ═══════════════════ COLOUR GUIDE ═══════════════════ -->
     <div class="view" id="view-colourguide">
       <div class="page-header">
-        <div class="eyebrow">WHMIS Colour Standards</div>
+        <div class="eyebrow">HALO-WBBRY Colour Key</div>
         <h2>Five-Colour Matching System</h2>
-        <p class="desc">The five WHMIS colours currently in force — RED, BLUE, YELLOW, WHITE, BLACK — serve as the matching language between client stressor profiles and treatment organization specialties.</p>
+        <p class="desc">The five HALO-WBBRY colours — WHITE, BLUE, BLACK, RED, YELLOW — serve as the matching language between client stressor profiles and treatment organization specialties. The idea was inspired by workplace hazard labelling. HALO-WBBRY is HALO's own colour key; it is not part of, or endorsed by, any government safety system.</p>
       </div>
 
       <div style="display:flex;gap:2px;border-radius:4px;overflow:hidden;height:8px;margin-bottom:28px;">
@@ -752,7 +755,7 @@ table.dir-table {
       <div class="dir-table-wrap">
         <table class="dir-table">
           <thead>
-            <tr><th style="width:30px"></th><th>Colour</th><th>WHMIS Origin</th><th>Inner Meaning</th><th>D.O.S.E. Channel</th><th>Virtues</th></tr>
+            <tr><th style="width:30px"></th><th>Colour</th><th>Hazard-label inspiration</th><th>Inner Meaning</th><th>D.O.S.E. Channel</th><th>Virtues</th></tr>
           </thead>
           <tbody>
             <tr>
@@ -832,7 +835,7 @@ const QUESTIONS = [
   { id:'r1', section:4, text:'I am currently in a situation where I feel physically unsafe.', sub:'Immediate danger assessment', colours:['RED'], dose:'X', safety:true },
   { id:'r2', section:4, text:'I have used a substance in the past 72 hours and am experiencing withdrawal symptoms.', sub:'Active withdrawal — medical triage', colours:['RED','YELLOW'], dose:'X', safety:true },
   { id:'r3', section:4, text:'I do not currently have a safe place to sleep tonight.', sub:'Housing instability — acute need', colours:['RED','WHITE'], dose:'X', safety:true },
-  { id:'r4', section:4, text:'I have recently harmed myself or had thoughts of harming myself.', sub:'Marie Hodge Intercept — immediate clinical flag', colours:['RED'], dose:'X', safety:true },
+  { id:'r4', section:4, text:'I have recently harmed myself or had thoughts of harming myself.', sub:'Immediate safety question', colours:['RED'], dose:'X', safety:true },
 ];
 
 const SECTIONS = [
@@ -919,7 +922,7 @@ const ORGS = [
   {n:'Sandgate Women\'s Shelter',r:'Central Ontario & GTA',c:'crisis',colours:['RED','WHITE'],f:'Government',d:'24/7 crisis',note:'Domestic violence crisis shelter'},
   {n:'Victim Services Toronto',r:'Central Ontario & GTA',c:'crisis',colours:['RED','WHITE'],f:'Government',d:'Immediate response',note:'Crime victim crisis support'},
   {n:'Good2Talk (Post-Secondary)',r:'Province-wide',c:'crisis',colours:['WHITE','BLUE'],f:'Free',d:'24/7',note:'Student mental health & crisis helpline'},
-  {n:'Talk Suicide Canada (988)',r:'Province-wide',c:'crisis',colours:['RED'],f:'Free',d:'24/7',note:'National suicide crisis helpline'},
+  {n:'9-8-8 Suicide Crisis Helpline (call or text 988)',r:'Province-wide',c:'crisis',colours:['RED'],f:'Free',d:'24/7',note:'National suicide crisis helpline'},
   {n:'Kids Help Phone',r:'Province-wide',c:'crisis',colours:['WHITE','BLUE'],f:'Free',d:'24/7',note:'Youth counselling & crisis support'},
   {n:'Telehealth Ontario',r:'Province-wide',c:'crisis',colours:['WHITE'],f:'OHIP',d:'24/7',note:'Nurse-led telephone health advisory'},
   {n:'Cedar Centre',r:'Central Ontario & GTA',c:'crisis',colours:['BLUE','WHITE'],f:'Government',d:'Variable',note:'Children, teens & non-offending caregivers'},
@@ -1098,7 +1101,7 @@ function renderResults(r) {
   if (r.safetyTriggered) {
     html += `<div class="safety-banner show"><div class="icon">🚨</div><div>
       <h4>Mayhem Intercept — Safety Responses Detected</h4>
-      <p>One or more crisis-level responses were flagged. Clinician review required before colour-match routing proceeds. Contact emergency services if in immediate danger.</p>
+      <p>One or more of your answers suggest you may not be safe right now. This page does not alert a clinician. Call or text <strong>9-8-8</strong> (24/7), or <strong>9-1-1</strong> if you are in immediate danger, before using the matches below.</p>
     </div></div>`;
   }
 
@@ -1132,8 +1135,8 @@ function renderResults(r) {
   });
   html += `</div>`;
 
-  // WHMIS Colour Profile
-  html += `<h3 style="font-family:'DM Serif Text',Georgia,serif;font-size:18px;margin-bottom:12px;">WHMIS Colour Profile</h3>`;
+  // HALO-WBBRY Colour Profile
+  html += `<h3 style="font-family:'DM Serif Text',Georgia,serif;font-size:18px;margin-bottom:12px;">HALO-WBBRY Colour Profile</h3>`;
   html += `<div class="colour-profile">`;
   r.colourRanked.forEach(([c, pct]) => {
     if (pct < 15) return;
