@@ -527,9 +527,9 @@ table.dir-table {
     </div>
 
     <div class="nav-group">
-      <div class="nav-group-label">Clinician Tools</div>
+      <div class="nav-group-label">Learn more</div>
       <button class="nav-item" onclick="showView('directory')">
-        <span class="icon">📂</span> Full Directory <span class="badge">129</span>
+        <span class="icon">📂</span> Full Directory <span class="badge">74</span>
       </button>
       <button class="nav-item" onclick="showView('stressormap')">
         <span class="icon">🧠</span> Stressor Map
@@ -577,7 +577,7 @@ table.dir-table {
       </div>
 
       <div class="callout">
-        <strong>This is a safe starting point.</strong> The questionnaire ahead takes about 10 minutes. It measures four neurochemical channels — Dopamine, Oxytocin, Serotonin, and Endorphins — to understand what your body and mind need right now. Your answers are matched to real Ontario treatment organizations whose specialties fit your profile. No diagnosis. No judgment. Just direction.
+        <strong>This is a safe starting point.</strong> The questionnaire ahead takes about 10 minutes. It asks about four areas of wellbeing — motivation and enjoyment, connection, steadiness and stress relief — to help you get curious about what your body and mind need right now. Your answers are then compared with a sample list of Ontario services that offer that kind of support. No diagnosis. No judgment. Just direction.
       </div>
 
       <div style="margin: 32px 0;">
@@ -611,7 +611,7 @@ table.dir-table {
       <div class="safety-banner" id="safety-banner">
         <div class="icon">🚨</div>
         <div>
-          <h4>Mayhem Intercept Activated</h4>
+          <h4>Safety check</h4>
           <p>Some of your answers suggest you may not be safe right now. <strong>This page cannot contact anyone, and no one sees your answers.</strong> Please call or text <strong>9-8-8</strong> (Suicide Crisis Helpline, free, 24/7), or call <strong>9-1-1</strong> if you are in immediate danger. You are not in trouble — reaching out is the right step.</p>
         </div>
       </div>
@@ -634,9 +634,9 @@ table.dir-table {
     <!-- ═══════════════════ RESULTS ═══════════════════ -->
     <div class="view" id="view-results">
       <div class="page-header">
-        <div class="eyebrow">D.O.S.E. Colour Profile</div>
-        <h2>Neurochemical & Stressor Analysis</h2>
-        <p class="desc">Composite scoring across 4 D.O.S.E. channels and 7 PAWS hurdles, mapped to HALO-WBBRY colour domains.</p>
+        <div class="eyebrow">Your colour profile</div>
+        <h2>What your answers suggest</h2>
+        <p class="desc">A picture of four areas of wellbeing and the common hurdles of early recovery, shown in the five HALO-WBBRY colours.</p>
       </div>
 
       <div id="results-content">
@@ -694,7 +694,7 @@ table.dir-table {
     <!-- ═══════════════════ STRESSOR MAP ═══════════════════ -->
     <div class="view" id="view-stressormap">
       <div class="page-header">
-        <div class="eyebrow">Clinician Reference</div>
+        <div class="eyebrow">How it works</div>
         <h2>Stressor-to-Colour Mapping</h2>
         <p class="desc">How each stressor identified in the questionnaire maps to HALO-WBBRY colours through the D.O.S.E. neurochemical framework. This is the intake bridge.</p>
       </div>
@@ -835,7 +835,7 @@ const QUESTIONS = [
   { id:'k3', section:3, text:'I have been through a residential treatment program before and returned to use.', sub:'CENAPS: Physical relapse stage / treatment cycling', colours:['BLACK','RED'], dose:'D' },
   { id:'k4', section:3, text:'I feel like my nervous system is broken — constantly on edge or completely shut down.', sub:'Cortisol dominance / nervous system dysregulation', colours:['BLACK'], dose:'D' },
   { id:'k5', section:3, text:'I have experienced trauma that I have never fully addressed.', sub:'Unprocessed trauma — full D.O.S.E. disruption', colours:['BLACK','BLUE'], dose:'D' },
-  { id:'k6', section:3, text:'I have felt so hopeless that I questioned whether life is worth living.', sub:'Crisis-level anhedonia — Mayhem Intercept trigger', colours:['BLACK','RED'], dose:'D', safety:true },
+  { id:'k6', section:3, text:'I have felt so hopeless that I questioned whether life is worth living.', sub:'Safety question', colours:['BLACK','RED'], dose:'D', safety:true },
 
   // ── SECTION 5: RED / Crisis — Immediate Safety (Q29-32) ──
   { id:'r1', section:4, text:'I am currently in a situation where I feel physically unsafe.', sub:'Immediate danger assessment', colours:['RED'], dose:'X', safety:true },
@@ -1078,9 +1078,9 @@ function scoreQuestionnaire() {
 
   // Severity label
   let severity = 'Mild';
-  if (composite > 65) severity = 'Severe D.O.S.E. Deficit';
-  else if (composite > 45) severity = 'Moderate D.O.S.E. Deficit';
-  else if (composite > 25) severity = 'Mild-Moderate Deficit';
+  if (composite > 65) severity = 'High — worth talking through with someone';
+  else if (composite > 45) severity = 'Moderate';
+  else if (composite > 25) severity = 'Mild to moderate';
 
   renderResults({ dosePct, colourPct, colourRanked, primaryColour, secondaryColour, composite, severity, pawsHits, haltCount, safetyTriggered });
   renderMatches({ colourPct, primaryColour, secondaryColour, safetyTriggered });
@@ -1098,7 +1098,8 @@ function renderResults(r) {
     WHITE: { bg:'var(--white-bg)', col:'var(--white-col)', label:'Foundation' },
     BLACK: { bg:'var(--black-bg)', col:'var(--black-col)', label:'Shadow & Transformation' },
   };
-  const doseNames = { D:'Dopamine', O:'Oxytocin', S:'Serotonin', E:'Endorphins' };
+  const doseNames = { D:'Motivation & enjoyment', O:'Connection', S:'Steadiness', E:'Stress relief' };
+  const doseChem = { D:'linked to dopamine', O:'linked to oxytocin', S:'linked to serotonin', E:'linked to endorphins' };
   const doseColours = { D:'var(--dose-d)', O:'var(--dose-o)', S:'var(--dose-s)', E:'var(--dose-e)' };
 
   let html = '';
@@ -1106,19 +1107,21 @@ function renderResults(r) {
   // Safety banner
   if (r.safetyTriggered) {
     html += `<div class="safety-banner show"><div class="icon">🚨</div><div>
-      <h4>Mayhem Intercept — Safety Responses Detected</h4>
+      <h4>Safety check — please read this first</h4>
       <p>One or more of your answers suggest you may not be safe right now. This page does not alert a clinician. Call or text <strong>9-8-8</strong> (24/7), or <strong>9-1-1</strong> if you are in immediate danger, before using the matches below.</p>
     </div></div>`;
   }
 
   // D.O.S.E. scores
-  html += `<h3 style="font-family:'DM Sans',system-ui,sans-serif;font-weight:700;font-size:18px;margin-bottom:16px;">D.O.S.E. Channel Analysis</h3>`;
+  html += `<h3 style="font-family:'DM Sans',system-ui,sans-serif;font-weight:700;font-size:18px;margin-bottom:16px;">Four areas of wellbeing</h3>`;
+  html += `<p style="font-size:14px;color:var(--ink-secondary);margin:-8px 0 16px 0;">These scores come from your own answers, not from a medical test. They are not a diagnosis. A higher number means more strain in that area. Think of them as a map of where things feel strained right now, and a starting point for getting curious about what might help.</p>`;
   html += `<div class="results-grid">`;
   ['D','O','S','E'].forEach(k => {
     html += `<div class="result-card" style="border-top-color:${doseColours[k]}">
       <div class="score" style="color:${doseColours[k]}">${r.dosePct[k]}%</div>
       <div class="label">${doseNames[k]}</div>
-      <div class="sublabel">${r.dosePct[k] > 60 ? 'Deficit' : r.dosePct[k] > 35 ? 'Moderate' : 'Stable'}</div>
+      <div class="sublabel">${r.dosePct[k] > 60 ? 'Worth exploring' : r.dosePct[k] > 35 ? 'Some strain' : 'Steady'}</div>
+      <div class="sublabel" style="opacity:.75">${doseChem[k]}</div>
     </div>`;
   });
   html += `</div>`;
@@ -1126,7 +1129,7 @@ function renderResults(r) {
   // Composite
   html += `<div style="background:var(--surface);border:1px solid var(--border-light);border-radius:8px;padding:20px;margin-bottom:24px;text-align:center;">
     <div style="font-family:'DM Sans',system-ui,sans-serif;font-size:36px;font-weight:700;color:var(--accent);">${r.composite}%</div>
-    <div style="font-size:13px;font-weight:600;color:var(--ink-secondary);margin-top:4px;">Composite D.O.S.E. Deficit</div>
+    <div style="font-size:13px;font-weight:600;color:var(--ink-secondary);margin-top:4px;">Overall strain across the four areas</div>
     <div style="font-size:12px;color:var(--ink-tertiary);">${r.severity}</div>
   </div>`;
 
@@ -1167,9 +1170,9 @@ function renderResults(r) {
 
   // PAWS & HALT summary
   if (r.pawsHits.length > 0 || r.haltCount > 0) {
-    html += `<div class="callout"><strong>Clinical Flags:</strong> `;
-    if (r.pawsHits.length) html += `${r.pawsHits.length} PAWS hurdle(s) active (${r.pawsHits.join(', ')}). `;
-    if (r.haltCount) html += `${r.haltCount} HALT vulnerability state(s) flagged.`;
+    html += `<div class="callout"><strong>Worth noticing:</strong> `;
+    if (r.pawsHits.length) html += `${r.pawsHits.length} common early-recovery hurdle(s) showed up in your answers. These are a normal part of healing and usually ease with time. `;
+    if (r.haltCount) html += `${r.haltCount} everyday pressure point(s) showed up too (being hungry, angry, lonely or tired).`;
     html += `</div>`;
   }
 
@@ -1178,7 +1181,7 @@ function renderResults(r) {
   html += `<div style="background:${pcm.bg};border-left:4px solid ${pcm.col};border-radius:0 8px 8px 0;padding:16px 20px;margin-top:20px;">
     <strong style="color:${pcm.col};">Primary Colour: ${r.primaryColour} — ${pcm.label}</strong>
     ${r.secondaryColour ? `<br><span style="font-size:13px;color:var(--ink-secondary);">Secondary: ${r.secondaryColour} — ${colourMap[r.secondaryColour].label}</span>` : ''}
-    <br><span style="font-size:12px;color:var(--ink-tertiary);">Routing recommendation: Organizations coded ${r.primaryColour}${r.secondaryColour ? ' + ' + r.secondaryColour : ''}</span>
+    <br><span style="font-size:12px;color:var(--ink-tertiary);">Services to look at first: those marked ${r.primaryColour}${r.secondaryColour ? ' + ' + r.secondaryColour : ''}</span>
   </div>`;
 
   document.getElementById('results-content').innerHTML = html;
