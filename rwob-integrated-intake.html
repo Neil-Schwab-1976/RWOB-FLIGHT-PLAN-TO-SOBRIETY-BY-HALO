@@ -758,7 +758,8 @@ body { background: var(--ground); color: var(--ink); font-family: 'Inter', syste
   <!-- ============ RESULTS ============ -->
   <div class="view" id="view-results">
     <div class="panel">
-      <h2>Your colour profile</h2>
+      <div class="demo-tag">PALETTE GENERATION</div>
+      <h2 style="margin-top:8px;">Your colour profile</h2>
       <div class="colour-profile" id="resultColourProfile"></div>
       <div id="resultScores"></div>
       <div class="rule-box">This is ranked by a worker-reviewed matching formula — it surfaces options, it doesn't decide for you. A worker goes through this with you before anything is final.</div>
@@ -768,14 +769,21 @@ body { background: var(--ground); color: var(--ink); font-family: 'Inter', syste
       <div id="raftSummaryBody" style="font-size:13.5px;color:var(--ink-secondary);line-height:1.7;"></div>
     </div>
     <div class="panel match-section">
-      <h3>Suggested organizations</h3>
+      <div class="demo-tag">MILDRED MATCHING — ONTARIO SERVICE DIRECTORY</div>
+      <h3 style="margin-top:8px;">Suggested organizations</h3>
       <div id="orgMatches"></div>
     </div>
     <div class="panel match-section">
-      <div class="demo-tag">PRACTICUM DEMO MODE</div>
-      <h3 style="margin-top:8px;">Clinician match &amp; warm-handoff notifications</h3>
-      <p class="lede">This part is the demonstration piece: it shows what would happen if this prototype matched you to a named clinician and generated the notifications for a warm handoff — one to you, one to RWOB staff, one to the clinician — so RWOB can call you before any introduction is made.</p>
-      <div class="btn-row"><button class="btn btn-primary" onclick="renderEmailPreviews()">Generate notifications (demo)</button></div>
+      <div class="demo-tag">MILDRED MATCHING — CLINICIAN LAYER (PRACTICUM DEMO)</div>
+      <h3 style="margin-top:8px;">Clinician match</h3>
+      <p class="lede">Fictional demo clinicians only, matched by the same colour logic as the organizations above — shown to demonstrate how a real clinician directory would plug into Mildred's matching.</p>
+      <div id="clinicianChoices"></div>
+    </div>
+    <div class="panel match-section">
+      <div class="demo-tag">WORKER REVIEW → MEMBER CHOICE</div>
+      <h3 style="margin-top:8px;">Your choice, and what happens with it</h3>
+      <p class="lede">Nothing above is final until you say so. Check the organization(s) and/or clinician(s) you actually want to move forward with, then generate the notification preview — this is the "Worker Review → Member Choice" step in the integration framework, made concrete.</p>
+      <div class="btn-row"><button class="btn btn-primary" onclick="renderEmailPreviews()">Generate notifications for my selected choice(s) (demo)</button></div>
       <div id="emailPreviews" style="margin-top:14px;"></div>
     </div>
     <div class="btn-row"><button class="btn btn-secondary" onclick="goTo('start')">Start over</button></div>
@@ -945,42 +953,53 @@ function renderEmailPreviews(){
     wrap.innerHTML = '<div class="rule-box" style="border-color:var(--yellow);">The demo consent box on the first screen was not checked, so in a real deployment this step would not run. Go back and check it to see the preview anyway for this walkthrough.</div>';
     return;
   }
-  const clinicians = matchClinicians(m.hueColour);
+  const allClinicians = matchClinicians(m.hueColour);
+  const chosenOrgNames = [...document.querySelectorAll('.orgChoice:checked')].map(el=>el.value);
+  const clinicians = [...document.querySelectorAll('.clinChoice:checked')].map(el=>el.value)
+    .map(name => allClinicians.find(c=>c.n===name)).filter(Boolean);
   STATE.matchedClinicians = clinicians;
   const summary = plainTextSummary();
   const name = STATE.demoName || 'there';
   const selfEmail = STATE.demoEmail || '(no email entered)';
 
-  let html = '<div class="demo-box"><div class="demo-tag">SIMULATED — NOTHING ACTUALLY SENT</div><p class="fhint">These three emails show exactly what a real notification would contain once this feature has gone through a privacy and consent review and is wired to a real email account. Copy any of them to see the full text.</p></div>';
+  if (!chosenOrgNames.length && !clinicians.length){
+    wrap.innerHTML = '<div class="rule-box" style="border-color:var(--yellow);">Nothing is checked above yet — the Member Choice step means nothing gets generated until you actually pick an organization and/or clinician to move forward with.</div>';
+    return;
+  }
+
+  let html = '<div class="demo-box"><div class="demo-tag">SIMULATED — NOTHING ACTUALLY SENT</div><p class="fhint">These emails show exactly what a real notification would contain once this feature has gone through a privacy and consent review and is wired to a real email account. Copy any of them to see the full text.</p></div>';
+
+  const orgLine = chosenOrgNames.length ? chosenOrgNames.map(n=>'- '+n).join('\n') : '(none selected)';
+  const clinLine = clinicians.length ? clinicians.map(c=>'- '+c.n+' — '+c.modality).join('\n') : '(none selected)';
 
   // 1. To the client (self)
   html += emailCard(
     'You (the person who just finished the intake)',
     selfEmail,
-    'Your Recovery Without Borders intake — your matches',
-    `Hi ${name},\n\nThanks for going through the intake. Here is what you told us and who it matched you with, so you have a record of it.\n\n${summary}\n\nMatched clinician(s):\n${clinicians.length ? clinicians.map(c=>'- '+c.n+' — '+c.modality).join('\n') : 'No clinician matched yet — a worker will follow up directly.'}\n\nSomeone from Recovery Without Borders will reach out to help set up a first conversation. If anything above doesn't feel right, tell them — you're not locked into this.\n\n— Recovery Without Borders`
+    'Your Recovery Without Borders intake — your choices',
+    `Hi ${name},\n\nThanks for going through the intake. Here is what you told us and what you chose to move forward with, so you have a record of it.\n\n${summary}\n\nOrganization(s) you selected:\n${orgLine}\n\nClinician(s) you selected:\n${clinLine}\n\nSomeone from Recovery Without Borders will reach out to help set up a first conversation. If anything above doesn't feel right, tell them — you're not locked into this.\n\n— Recovery Without Borders`
   );
 
-  // 2. To Carby / RWOB staff
+  // 2. To Carby Sum, CEO / RWOB staff
   html += emailCard(
-    'Carby — RWOB staff (for warm handoff)',
+    'Carby Sum, CEO — Recovery Without Borders (for warm handoff)',
     'carby@recoverywithoutborders.org (placeholder — no address on file for Carby)',
     'New intake match — ' + (name !== 'there' ? name : 'demo client') + ' — ready for warm handoff',
-    `Hi Carby,\n\n${name} just completed the integrated intake. Full answers below so you can call them before connecting them to the matched clinician(s).\n\n${summary}\n\nMatched clinician(s):\n${clinicians.length ? clinicians.map(c=>'- '+c.n+' ('+c.email+') — '+c.modality).join('\n') : 'No clinician matched yet.'}\n\nContact: ${selfEmail}\n\nSuggested next step: call ${name} first, confirm they still want the referral, then make the introduction to the clinician(s) above.\n\n— Sent from the RWOB Integrated Intake prototype (demo)`
+    `Hi Carby,\n\n${name} just completed the integrated intake and selected the organization(s)/clinician(s) below. Full answers included so you (or a navigator) can call them before making any introduction.\n\n${summary}\n\nOrganization(s) selected:\n${orgLine}\n\nClinician(s) selected:\n${clinicians.length ? clinicians.map(c=>'- '+c.n+' ('+c.email+') — '+c.modality).join('\n') : '(none selected)'}\n\nContact: ${selfEmail}\n\nSuggested next step: call ${name} first, confirm they still want the referral, then make the introduction.\n\n— Sent from the RWOB Integrated Intake prototype (demo)`
   );
 
-  // 3. To each matched clinician
+  // 3. To each selected clinician only
   if (clinicians.length){
     clinicians.forEach(c=>{
       html += emailCard(
         c.n + ' (' + c.note + ')',
         c.email,
         'Warm handoff — new client match from Recovery Without Borders',
-        `Hi ${c.n.replace('(Demo) ','')},\n\nRecovery Without Borders has a client who matched to your profile (${c.modality}). RWOB staff will call the client first, then connect you directly — this is a heads-up, not a referral to act on yet.\n\nWhat the client told us:\n${summary}\n\nRWOB contact for this handoff: Carby (carby@recoverywithoutborders.org — placeholder)\n\n— Sent from the RWOB Integrated Intake prototype (demo)`
+        `Hi ${c.n.replace('(Demo) ','')},\n\nRecovery Without Borders has a client who selected you after matching to your profile (${c.modality}). RWOB staff will call the client first, then connect you directly — this is a heads-up, not a referral to act on yet.\n\nWhat the client told us:\n${summary}\n\nRWOB contact for this handoff: Carby Sum, CEO (carby@recoverywithoutborders.org — placeholder)\n\n— Sent from the RWOB Integrated Intake prototype (demo)`
       );
     });
-  } else {
-    html += '<div class="rule-box">No clinician colour-matched this profile — in a real deployment this would route to a worker for manual matching instead of an automatic clinician email.</div>';
+  } else if (chosenOrgNames.length) {
+    html += '<div class="rule-box">No clinician was selected — only the organization notification(s) above would go out.</div>';
   }
 
   wrap.innerHTML = html;
@@ -1426,6 +1445,7 @@ function renderResults(){
   document.getElementById('raftSummaryBody').innerHTML = summary;
 
   renderOrgMatches(m);
+  renderClinicianChoices(m);
 }
 
 function renderOrgMatches(m){
@@ -1455,13 +1475,47 @@ function renderOrgMatches(m){
   wrap.innerHTML = (near ? `<p class="lede">Boosted for ${near}, based on your postal code.</p>` : '') +
     top.map(({o})=>`
     <div class="match-card" style="border:1px solid var(--border-light);border-radius:8px;padding:14px 16px;margin-bottom:10px;background:var(--surface);">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;">
-        <strong style="font-family:'DM Sans',system-ui,sans-serif;">${o.n}</strong>
-        <span style="font-size:11px;color:var(--ink-tertiary);">${o.r}</span>
-      </div>
-      <div style="font-size:12.5px;color:var(--ink-secondary);margin-top:4px;">${o.note} · ${o.f} · ${o.d}</div>
-      <div style="margin-top:6px;">${o.colours.map(c=>`<span class="colour-tag" style="background:${colourBg(c)};color:${colourVar(c)};border:1px solid ${colourVar(c)};font-size:10.5px;padding:3px 9px;">${c}</span>`).join(' ')}</div>
-    </div>`).join('');
+      <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;">
+        <input type="checkbox" class="orgChoice" value="${escapeHtml(o.n)}" style="margin-top:4px;">
+        <span style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;">
+            <strong style="font-family:'DM Sans',system-ui,sans-serif;">${o.n}</strong>
+            <span style="font-size:11px;color:var(--ink-tertiary);">${o.r}</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--ink-secondary);margin-top:4px;">${o.note} · ${o.f} · ${o.d}</div>
+          <div style="margin-top:6px;">${o.colours.map(c=>`<span class="colour-tag" style="background:${colourBg(c)};color:${colourVar(c)};border:1px solid ${colourVar(c)};font-size:10.5px;padding:3px 9px;">${c}</span>`).join(' ')}</div>
+        </span>
+      </label>
+    </div>`).join('') +
+    '<p class="fhint">Check any you\'d want to move forward with — this feeds the Worker Review → Member Choice step below.</p>';
+}
+
+function renderClinicianChoices(m){
+  const wrap = document.getElementById('clinicianChoices');
+  if (!wrap) return;
+  if (!m.hueColour){
+    wrap.innerHTML = '<p class="lede">No Hue identified yet.</p>';
+    return;
+  }
+  const clinicians = matchClinicians(m.hueColour);
+  STATE.matchedClinicians = clinicians;
+  if (!clinicians.length){
+    wrap.innerHTML = '<p class="lede">No demo clinician coded to this colour — in a real deployment this would route to a worker for manual matching.</p>';
+    return;
+  }
+  wrap.innerHTML = clinicians.map(c=>`
+    <div class="match-card" style="border:1px solid var(--border-light);border-radius:8px;padding:14px 16px;margin-bottom:10px;background:var(--surface);">
+      <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;">
+        <input type="checkbox" class="clinChoice" value="${escapeHtml(c.n)}" style="margin-top:4px;">
+        <span style="flex:1;">
+          <strong style="font-family:'DM Sans',system-ui,sans-serif;">${c.n}</strong>
+          <div style="font-size:12.5px;color:var(--ink-secondary);margin-top:4px;">${c.modality}</div>
+          <div style="margin-top:6px;">${c.colours.map(col=>`<span class="colour-tag" style="background:${colourBg(col)};color:${colourVar(col)};border:1px solid ${colourVar(col)};font-size:10.5px;padding:3px 9px;">${col}</span>`).join(' ')}</div>
+          <div style="font-size:11px;color:var(--ink-tertiary);margin-top:4px;">${c.note}</div>
+        </span>
+      </label>
+    </div>`).join('') +
+    '<p class="fhint">Check any clinician(s) you\'d want introduced — only checked ones get a notification below.</p>';
 }
 
 </script>
