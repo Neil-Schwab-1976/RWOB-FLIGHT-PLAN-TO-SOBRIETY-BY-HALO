@@ -1,0 +1,1318 @@
+<title>RWOB Integrated Intake</title>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --ground: #FFFFFF;
+  --surface: #F5F2F7;
+  --surface-alt: #ECE7F0;
+  --ink: #25252A;
+  --ink-secondary: #4A4A50;
+  --ink-tertiary: #6A6A72;
+  --border: #C8C3B8;
+  --border-light: #E3DFD8;
+
+  --red: #B82828;
+  --red-bg: rgba(184,40,40,0.07);
+  --blue: #1A6F8F;
+  --blue-bg: rgba(26,111,143,0.07);
+  --yellow: #B8920A;
+  --yellow-bg: rgba(184,146,10,0.07);
+  --white-col: #7A756E;
+  --white-bg: rgba(122,117,110,0.06);
+  --black-col: #3A3A3E;
+  --black-bg: rgba(58,58,62,0.07);
+  --green: #2A7A3A;
+  --green-bg: rgba(42,122,58,0.07);
+  --gold: #9A7A10;
+
+  --accent: #752761;
+  --accent-light: rgba(117,39,97,0.10);
+  --accent-2: #3B7E7A;
+  --warm: #D6C3A8;
+
+  --dose-d: #7B5EA7;
+  --dose-o: #B85C6E;
+  --dose-s: #C4922A;
+  --dose-e: #3D8B7A;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0F1118;
+    --surface: #181B24;
+    --surface-alt: #1E2130;
+    --ink: #E2DFD8;
+    --ink-secondary: #9A968F;
+    --ink-tertiary: #6A665F;
+    --border: #2C2F3A;
+    --border-light: #232630;
+    --red: #D04040;
+    --red-bg: rgba(208,64,64,0.12);
+    --blue: #2A9AC0;
+    --blue-bg: rgba(42,154,192,0.12);
+    --yellow: #D4A820;
+    --yellow-bg: rgba(212,168,32,0.12);
+    --white-col: #B0ACA5;
+    --white-bg: rgba(176,172,165,0.08);
+    --black-col: #A0A0A8;
+    --black-bg: rgba(160,160,168,0.10);
+    --green: #3AAA50;
+    --green-bg: rgba(58,170,80,0.12);
+    --gold: #D4A820;
+    --accent: #C98BB9;
+  --accent-2: #6FB5B0;
+  --warm: #D6C3A8;
+    --accent-light: rgba(201,139,185,0.14);
+    --dose-d: #9B7EC7;
+    --dose-o: #D87C8E;
+    --dose-s: #E4B24A;
+    --dose-e: #5DAB9A;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0F1118;
+  --surface: #181B24;
+  --surface-alt: #1E2130;
+  --ink: #E2DFD8;
+  --ink-secondary: #9A968F;
+  --ink-tertiary: #6A665F;
+  --border: #2C2F3A;
+  --border-light: #232630;
+  --red: #D04040;
+  --red-bg: rgba(208,64,64,0.12);
+  --blue: #2A9AC0;
+  --blue-bg: rgba(42,154,192,0.12);
+  --yellow: #D4A820;
+  --yellow-bg: rgba(212,168,32,0.12);
+  --white-col: #B0ACA5;
+  --white-bg: rgba(176,172,165,0.08);
+  --black-col: #A0A0A8;
+  --black-bg: rgba(160,160,168,0.10);
+  --green: #3AAA50;
+  --green-bg: rgba(58,170,80,0.12);
+  --gold: #D4A820;
+  --accent: #C98BB9;
+  --accent-2: #6FB5B0;
+  --warm: #D6C3A8;
+  --accent-light: rgba(201,139,185,0.14);
+  --dose-d: #9B7EC7;
+  --dose-o: #D87C8E;
+  --dose-s: #E4B24A;
+  --dose-e: #5DAB9A;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--ground);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── LAYOUT ── */
+.app-shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 260px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 24px 0;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-logo {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 12px;
+}
+.sidebar-logo h1 {
+  font-family:'DM Sans',system-ui,sans-serif;font-weight:700;
+  font-size: 18px;
+  
+  color: var(--ink);
+  line-height: 1.2;
+}
+.sidebar-logo .sub {
+  font-size: 11px;
+  font-family:'DM Sans',system-ui,sans-serif;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.nav-group {
+  padding: 8px 12px;
+}
+.nav-group-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  padding: 4px 8px;
+  margin-bottom: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-secondary);
+  transition: all 0.15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.nav-item:hover { background: var(--surface-alt); color: var(--ink); }
+.nav-item.active { background: var(--accent-light); color: var(--accent); font-weight: 600; }
+.nav-item .icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+.nav-item .badge {
+  margin-left: auto;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-family:'DM Sans',system-ui,sans-serif;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-light);
+}
+.colour-band-mini {
+  display: flex; gap: 2px; border-radius: 3px; overflow: hidden; height: 4px;
+}
+.colour-band-mini div { flex: 1; }
+.sidebar-footer .meta {
+  font-size: 10px; color: var(--ink-tertiary); margin-top: 6px;
+  font-family:'DM Sans',system-ui,sans-serif;
+}
+
+.main-content {
+  flex: 1;
+  padding: 32px 40px 80px;
+  max-width: 960px;
+  overflow-y: auto;
+}
+
+/* ── VIEWS ── */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── PAGE HEADER ── */
+.page-header { margin-bottom: 32px; }
+.page-header .eyebrow {
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+}
+.page-header h2 {
+  font-family:'DM Sans',system-ui,sans-serif;font-weight:700;
+  font-size: clamp(22px,3vw,30px);
+   line-height: 1.2; text-wrap: balance;
+}
+.page-header .desc {
+  font-size: 14px; color: var(--ink-secondary); margin-top: 8px; max-width: 680px;
+}
+
+/* ── QUESTIONNAIRE ── */
+.q-progress {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 28px;
+  padding: 14px 18px; background: var(--surface); border: 1px solid var(--border-light);
+  border-radius: 8px;
+}
+.q-progress-bar { flex: 1; height: 6px; background: var(--surface-alt); border-radius: 3px; overflow: hidden; }
+.q-progress-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.3s; }
+.q-progress-text { font-size: 12px; font-family:'DM Sans',system-ui,sans-serif; color: var(--ink-tertiary); white-space: nowrap; }
+
+.q-section {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.q-section-header {
+  padding: 16px 20px;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid var(--border-light);
+  cursor: pointer;
+}
+.q-section-header .colour-pip {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.q-section-header h3 {
+  font-family:'DM Sans',system-ui,sans-serif;font-weight:700;
+  font-size: 16px;  flex: 1;
+}
+.q-section-header .section-meta {
+  font-size: 11px; color: var(--ink-tertiary);
+  font-family:'DM Sans',system-ui,sans-serif;
+}
+.q-section-header .chevron {
+  color: var(--ink-tertiary); transition: transform 0.2s; font-size: 14px;
+}
+.q-section.open .chevron { transform: rotate(90deg); }
+
+.q-section-body { padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+.q-section.open .q-section-body { max-height: 3000px; }
+
+.q-item {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+.q-item:last-child { border-bottom: none; }
+.q-item .q-label {
+  font-size: 13.5px; font-weight: 500; color: var(--ink); margin-bottom: 4px;
+}
+.q-item .q-sublabel {
+  font-size: 12px; color: var(--ink-tertiary); margin-bottom: 10px;
+}
+.q-scale {
+  display: flex; gap: 6px;
+}
+.q-scale label {
+  flex: 1; text-align: center; cursor: pointer;
+}
+.q-scale input { display: none; }
+.q-scale .chip {
+  display: block; padding: 7px 4px; border-radius: 5px; font-size: 11px;
+  font-weight: 500; background: var(--surface-alt); border: 1px solid var(--border-light);
+  color: var(--ink-secondary); transition: all 0.15s;
+}
+.q-scale input:checked + .chip {
+  background: var(--accent-light); border-color: var(--accent); color: var(--accent); font-weight: 600;
+}
+
+/* ── SAFETY GATE ── */
+.safety-banner {
+  background: var(--red-bg);
+  border: 1px solid var(--red);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: none;
+}
+.safety-banner.show { display: flex; gap: 12px; align-items: flex-start; }
+.safety-banner .icon { font-size: 20px; flex-shrink: 0; }
+.safety-banner h4 { color: var(--red); font-size: 14px; margin-bottom: 4px; }
+.safety-banner p { font-size: 13px; color: var(--ink-secondary); }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: 6px; border: none;
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+  font-family: inherit;
+}
+.btn-primary { background: #752761; color: #fff; font-family:'DM Sans',system-ui,sans-serif; font-weight:600; }
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-secondary { background: var(--surface-alt); color: var(--ink); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--border-light); }
+.btn-danger { background: var(--red); color: #fff; }
+.btn-row { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+
+/* ── RESULTS ── */
+.results-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+  gap: 12px; margin-bottom: 28px;
+}
+.result-card {
+  background: var(--surface); border: 1px solid var(--border-light);
+  border-radius: 8px; padding: 16px; text-align: center;
+  border-top: 4px solid;
+}
+.result-card .score {
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size: 28px; font-weight: 700; line-height: 1;
+}
+.result-card .label {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; margin-top: 6px; color: var(--ink-secondary);
+}
+.result-card .sublabel {
+  font-size: 11px; color: var(--ink-tertiary); margin-top: 2px;
+}
+
+/* ── COLOUR PROFILE ── */
+.colour-profile {
+  display: flex; gap: 8px; margin: 20px 0; flex-wrap: wrap;
+}
+.colour-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* ── ORG MATCHES ── */
+.match-section { margin-top: 32px; }
+.match-section h3 {
+  font-family:'DM Sans',system-ui,sans-serif;font-weight:700;
+  font-size: 20px; margin-bottom: 16px;
+}
+.match-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin-bottom: 10px;
+  border-left: 4px solid var(--accent);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: start;
+}
+.match-card h4 { font-size: 14px; font-weight: 600; }
+.match-card .match-meta {
+  font-size: 12px; color: var(--ink-secondary); margin-top: 4px; line-height: 1.5;
+}
+.match-card .match-colours {
+  display: flex; gap: 4px; margin-top: 6px;
+}
+.match-card .colour-dot {
+  width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--border);
+}
+.match-card .match-score {
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size: 20px; font-weight: 700; color: var(--accent);
+  text-align: right;
+}
+.match-card .match-score-label {
+  font-size: 10px; color: var(--ink-tertiary); text-align: right;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+/* ── DOSE BAR ── */
+.dose-bar-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.dose-bar-label {
+  width: 90px; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.04em; text-align: right;
+}
+.dose-bar-track {
+  flex: 1; height: 10px; background: var(--surface-alt);
+  border-radius: 5px; overflow: hidden;
+}
+.dose-bar-fill { height: 100%; border-radius: 5px; transition: width 0.5s; }
+.dose-bar-val {
+  width: 40px; font-family:'DM Sans',system-ui,sans-serif;
+  font-size: 12px; font-weight: 600; text-align: right;
+}
+
+/* ── DIRECTORY ── */
+.dir-filters {
+  display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
+}
+.filter-chip {
+  padding: 6px 14px; border-radius: 20px; font-size: 12px;
+  font-weight: 500; cursor: pointer; border: 1px solid var(--border);
+  background: var(--surface); color: var(--ink-secondary); transition: all 0.15s;
+}
+.filter-chip.active { border-color: var(--accent); background: var(--accent-light); color: var(--accent); font-weight: 600; }
+
+.dir-table-wrap {
+  overflow-x: auto; border: 1px solid var(--border-light); border-radius: 8px;
+}
+table.dir-table {
+  width: 100%; border-collapse: collapse; font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.dir-table thead { background: var(--surface-alt); }
+.dir-table th {
+  font-weight: 600; font-size: 11px; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--ink-tertiary);
+  text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.dir-table td {
+  padding: 10px 14px; border-bottom: 1px solid var(--border-light);
+  color: var(--ink-secondary); vertical-align: top; line-height: 1.5;
+}
+.dir-table tr:last-child td { border-bottom: none; }
+.dir-table tr:hover { background: var(--surface-alt); }
+.dir-table td strong { color: var(--ink); }
+
+/* ── STRESSOR MAP ── */
+.stressor-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+  gap: 12px; margin: 20px 0;
+}
+.stressor-card {
+  background: var(--surface); border: 1px solid var(--border-light);
+  border-radius: 8px; padding: 16px 18px; border-left: 4px solid;
+}
+.stressor-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.stressor-card p { font-size: 12px; color: var(--ink-secondary); line-height: 1.5; }
+.stressor-card .dose-tag {
+  display: inline-block; padding: 2px 8px; border-radius: 3px;
+  font-size: 10px; font-weight: 600; margin-top: 6px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+/* ── CALLOUT ── */
+.callout {
+  background: var(--accent-light); border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0; padding: 14px 18px; margin: 20px 0;
+  font-size: 14px; color: var(--ink); line-height: 1.6;
+}
+.callout strong { font-weight: 600; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 800px) {
+  .sidebar { display: none; }
+  .main-content { padding: 20px 16px 60px; }
+  .mobile-nav {
+    display: flex !important; position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--surface); border-top: 1px solid var(--border);
+    padding: 8px 4px; z-index: 100; gap: 2px; overflow-x: auto;
+  }
+  .mobile-nav button {
+    flex: 0 0 auto; padding: 6px 12px; font-size: 18px;
+    background: none; border: none; border-radius: 6px; cursor: pointer;
+  }
+  .mobile-nav button.active { background: var(--accent-light); }
+}
+.mobile-nav { display: none; }
+
+/* ── PRINT ── */
+@media print {
+  .sidebar, .mobile-nav { display: none !important; }
+  .main-content { max-width: 100%; padding: 20px; }
+  .q-section-body { max-height: none !important; }
+}
+
+
+/* ── Integrated Architecture additions ── */
+.container { max-width: 760px; margin: 0 auto; padding: 24px 20px 80px; }
+.app-header { text-align:center; margin-bottom: 28px; }
+.app-header .eyebrow { font-family:'DM Sans',system-ui,sans-serif; font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+.app-header h1 { font-family:'DM Sans',system-ui,sans-serif; font-weight:700; font-size: clamp(22px,4vw,30px); margin-top:6px; }
+.app-header .sub { font-size:13px; color:var(--ink-secondary); margin-top:8px; max-width:560px; margin-left:auto; margin-right:auto; }
+.disclosure { background:var(--surface); border:1px solid var(--border-light); border-radius:8px; padding:12px 16px; font-size:12px; color:var(--ink-tertiary); margin: 18px 0 28px; }
+.disclosure strong { color: var(--ink-secondary); }
+
+.step-dots { display:flex; gap:6px; justify-content:center; margin-bottom: 22px; }
+.step-dot { width:7px; height:7px; border-radius:50%; background:var(--border); }
+.step-dot.done { background: var(--accent); }
+.step-dot.now { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+
+.panel { background: var(--ground); border:1px solid var(--border-light); border-radius: 12px; padding: 24px; margin-bottom: 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+.panel h2 { font-family:'DM Sans',system-ui,sans-serif; font-weight:700; font-size: 19px; margin-bottom: 6px; }
+.panel .lede { font-size: 13px; color: var(--ink-secondary); margin-bottom: 18px; line-height:1.5; }
+
+.field { margin-bottom: 18px; }
+.field label.flabel { display:block; font-size:13.5px; font-weight:600; margin-bottom:6px; }
+.field .fhint { font-size:12px; color:var(--ink-tertiary); margin-bottom:8px; }
+.field input[type=text], .field textarea, .field select {
+  width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:7px;
+  font-size:14px; font-family:inherit; background:var(--ground); color:var(--ink);
+}
+.field textarea { min-height: 70px; resize:vertical; }
+
+.yn-row { display:flex; gap:10px; }
+.yn-row label { flex:1; }
+.yn-row input { display:none; }
+.yn-row .chip { display:block; text-align:center; padding:10px; border-radius:7px; border:1px solid var(--border);
+  background:var(--surface-alt); font-size:13px; font-weight:600; color:var(--ink-secondary); cursor:pointer; }
+.yn-row input:checked + .chip { background: var(--accent-light); border-color:var(--accent); color:var(--accent); }
+.yn-row.danger input:checked + .chip { background: var(--red-bg); border-color:var(--red); color:var(--red); }
+
+.chk-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap:8px; }
+.chk-grid label { display:flex; align-items:center; gap:8px; padding:9px 10px; border:1px solid var(--border-light);
+  border-radius:7px; font-size:13px; cursor:pointer; background:var(--surface); }
+.chk-grid input:checked ~ span, .chk-grid label:has(input:checked) { border-color:var(--accent); background:var(--accent-light); }
+
+.crisis-screen { background: var(--red-bg); border:2px solid var(--red); border-radius:12px; padding:28px 24px; text-align:center; }
+.crisis-screen h2 { color:var(--red); font-family:'DM Sans',system-ui,sans-serif; font-size:21px; margin-bottom:10px; }
+.crisis-screen p { font-size:14px; color:var(--ink); margin-bottom:14px; line-height:1.6; }
+.crisis-box { background:var(--ground); border:1px solid var(--red); border-radius:8px; padding:14px 16px; margin:14px 0; text-align:left; }
+.crisis-box .line { font-size:14px; margin-bottom:6px; }
+.crisis-box .line strong { color:var(--red); }
+
+.pending-tag { display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+  background: var(--yellow-bg); color:#7a5f08; border:1px solid var(--yellow); border-radius:4px; padding:2px 8px; margin-left:6px; }
+.optional-tag { display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+  background: var(--surface-alt); color:var(--ink-tertiary); border:1px solid var(--border); border-radius:4px; padding:2px 8px; margin-left:6px; }
+
+.hue-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-top:10px; }
+.hue-card { border:2px solid var(--border-light); border-radius:10px; padding:14px; cursor:pointer; background:var(--surface); }
+.hue-card.sel { border-color: var(--accent); background: var(--accent-light); }
+.hue-card .nm { font-family:'DM Sans',system-ui,sans-serif; font-weight:700; font-size:14px; }
+.hue-card .ds { font-size:11.5px; color:var(--ink-tertiary); margin-top:3px; }
+.hue-card .vb { font-size:10px; margin-top:6px; font-weight:600; }
+
+.scorebar-wrap { margin:4px 0 2px; }
+.scorebar { height:8px; border-radius:4px; background:var(--surface-alt); overflow:hidden; }
+.scorebar > div { height:100%; }
+.score-row { display:flex; justify-content:space-between; font-size:11.5px; color:var(--ink-tertiary); margin-bottom:3px; }
+
+.rule-box { background:var(--surface); border-left:3px solid var(--accent); border-radius:0 8px 8px 0; padding:12px 16px; font-size:12.5px; color:var(--ink-secondary); margin:14px 0; }
+
+body { background: var(--ground); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; }
+</style>
+
+<div class="container">
+  <div class="app-header">
+    <div class="eyebrow">Recovery Without Borders · Prototype</div>
+    <h1>Integrated Intake &amp; Navigation</h1>
+    <p class="sub">Safety Gate → RAFT → Screening → Colour Palette → Pathway suggestions. Built by Neil J. Schwab as an independent practicum submission — not an official Recovery Without Borders system, not yet clinically reviewed.</p>
+  </div>
+
+  <div class="step-dots" id="stepDots"></div>
+
+  <!-- ============ START ============ -->
+  <div class="view active" id="view-start">
+    <div class="panel">
+      <h2>Before we begin</h2>
+      <p class="lede">A postal code helps point any organization suggestions toward services near you. It stays on this screen for this visit only — it is never saved, sent anywhere, or shown to anyone at Recovery Without Borders. You can skip it.</p>
+      <div class="field">
+        <label class="flabel">Postal code (optional)</label>
+        <input type="text" id="startPostal" maxlength="7" placeholder="e.g. M5V or M5V 2T6">
+        <div class="fhint" id="startPostalNote"></div>
+      </div>
+      <div class="disclosure"><strong>What this is:</strong> a prototype navigation layer built on top of RWOB's existing intake script. It detects, flags, and routes — it does not diagnose or treat. Everything below is either a validated public screening instrument used as intended, or is clearly marked as not yet built / pending review.</div>
+      <div class="btn-row"><button class="btn btn-primary" onclick="goTo('safety')">Begin</button></div>
+    </div>
+  </div>
+
+  <!-- ============ SAFETY GATE ============ -->
+  <div class="view" id="view-safety">
+    <div class="panel">
+      <h2>Safety check</h2>
+      <p class="lede">These questions come first, before anything else. Answer honestly — a "yes" here connects you to immediate help, not a judgment.</p>
+      <div id="safetyItems"></div>
+      <div class="btn-row"><button class="btn btn-secondary" onclick="goTo('start')">Back</button><button class="btn btn-primary" onclick="submitSafety()">Continue</button></div>
+    </div>
+  </div>
+
+  <!-- ============ CRISIS INTERRUPT ============ -->
+  <div class="view" id="view-crisis">
+    <div class="crisis-screen">
+      <h2>Let's get you connected right now</h2>
+      <p>What you shared matters, and it means the next step is a conversation with a person, not more questions. You don't have to say anything you're not ready to.</p>
+      <div class="crisis-box">
+        <div class="line"><strong>Canada —</strong> Call or text 988 (Suicide Crisis Helpline), or text CONNECT to 686868</div>
+        <div class="line"><strong>United States —</strong> Call or text 988, or text HOME to 741741</div>
+        <div class="line"><strong>International —</strong> findahelpline.com</div>
+        <div class="line"><strong>Emergency —</strong> 911, or go to your nearest emergency department</div>
+      </div>
+      <p id="edResourceLine" style="display:none;"><strong>Eating disorder support:</strong> National Alliance for Eating Disorders Helpline — 1-866-662-1235 (Mon–Fri, 9am–7pm ET)</p>
+      <p style="font-size:12px;">A worker will follow up with you within 48 hours. You can close this page at any time — nothing you entered after this point is required to be saved.</p>
+    </div>
+  </div>
+
+  <!-- ============ RAFT ============ -->
+  <div class="view" id="view-raft">
+    <div class="panel">
+      <h2>RAFT — a quick practical snapshot</h2>
+      <p class="lede">Four quick questions about right now, before anything else.</p>
+
+      <div class="field">
+        <label class="flabel">R — Do you have a roof tonight?</label>
+        <div class="yn-row">
+          <label><input type="radio" name="raftRoof" value="yes"><span class="chip">Yes</span></label>
+          <label><input type="radio" name="raftRoof" value="no"><span class="chip">No</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="flabel">A — Any urgent medical or withdrawal concern right now?</label>
+        <div class="fhint">Choose whichever is closest — this only opens follow-up questions, it isn't a diagnosis.</div>
+        <select id="raftAddiction">
+          <option value="none">None</option>
+          <option value="opioids">Opioids</option>
+          <option value="alcohol">Alcohol</option>
+          <option value="stimulants">Stimulants</option>
+          <option value="poly">More than one substance</option>
+          <option value="unsure">Not sure</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="flabel">F — Fundamentals needed right now</label>
+        <div class="fhint">Select anything that applies.</div>
+        <div class="chk-grid">
+          <label><input type="checkbox" value="food" class="raftF"> Food</label>
+          <label><input type="checkbox" value="water" class="raftF"> Water</label>
+          <label><input type="checkbox" value="meds" class="raftF"> Medication</label>
+          <label><input type="checkbox" value="shower" class="raftF"> Shower</label>
+          <label><input type="checkbox" value="warmth" class="raftF"> Warmth</label>
+          <label><input type="checkbox" value="transport" class="raftF"> Transport</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="flabel">T — In your own words, what do you need most right now?</label>
+        <textarea id="raftTarget" placeholder="Whatever comes to mind..."></textarea>
+      </div>
+
+      <div class="field">
+        <label class="flabel">Does any of this apply to you right now? <span class="optional-tag">Optional, helps route follow-up questions</span></label>
+        <div class="chk-grid">
+          <label><input type="checkbox" value="eating" class="raftFlag"> Eating has felt out of control, or I've been avoiding food</label>
+          <label><input type="checkbox" value="gambling" class="raftFlag"> Gambling or a similar compulsive behaviour</label>
+          <label><input type="checkbox" value="mood" class="raftFlag"> Low mood, anxiety, or a past difficult/frightening experience</label>
+          <label><input type="checkbox" value="sexual" class="raftFlag"> A compulsive sexual or pornography-use pattern</label>
+        </div>
+      </div>
+
+      <div class="btn-row"><button class="btn btn-secondary" onclick="goTo('safety')">Back</button><button class="btn btn-primary" onclick="submitRAFT()">Continue</button></div>
+    </div>
+  </div>
+
+  <!-- ============ SCREENING ============ -->
+  <div class="view" id="view-screening">
+    <div class="panel">
+      <h2>A few more targeted questions</h2>
+      <p class="lede" id="screeningLede">Based on what you shared, a few short validated screens open below. None of these diagnose — they help a worker understand what to prioritize.</p>
+      <div id="screeningBody"></div>
+      <div class="btn-row"><button class="btn btn-secondary" onclick="goTo('raft')">Back</button><button class="btn btn-primary" onclick="submitScreening()">Continue</button></div>
+    </div>
+  </div>
+
+  <!-- ============ PALETTE ============ -->
+  <div class="view" id="view-palette">
+    <div class="panel">
+      <h2>Step 1 — Where do you want to go and be?</h2>
+      <p class="lede">Before anything else is suggested to you, this is your call. There's no wrong answer.</p>
+      <div class="field">
+        <textarea id="hcsText" placeholder="In your own words — what would things look like if they were better?"></textarea>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Step 2 — Hue</h2>
+      <p class="lede">Five quick either/or questions build a WHITE/BLUE read — the only two colours this prototype can currently score from validated content. GREEN, BLACK and GOLD are offered below as a self-pick instead, using RWOB's own colour-meaning descriptions, because the quiz content for those three hasn't been built or verified yet — picking one is a statement about how you see yourself, not a computed score.</p>
+      <div id="hueQuiz"></div>
+      <div class="field" style="margin-top:18px;">
+        <label class="flabel">If one of these feels truer to how you'd describe yourself right now, pick it instead <span class="optional-tag">Self-identified, not scored</span></label>
+        <div class="hue-grid" id="hueSelfGrid"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Step 3 — Shade <span class="optional-tag">Entirely optional</span></h2>
+      <p class="lede">This is a brief, well-known set of questions about things that can happen in childhood. It is optional, it is not shown to anyone but used only as a number, and you can skip it entirely with no effect on anything else here.</p>
+      <div id="shadeBlock">
+        <div class="btn-row" style="margin-top:0;">
+          <button class="btn btn-secondary" onclick="skipShade()">Skip this</button>
+          <button class="btn btn-primary" onclick="openShade()">I'll answer it</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="tintPanel">
+      <h2>Step 3b — Tint <span class="pending-tag">Not yet built</span></h2>
+      <p class="lede">This is meant to read strengths and what you bring to others — nobody has written the actual questions yet, so it isn't here. It won't affect your results below; the match formula runs without it.</p>
+    </div>
+
+    <div class="btn-row"><button class="btn btn-secondary" onclick="goTo('screening')">Back</button><button class="btn btn-primary" onclick="submitPalette()">See my results</button></div>
+  </div>
+
+  <!-- ============ RESULTS ============ -->
+  <div class="view" id="view-results">
+    <div class="panel">
+      <h2>Your colour profile</h2>
+      <div class="colour-profile" id="resultColourProfile"></div>
+      <div id="resultScores"></div>
+      <div class="rule-box">This is ranked by a worker-reviewed matching formula — it surfaces options, it doesn't decide for you. A worker goes through this with you before anything is final.</div>
+    </div>
+    <div class="panel" id="raftSummaryPanel">
+      <h2>What you told us</h2>
+      <div id="raftSummaryBody" style="font-size:13.5px;color:var(--ink-secondary);line-height:1.7;"></div>
+    </div>
+    <div class="panel match-section">
+      <h3>Suggested organizations</h3>
+      <div id="orgMatches"></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-secondary" onclick="goTo('start')">Start over</button></div>
+  </div>
+
+</div>
+
+
+<script>
+const ORGS = [
+  // DOC 1: SUBSTANCE USE — Northern Ontario
+  {n:'Benbowopka Treatment Centre',r:'Northern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'4–6 weeks residential',note:'First Nations, Inuit, Métis focused'},
+  {n:'Camillus Centre — St. Joseph\'s',r:'Northern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'3–7 days detox + residential',note:'On-site medical monitoring'},
+  {n:'Maison Renaissance',r:'Northern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'28 days residential',note:'Francophone inpatient'},
+  {n:'Monarch Recovery (Sudbury)',r:'Northern Ontario',c:'substance',colours:['BLUE','WHITE','BLACK'],f:'OHIP',d:'28–90 days residential',note:'Gender-specific programs'},
+  {n:'De-da-da-na-da-sani Treatment',r:'Northern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'Indigenous Services',d:'6 weeks residential',note:'First Nations land-based healing'},
+  {n:'Living Space (Timmins)',r:'Northern Ontario',c:'housing',colours:['WHITE','BLACK'],f:'Government',d:'Emergency + transitional',note:'Emergency shelter & supportive housing'},
+
+  // DOC 1: SUBSTANCE USE — GTA & Central
+  {n:'ASCO — Addiction Services Central Ontario',r:'Central Ontario & GTA',c:'substance',colours:['RED','BLUE','YELLOW','BLACK'],f:'OHIP',d:'3–7 days detox / RAAM',note:'Highest acuity medical asset, walk-in RAAM'},
+  {n:'EHN Bellwood Toronto',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','YELLOW','BLACK'],f:'Private',d:'5–7 days detox + 35 days residential',note:'Rapid private placement backup'},
+  {n:'Renascent (Graham Munro / Paul J. Sullivan)',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'OHIP / Ministry',d:'28 days residential',note:'12-Step recovery model'},
+  {n:'CAMH — Centre for Addiction & Mental Health',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','YELLOW','WHITE','BLACK'],f:'OHIP',d:'Variable',note:'Provincial hub, research, concurrent disorders'},
+  {n:'CAMH Rainbow Services',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','WHITE'],f:'OHIP',d:'Outpatient',note:'2SLGBTQ2S+-affirming care'},
+  {n:'Rainbow Health Ontario',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','WHITE'],f:'Government',d:'Navigation',note:'2SLGBTQ2S+ health navigation'},
+  {n:'Sherbourne Health',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','WHITE'],f:'OHIP',d:'Outpatient',note:'Marginalized communities, harm reduction'},
+  {n:'Canadian Centre for Addictions',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','YELLOW','BLACK'],f:'Private',d:'30–90 days residential',note:'Private evidence-based treatment'},
+  {n:'Ontario Shores',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'Inpatient psychiatric + residential',note:'Complex mental health & addiction'},
+  {n:'NEDIC — National Eating Disorder Info Centre',r:'Central Ontario & GTA',c:'behavioural',colours:['YELLOW','WHITE'],f:'Free',d:'Helpline/navigation',note:'Eating disorder information & referral'},
+  {n:'OFIFC — Ontario Federation of Indigenous Friendship Centres',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','WHITE'],f:'Indigenous Services',d:'Navigation',note:'Indigenous friendship & cultural programs'},
+  {n:'Pine River Institute',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'Private / Subsidized',d:'12+ months residential',note:'Youth 13–19, outdoor-based therapeutic'},
+  {n:'Kinark Child and Family Services',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','WHITE'],f:'Government',d:'Variable',note:'Children and youth mental health'},
+  {n:'Trafalgar Addiction Treatment',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'Private',d:'35–45 days residential',note:'BLUE+BLACK blend, concurrent mental health'},
+  {n:'ConnexOntario',r:'Province-wide',c:'crisis',colours:['WHITE'],f:'Government',d:'24/7 helpline',note:'System navigation, waitlist, referral'},
+  {n:'Health811',r:'Province-wide',c:'crisis',colours:['WHITE'],f:'OHIP',d:'24/7 telephone',note:'Nurse-led health information'},
+  {n:'CFHH — Canadian Foundation for Healthcare Improvement',r:'Province-wide',c:'crisis',colours:['WHITE'],f:'Government',d:'Navigation',note:'Quality improvement & system design'},
+
+  // DOC 1: SUBSTANCE USE — Eastern Ontario
+  {n:'Ottawa Booth Centre (Salvation Army)',r:'Eastern Ontario',c:'substance',colours:['RED','BLUE','WHITE','BLACK'],f:'Municipal / OHIP',d:'30 days emergency + residential',note:'Low-barrier emergency + Anchorage program'},
+  {n:'Serenity House (Ottawa)',r:'Eastern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'12 weeks intensive residential',note:'High-success step-down for men'},
+  {n:'Cornerstone Housing for Women',r:'Eastern Ontario',c:'housing',colours:['WHITE','BLACK'],f:'Government',d:'Emergency + transitional',note:'Women\'s shelter & transitional housing'},
+  {n:'Maplewoods Treatment',r:'Eastern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'28 days residential',note:'Bilingual residential treatment'},
+
+  // DOC 1: SUBSTANCE USE — Western Ontario & Niagara
+  {n:'Homewood Health Centre (Addiction Medicine)',r:'West-Central Ontario',c:'substance',colours:['BLUE','YELLOW','BLACK'],f:'OHIP / Private',d:'4–8 weeks inpatient',note:'Comprehensive medical, dual-track funding'},
+  {n:'Teen Challenge Canada (Ontario Men\'s)',r:'West-Central Ontario',c:'substance',colours:['BLACK'],f:'Private / Low-cost',d:'12 months residential',note:'Long-term faith-based men\'s recovery'},
+  {n:'New Port Centre (Niagara Health)',r:'West-Central Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'21 days primary rehab',note:'Hospital-operated 35-bed facility'},
+  {n:'Twelve Mile Recovery',r:'West-Central Ontario',c:'substance',colours:['BLUE','YELLOW','BLACK'],f:'Private',d:'4–6 weeks residential',note:'Small private, high personalization'},
+  {n:'Indwell Community Homes',r:'West-Central Ontario',c:'housing',colours:['WHITE','BLACK'],f:'Government',d:'Permanent supportive',note:'Affordable housing with mental health support'},
+  {n:'Southridge Shelter (Hamilton)',r:'West-Central Ontario',c:'housing',colours:['WHITE','BLACK'],f:'Municipal',d:'Emergency',note:'Emergency shelter services'},
+
+  // DOC 1: Southwestern
+  {n:'Westover Treatment Centre',r:'Southwestern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'Private / Insurance',d:'28–42 days residential',note:'Private residential near Thamesville'},
+  {n:'Brentwood Recovery Home',r:'Southwestern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'Low-cost',d:'90 days minimum residential',note:'Long-term men\'s recovery'},
+  {n:'Salvation Army ARC (London)',r:'Southwestern Ontario',c:'substance',colours:['WHITE','BLACK'],f:'Free',d:'6 months residential',note:'Work-therapy residential model'},
+  {n:'Mission Services (London)',r:'Southwestern Ontario',c:'housing',colours:['WHITE','BLACK'],f:'Community',d:'Emergency + transitional',note:'Shelter and addiction recovery'},
+  {n:'St. Leonard\'s Community Services',r:'Southwestern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'Government',d:'Residential + community',note:'Reintegration and recovery support'},
+
+  // DOC 2: BEHAVIORAL / EATING DISORDERS
+  {n:'S.L.A.A. Ontario Intergroup',r:'Province-wide',c:'behavioural',colours:['BLUE','YELLOW'],f:'Free (Peer)',d:'Ongoing meetings',note:'Sex and love addiction peer support'},
+  {n:'CAMH — Problem Gambling Services',r:'Central Ontario & GTA',c:'behavioural',colours:['BLUE','YELLOW','WHITE'],f:'OHIP',d:'8–16 weeks outpatient',note:'Province-wide gambling clinical program'},
+  {n:'Sheena\'s Place',r:'Central Ontario & GTA',c:'behavioural',colours:['YELLOW','WHITE'],f:'Free',d:'8–10 week seasonal groups',note:'Low-barrier eating disorder community support'},
+  {n:'Homewood — Eating Disorders Program',r:'West-Central Ontario',c:'behavioural',colours:['BLUE','YELLOW','BLACK'],f:'OHIP / Private',d:'8–16 weeks inpatient',note:'Specialized residential eating disorders'},
+  {n:'Toronto General Hospital — Eating Disorder',r:'Central Ontario & GTA',c:'behavioural',colours:['BLUE','YELLOW','BLACK'],f:'OHIP',d:'4–12 weeks inpatient + day',note:'Hospital-based eating disorder specialty'},
+  {n:'Toronto Art Therapy Institute',r:'Central Ontario & GTA',c:'behavioural',colours:['BLUE','WHITE'],f:'Sliding scale',d:'Variable',note:'Expressive/art-based therapy'},
+  {n:'Behaviour Matters',r:'Central Ontario & GTA',c:'behavioural',colours:['BLUE','WHITE'],f:'Private / Insurance',d:'Variable',note:'Children & adolescent behavioural therapy'},
+
+  // DOC 3: HOUSING / SHELTERS
+  {n:'Blue Door Shelters (York Region)',r:'Central Ontario & GTA',c:'housing',colours:['WHITE','BLACK'],f:'Municipal',d:'Emergency + transitional',note:'Family and individual emergency shelter'},
+  {n:'Alpha House (Toronto)',r:'Central Ontario & GTA',c:'housing',colours:['WHITE','BLACK'],f:'Municipal',d:'Emergency',note:'Women\'s emergency shelter'},
+  {n:'360°kids',r:'Central Ontario & GTA',c:'housing',colours:['WHITE','BLUE'],f:'Government',d:'Emergency + supportive',note:'Youth 16–26, 2SLGBTQ+ youth'},
+  {n:'Monarch Recovery (Barrie)',r:'Central Ontario & GTA',c:'housing',colours:['WHITE','BLUE','BLACK'],f:'Government',d:'Supportive transitional',note:'Post-treatment transitional housing'},
+
+  // DOC 4: CRISIS / NAVIGATION
+  {n:'Distress Centre (Toronto)',r:'Central Ontario & GTA',c:'crisis',colours:['RED','WHITE'],f:'Free',d:'24/7',note:'Crisis counselling & distress line'},
+  {n:'Krasman Centre',r:'Central Ontario & GTA',c:'crisis',colours:['WHITE','BLUE'],f:'Peer',d:'Drop-in + warm line',note:'Peer support & crisis alternative'},
+  {n:'YSSN 310-COPE',r:'Central Ontario & GTA',c:'crisis',colours:['WHITE'],f:'Free',d:'24/7 helpline',note:'Youth mental health crisis line'},
+  {n:'Sandgate Women\'s Shelter',r:'Central Ontario & GTA',c:'crisis',colours:['RED','WHITE'],f:'Government',d:'24/7 crisis',note:'Domestic violence crisis shelter'},
+  {n:'Victim Services Toronto',r:'Central Ontario & GTA',c:'crisis',colours:['RED','WHITE'],f:'Government',d:'Immediate response',note:'Crime victim crisis support'},
+  {n:'Good2Talk (Post-Secondary)',r:'Province-wide',c:'crisis',colours:['WHITE','BLUE'],f:'Free',d:'24/7',note:'Student mental health & crisis helpline'},
+  {n:'9-8-8 Suicide Crisis Helpline (call or text 988)',r:'Province-wide',c:'crisis',colours:['RED'],f:'Free',d:'24/7',note:'National suicide crisis helpline'},
+  {n:'Kids Help Phone',r:'Province-wide',c:'crisis',colours:['WHITE','BLUE'],f:'Free',d:'24/7',note:'Youth counselling & crisis support'},
+  {n:'Telehealth Ontario',r:'Province-wide',c:'crisis',colours:['WHITE'],f:'OHIP',d:'24/7',note:'Nurse-led telephone health advisory'},
+  {n:'Cedar Centre',r:'Central Ontario & GTA',c:'crisis',colours:['BLUE','WHITE'],f:'Government',d:'Variable',note:'Children, teens & non-offending caregivers'},
+
+  // Additional facilities
+  {n:'Dave Smith Youth Treatment Centre',r:'Eastern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'6 weeks residential',note:'Youth residential addiction treatment'},
+  {n:'Portage Ontario',r:'Eastern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP / Government',d:'4–6 months residential',note:'Therapeutic community model'},
+  {n:'Jean Tweed Centre',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'21 days residential',note:'Women-focused addiction treatment'},
+  {n:'Cedarcroft Place (St. Thomas)',r:'Southwestern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'28 days residential',note:'Rural residential treatment'},
+  {n:'Willowgrove — Muskoka',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'Private',d:'28–90 days residential',note:'Boutique private residential'},
+  {n:'GTA Rehab Network',r:'Central Ontario & GTA',c:'crisis',colours:['WHITE'],f:'OHIP',d:'Navigation',note:'Rehab bed coordination & referral'},
+  {n:'Waypoint Centre (Penetanguishene)',r:'Central Ontario & GTA',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'Inpatient',note:'Forensic & complex mental health'},
+  {n:'Royal Ottawa Mental Health',r:'Eastern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'OHIP',d:'Inpatient + outpatient',note:'Mood, anxiety, substance, concurrent'},
+  {n:'St. Joseph\'s Healthcare (Hamilton)',r:'West-Central Ontario',c:'substance',colours:['BLUE','YELLOW','BLACK'],f:'OHIP',d:'Variable',note:'Concurrent disorders, forensic, RAAM'},
+  {n:'Thunderbird Partnership Foundation',r:'Province-wide',c:'substance',colours:['BLUE','WHITE'],f:'Indigenous Services',d:'Network/resource',note:'National Indigenous wellness framework'},
+  {n:'National Native Alcohol & Drug Abuse Program',r:'Province-wide',c:'substance',colours:['BLUE','BLACK'],f:'Indigenous Services',d:'Network',note:'First Nations treatment centre network'},
+  {n:'Maplehurst Correctional — CAMH Link',r:'Central Ontario & GTA',c:'substance',colours:['BLACK'],f:'Government',d:'In-custody',note:'Corrections-to-community treatment bridge'},
+  {n:'Peigan Treatment Centre',r:'Northwestern Ontario',c:'substance',colours:['BLUE','BLACK'],f:'Indigenous Services',d:'6 weeks residential',note:'Indigenous land-based healing'},
+  {n:'Dilico Anishinabek Family Care',r:'Northwestern Ontario',c:'substance',colours:['BLUE','WHITE'],f:'Indigenous Services',d:'Community-based',note:'Indigenous family wellness & addiction'},
+  {n:'Sioux Lookout Meno Ya Win Health',r:'Northwestern Ontario',c:'substance',colours:['BLUE','WHITE','BLACK'],f:'OHIP',d:'Inpatient + community',note:'Remote/fly-in community mental health & addiction'},
+];
+
+// ============================================================
+// RWOB Integrated Intake & Navigation — prototype
+// Built by Neil J. Schwab. Not an official RWOB system.
+// ============================================================
+
+let STATE = {
+  postal: '',
+  safety: {},
+  raft: { roof:null, addiction:'none', fundamentals:[], target:'', flags:[] },
+  screening: {},
+  hcs: '',
+  hue: { white:0, blue:0, selfPick:null },
+  shade: { done:false, skipped:true, score:0 },
+};
+
+const VIEWS = ['start','safety','raft','screening','palette','results'];
+
+function goTo(name){
+  VIEWS.forEach(v=>{
+    const el = document.getElementById('view-'+v);
+    if (el) el.classList.toggle('active', v===name);
+  });
+  document.getElementById('view-crisis').classList.remove('active');
+  renderDots(name);
+  window.scrollTo(0,0);
+}
+
+function renderDots(current){
+  const wrap = document.getElementById('stepDots');
+  const order = ['start','safety','raft','screening','palette','results'];
+  const idx = order.indexOf(current);
+  wrap.innerHTML = order.map((v,i)=>{
+    let cls = 'step-dot';
+    if (i < idx) cls += ' done';
+    if (i === idx) cls += ' now';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+}
+
+// ---------- START: postal code ----------
+document.addEventListener('DOMContentLoaded', ()=>{
+  renderDots('start');
+  buildSafetyItems();
+  buildHueQuiz();
+  document.getElementById('startPostal').addEventListener('input', (e)=>{
+    const raw = e.target.value.trim().toUpperCase();
+    STATE.postal = raw;
+    const note = document.getElementById('startPostalNote');
+    const fsa = raw.replace(/\s/g,'').slice(0,3);
+    if (raw.length===0){ note.textContent=''; return; }
+    if (!/^[A-CEGHJ-NPRSTV-Z]\d[A-CEGHJ-NPRSTV-Z]/i.test(fsa)){
+      note.textContent = "That doesn't look like an Ontario postal code — province-wide matches will be used instead.";
+    } else {
+      note.textContent = 'Not saved anywhere. Used only to boost nearby matches at the end.';
+    }
+  });
+});
+
+function regionFromPostal(raw){
+  if (!raw) return null;
+  const letter = raw.trim().toUpperCase()[0];
+  const map = { K:'Eastern Ontario', L:'Central Ontario & GTA', M:'Central Ontario & GTA', N:'Southwestern Ontario', P:'Northern Ontario' };
+  return map[letter] || null;
+}
+
+// ---------- SAFETY GATE (Layer 1 — C-SSRS-modelled) ----------
+const SAFETY_ITEMS = [
+  { id:'si1', text:'In the past month, have you wished you were dead or wished you could go to sleep and not wake up?' },
+  { id:'si2', text:'In the past month, have you had any thoughts of killing yourself?' },
+  { id:'si3', text:'Have you thought about how you might do this, or started to work out a plan?' },
+  { id:'si4', text:'Have you ever attempted to end your life?' },
+  { id:'si5', text:'In the past month, have you had thoughts of harming someone else?' },
+  { id:'si6', text:'Right now, are you going through withdrawal, or could stopping a substance suddenly be medically dangerous for you?' },
+  { id:'si7', text:'Do you need urgent medical attention right now — an overdose, an injury, or something else that can\'t wait?' },
+  { id:'si8', text:'Are you seeing, hearing, or believing things that others around you say aren\'t there or aren\'t true?' },
+  { id:'si9', text:'Is someone hurting you right now, or are you unsafe where you are staying tonight?' },
+];
+
+function buildSafetyItems(){
+  const wrap = document.getElementById('safetyItems');
+  wrap.innerHTML = SAFETY_ITEMS.map(it=>`
+    <div class="field">
+      <label class="flabel">${it.text}</label>
+      <div class="yn-row danger">
+        <label><input type="radio" name="${it.id}" value="no"><span class="chip">No</span></label>
+        <label><input type="radio" name="${it.id}" value="yes"><span class="chip">Yes</span></label>
+      </div>
+    </div>`).join('');
+}
+
+function submitSafety(){
+  let anyYes = false;
+  SAFETY_ITEMS.forEach(it=>{
+    const sel = document.querySelector(`input[name="${it.id}"]:checked`);
+    const val = sel ? sel.value : null;
+    STATE.safety[it.id] = val;
+    if (val === 'yes') anyYes = true;
+  });
+  if (anyYes){
+    document.getElementById('edResourceLine').style.display =
+      (STATE.raft.flags && STATE.raft.flags.includes('eating')) ? 'block' : 'none';
+    VIEWS.forEach(v=>document.getElementById('view-'+v).classList.remove('active'));
+    document.getElementById('view-crisis').classList.add('active');
+    window.scrollTo(0,0);
+    return;
+  }
+  goTo('raft');
+}
+
+// ---------- RAFT (Layer 2) ----------
+function submitRAFT(){
+  const roofSel = document.querySelector('input[name="raftRoof"]:checked');
+  STATE.raft.roof = roofSel ? roofSel.value : null;
+  STATE.raft.addiction = document.getElementById('raftAddiction').value;
+  STATE.raft.fundamentals = [...document.querySelectorAll('.raftF:checked')].map(el=>el.value);
+  STATE.raft.target = document.getElementById('raftTarget').value.trim();
+  STATE.raft.flags = [...document.querySelectorAll('.raftFlag:checked')].map(el=>el.value);
+  buildScreening();
+  goTo('screening');
+}
+
+// ---------- CONDITIONAL SCREENING (Layer 3) — real validated instruments ----------
+const CAGE_AID = [
+  'Have you ever felt that you ought to cut down on your drinking or drug use?',
+  'Have people annoyed you by criticizing your drinking or drug use?',
+  'Have you ever felt bad or guilty about your drinking or drug use?',
+  'Have you ever used alcohol or drugs first thing in the morning to steady your nerves or get rid of a hangover (an "eye-opener")?',
+];
+const SCOFF = [
+  'Do you make yourself Sick (induce vomiting) because you feel uncomfortably full?',
+  'Do you worry you have lost Control over how much you eat?',
+  'Have you recently lost more than One stone (about 14 lbs / 6.4 kg) in a 3-month period?',
+  'Do you believe yourself to be Fat when others say you are too thin?',
+  'Would you say that Food dominates your life?',
+];
+const PHQ2 = ['Little interest or pleasure in doing things','Feeling down, depressed, or hopeless'];
+const GAD2 = ['Feeling nervous, anxious, or on edge','Not being able to stop or control worrying'];
+const FREQ_OPTIONS = [['0','Not at all'],['1','Several days'],['2','More than half the days'],['3','Nearly every day']];
+const PCPTSD5 = [
+  'have had nightmares about it or thought about it when you did not want to?',
+  'tried hard not to think about it, or went out of your way to avoid situations that reminded you of it?',
+  'were constantly on guard, watchful, or easily startled?',
+  'felt numb or detached from people, activities, or your surroundings?',
+  'felt guilty or unable to stop blaming yourself or others for the event, or for problems the event may have caused?',
+];
+const BBGS = [
+  'During the past 12 months, have you become restless, irritable, or anxious when trying to stop or cut down on gambling?',
+  'During the past 12 months, have you tried to keep your family or friends from knowing how much you gambled?',
+  'During the past 12 months, did you have such financial trouble because of your gambling that you had to get help with living expenses from family, friends, or welfare?',
+];
+
+function buildScreening(){
+  const wrap = document.getElementById('screeningBody');
+  const r = STATE.raft;
+  let html = '';
+  let any = false;
+
+  if (r.addiction && r.addiction !== 'none'){
+    any = true;
+    html += screenBlock('cageaid', 'Substance use — CAGE-AID', CAGE_AID, 'yn');
+  }
+  if (r.flags.includes('eating')){
+    any = true;
+    html += screenBlock('scoff', 'Eating patterns — SCOFF', SCOFF, 'yn');
+  }
+  if (r.flags.includes('mood')){
+    any = true;
+    html += freqBlock('phq2', 'Mood — PHQ-2', 'Over the last 2 weeks, how often have you been bothered by:', PHQ2);
+    html += freqBlock('gad2', 'Anxiety — GAD-2', 'Over the last 2 weeks, how often have you been bothered by:', GAD2);
+    html += screenBlock('pcptsd5', 'PC-PTSD-5', PCPTSD5, 'yn', 'In your life, have you ever had any experience that was so frightening, horrible, or upsetting that, in the past month, you...');
+  }
+  if (r.flags.includes('gambling')){
+    any = true;
+    html += screenBlock('bbgs', 'Gambling — Brief Bio-Social Gambling Screen', BBGS, 'yn');
+  }
+  if (r.flags.includes('sexual')){
+    any = true;
+    html += `<div class="panel" style="background:var(--surface);box-shadow:none;">
+      <h2 style="font-size:15px;">Compulsive sexual behaviour <span class="pending-tag">Pending</span></h2>
+      <p class="lede" style="margin-bottom:0;">No short validated screening instrument for this has been selected yet in this framework — rather than invent one, this stays open as a conversation point for your worker instead of a scored question.</p>
+    </div>`;
+  }
+  if (!any){
+    html = '<p class="lede">Nothing you shared opened a follow-up screen — skip ahead.</p>';
+  }
+  wrap.innerHTML = html;
+}
+
+function screenBlock(key, title, items, type, intro){
+  let rows = items.map((q,i)=>`
+    <div class="field">
+      <label class="flabel">${intro ? (i+1)+'. ...'+q : q}</label>
+      <div class="yn-row">
+        <label><input type="radio" name="${key}_${i}" value="0"><span class="chip">No</span></label>
+        <label><input type="radio" name="${key}_${i}" value="1"><span class="chip">Yes</span></label>
+      </div>
+    </div>`).join('');
+  return `<div class="panel" style="background:var(--surface);box-shadow:none;">
+    <h2 style="font-size:15px;">${title}</h2>
+    ${intro ? `<p class="lede">${intro}</p>` : ''}
+    ${rows}
+  </div>`;
+}
+
+function freqBlock(key, title, intro, items){
+  let rows = items.map((q,i)=>`
+    <div class="field">
+      <label class="flabel">${q}</label>
+      <div class="yn-row">
+        ${FREQ_OPTIONS.map(([v,l])=>`<label><input type="radio" name="${key}_${i}" value="${v}"><span class="chip">${l}</span></label>`).join('')}
+      </div>
+    </div>`).join('');
+  return `<div class="panel" style="background:var(--surface);box-shadow:none;">
+    <h2 style="font-size:15px;">${title}</h2>
+    <p class="lede">${intro}</p>
+    ${rows}
+  </div>`;
+}
+
+function readRadioGroup(prefix, n){
+  let vals = [];
+  for (let i=0;i<n;i++){
+    const sel = document.querySelector(`input[name="${prefix}_${i}"]:checked`);
+    vals.push(sel ? parseInt(sel.value,10) : 0);
+  }
+  return vals;
+}
+
+function submitScreening(){
+  const r = STATE.raft;
+  const s = STATE.screening;
+  if (r.addiction !== 'none'){
+    const v = readRadioGroup('cageaid', CAGE_AID.length);
+    s.cageaid = { score: v.reduce((a,b)=>a+b,0), positive: v.reduce((a,b)=>a+b,0) >= 2 };
+  }
+  if (r.flags.includes('eating')){
+    const v = readRadioGroup('scoff', SCOFF.length);
+    s.scoff = { score: v.reduce((a,b)=>a+b,0), positive: v.reduce((a,b)=>a+b,0) >= 2 };
+  }
+  if (r.flags.includes('mood')){
+    const p = readRadioGroup('phq2', PHQ2.length);
+    const g = readRadioGroup('gad2', GAD2.length);
+    const pt = readRadioGroup('pcptsd5', PCPTSD5.length);
+    s.phq2 = { score: p.reduce((a,b)=>a+b,0), positive: p.reduce((a,b)=>a+b,0) >= 3 };
+    s.gad2 = { score: g.reduce((a,b)=>a+b,0), positive: g.reduce((a,b)=>a+b,0) >= 3 };
+    s.pcptsd5 = { score: pt.reduce((a,b)=>a+b,0), positive: pt.reduce((a,b)=>a+b,0) >= 3 };
+  }
+  if (r.flags.includes('gambling')){
+    const v = readRadioGroup('bbgs', BBGS.length);
+    s.bbgs = { score: v.reduce((a,b)=>a+b,0), positive: v.some(x=>x===1) };
+  }
+  goTo('palette');
+}
+
+// ---------- COLOUR PALETTE ENGINE (Layer 4) ----------
+const HUE_QUIZ = [
+  { q:'When things feel overwhelming, you\'re more likely to...', a:['Simplify — strip everything back to basics and get grounded','Sit with what you\'re feeling and let yourself process it'] },
+  { q:'A good day, for you, usually involves...', a:['A clear plan and a sense of order','A real conversation or emotional connection with someone'] },
+  { q:'You\'re more drawn to...', a:['Routine, structure, and starting fresh','Depth, reflection, and understanding why'] },
+  { q:'When you help someone else, you tend to...', a:['Give them practical next steps','Just be present with them in it'] },
+  { q:'Right now, what you need more of is...', a:['Stability and basic footing','Space to feel and make sense of things'] },
+];
+
+function buildHueQuiz(){
+  const wrap = document.getElementById('hueQuiz');
+  wrap.innerHTML = HUE_QUIZ.map((item,i)=>`
+    <div class="field">
+      <label class="flabel">${item.q}</label>
+      <div class="yn-row">
+        <label><input type="radio" name="hue_${i}" value="white"><span class="chip">${item.a[0]}</span></label>
+        <label><input type="radio" name="hue_${i}" value="blue"><span class="chip">${item.a[1]}</span></label>
+      </div>
+    </div>`).join('');
+
+  const selfGrid = document.getElementById('hueSelfGrid');
+  const SELF_HUES = [
+    { k:'green', nm:'GREEN', ds:'Growth, patience, nurturing — longer-term work, trauma-informed care, rebuilding', col:'var(--green)' },
+    { k:'black', nm:'BLACK', ds:'Shadow, transformation, high intensity — crisis, concurrent disorders, deep change', col:'var(--black-col)' },
+    { k:'gold', nm:'GOLD', ds:'Mastery, mentorship, eldering — giving back, leadership, teaching', col:'var(--gold)' },
+  ];
+  selfGrid.innerHTML = SELF_HUES.map(h=>`
+    <div class="hue-card" id="selfHue_${h.k}" onclick="pickSelfHue('${h.k}')">
+      <div class="nm" style="color:${h.col}">${h.nm}</div>
+      <div class="ds">${h.ds}</div>
+    </div>`).join('') + `<div class="hue-card" id="selfHue_none" onclick="pickSelfHue(null)">
+      <div class="nm">None of these</div>
+      <div class="ds">Use the quiz result above instead</div>
+    </div>`;
+}
+
+function pickSelfHue(k){
+  STATE.hue.selfPick = k;
+  document.querySelectorAll('.hue-card').forEach(el=>el.classList.remove('sel'));
+  const id = k ? 'selfHue_'+k : 'selfHue_none';
+  document.getElementById(id).classList.add('sel');
+}
+
+function skipShade(){
+  STATE.shade = { done:true, skipped:true, score:0 };
+  document.getElementById('shadeBlock').innerHTML = '<p class="lede" style="margin-top:0;">Skipped — not held against you in any way.</p>';
+}
+
+const ACES = [
+  'A parent or adult in your household often swore at you, insulted you, or put you down?',
+  'A parent or adult in your household often pushed, grabbed, slapped, or threw something at you, or ever hit you hard enough to leave marks?',
+  'An adult or someone at least 5 years older ever touched you sexually, or tried to involve you in sexual activity, in a way you didn\'t want?',
+  'You often felt that no one in your family loved you or thought you were important?',
+  'You often felt you didn\'t have enough to eat, had to wear dirty clothes, or had no one to protect you?',
+  'Your parents were ever separated or divorced?',
+  'A parent figure was often pushed, grabbed, slapped, or had something thrown at them, or was repeatedly hit?',
+  'You lived with anyone who had a problem with drinking or drug use?',
+  'A household member was depressed, mentally ill, or attempted suicide?',
+  'A household member went to prison?',
+];
+
+function openShade(){
+  const wrap = document.getElementById('shadeBlock');
+  wrap.innerHTML = `<p class="lede" style="margin-top:0;">These are about things that may have happened before age 18. Answer only what you're comfortable with — you can stop at any point and what you've answered so far still counts.</p>` +
+    ACES.map((q,i)=>`
+      <div class="field">
+        <label class="flabel">${q}</label>
+        <div class="yn-row">
+          <label><input type="radio" name="aces_${i}" value="0"><span class="chip">No</span></label>
+          <label><input type="radio" name="aces_${i}" value="1"><span class="chip">Yes</span></label>
+        </div>
+      </div>`).join('') +
+    `<div class="btn-row" style="margin-top:10px;"><button class="btn btn-secondary" onclick="finishShade(true)">Stop here</button><button class="btn btn-primary" onclick="finishShade(false)">Done</button></div>`;
+}
+
+function finishShade(partial){
+  let score = 0, answered = 0;
+  for (let i=0;i<ACES.length;i++){
+    const sel = document.querySelector(`input[name="aces_${i}"]:checked`);
+    if (sel){ answered++; score += parseInt(sel.value,10); }
+  }
+  STATE.shade = { done:true, skipped:false, score, answered, max: ACES.length };
+  document.getElementById('shadeBlock').innerHTML = `<p class="lede" style="margin-top:0;">Recorded (${answered} of ${ACES.length} answered). Thank you — this stays private to you and your worker.</p>`;
+}
+
+function submitPalette(){
+  STATE.hcs = document.getElementById('hcsText').value.trim();
+  let white=0, blue=0;
+  HUE_QUIZ.forEach((item,i)=>{
+    const sel = document.querySelector(`input[name="hue_${i}"]:checked`);
+    if (sel && sel.value==='white') white++;
+    if (sel && sel.value==='blue') blue++;
+  });
+  STATE.hue.white = white; STATE.hue.blue = blue;
+  renderResults();
+  goTo('results');
+}
+
+// ---------- MATCHING (Layer 5) ----------
+// Match Score = (Hue x 0.4) + (Shade x 0.3) + (Tint x 0.2) + (HCS x 0.1)
+// Tint has no content yet, so its weight is redistributed proportionally
+// across Hue/Shade/HCS rather than silently zeroed.
+function computeMatch(){
+  const hueTotal = STATE.hue.white + STATE.hue.blue;
+  let hueColour, hueScore01;
+  if (STATE.hue.selfPick){
+    hueColour = STATE.hue.selfPick.toUpperCase();
+    hueScore01 = 1; // self-identified, full weight
+  } else if (hueTotal > 0){
+    hueColour = STATE.hue.white >= STATE.hue.blue ? 'WHITE' : 'BLUE';
+    hueScore01 = Math.max(STATE.hue.white, STATE.hue.blue) / hueTotal;
+  } else {
+    hueColour = null; hueScore01 = 0;
+  }
+  const shadeScore01 = STATE.shade.skipped ? 0 : (STATE.shade.score / 10);
+  const hcsScore01 = STATE.hcs ? 1 : 0;
+
+  // Tint not built: redistribute its 0.2 weight across Hue(0.4->0.5), Shade(0.3->0.375), HCS(0.1->0.125)
+  const W = hueScore01*0.5 + shadeScore01*0.375 + hcsScore01*0.125;
+
+  // Hard rule: no standard match on incomplete data
+  const incomplete = !hueColour || !STATE.hcs;
+
+  return { hueColour, hueScore01, shadeScore01, hcsScore01, W, incomplete };
+}
+
+function colourVar(c){
+  return { WHITE:'var(--white-col)', BLUE:'var(--blue)', GREEN:'var(--green)', BLACK:'var(--black-col)', GOLD:'var(--gold)',
+           YELLOW:'var(--yellow)', RED:'var(--red)' }[c] || 'var(--ink-tertiary)';
+}
+function colourBg(c){
+  return { WHITE:'var(--white-bg)', BLUE:'var(--blue-bg)', GREEN:'var(--green-bg)', BLACK:'var(--black-bg)', GOLD:'rgba(154,122,16,0.1)',
+           YELLOW:'var(--yellow-bg)', RED:'var(--red-bg)' }[c] || 'var(--surface-alt)';
+}
+
+function renderResults(){
+  const m = computeMatch();
+
+  // Colour profile tags
+  const profWrap = document.getElementById('resultColourProfile');
+  let tags = '';
+  if (m.hueColour){
+    tags += `<span class="colour-tag" style="background:${colourBg(m.hueColour)};color:${colourVar(m.hueColour)};border:1px solid ${colourVar(m.hueColour)}">${m.hueColour}${STATE.hue.selfPick?' (self-identified)':''}</span>`;
+  } else {
+    tags += `<span class="colour-tag" style="background:var(--surface-alt);color:var(--ink-tertiary);">No Hue identified yet</span>`;
+  }
+  profWrap.innerHTML = tags;
+
+  const scoresWrap = document.getElementById('resultScores');
+  scoresWrap.innerHTML = `
+    <div class="score-row"><span>Hue</span><span>${(m.hueScore01*100).toFixed(0)}%</span></div>
+    <div class="scorebar-wrap"><div class="scorebar"><div style="width:${m.hueScore01*100}%;background:var(--accent)"></div></div></div>
+    <div class="score-row" style="margin-top:10px;"><span>Shade ${STATE.shade.skipped?'(skipped)':''}</span><span>${(m.shadeScore01*100).toFixed(0)}%</span></div>
+    <div class="scorebar-wrap"><div class="scorebar"><div style="width:${m.shadeScore01*100}%;background:var(--accent-2)"></div></div></div>
+    <div class="score-row" style="margin-top:10px;"><span>Tint</span><span>not built — weight redistributed</span></div>
+    <div class="score-row" style="margin-top:10px;"><span>HCS (destination named)</span><span>${m.hcsScore01?'Yes':'No'}</span></div>
+    <p class="lede" style="margin-top:14px;">Overall weighted score: <strong>${(m.W*100).toFixed(0)}</strong> / 100 (Tint's 20% weight redistributed across Hue/Shade/HCS until a Tint instrument exists)</p>
+    ${m.incomplete ? '<div class="rule-box" style="border-color:var(--yellow);">Hard rule: this profile is incomplete (missing Hue or a named destination) — treat anything below as a starting conversation, not a standard match.</div>' : ''}
+  `;
+
+  // RAFT + screening summary
+  const r = STATE.raft, s = STATE.screening;
+  let summary = `<p><strong>Target:</strong> ${r.target || '—'}</p>`;
+  summary += `<p><strong>Roof tonight:</strong> ${r.roof || '—'} &nbsp; <strong>Fundamentals needed:</strong> ${r.fundamentals.length? r.fundamentals.join(', ') : 'none selected'}</p>`;
+  const screenLines = [];
+  if (s.cageaid) screenLines.push(`CAGE-AID: ${s.cageaid.score}/4${s.cageaid.positive?' — positive screen':''}`);
+  if (s.scoff) screenLines.push(`SCOFF: ${s.scoff.score}/5${s.scoff.positive?' — positive screen (see eating disorder resource note)':''}`);
+  if (s.phq2) screenLines.push(`PHQ-2: ${s.phq2.score}/6${s.phq2.positive?' — positive screen':''}`);
+  if (s.gad2) screenLines.push(`GAD-2: ${s.gad2.score}/6${s.gad2.positive?' — positive screen':''}`);
+  if (s.pcptsd5) screenLines.push(`PC-PTSD-5: ${s.pcptsd5.score}/5${s.pcptsd5.positive?' — positive screen':''}`);
+  if (s.bbgs) screenLines.push(`Gambling screen: ${s.bbgs.positive?'positive':'negative'}`);
+  if (r.flags.includes('sexual')) screenLines.push('Compulsive sexual behaviour flagged — no instrument available, worker follow-up only');
+  if (screenLines.length) summary += `<p><strong>Screening:</strong><br>${screenLines.join('<br>')}</p>`;
+  document.getElementById('raftSummaryBody').innerHTML = summary;
+
+  renderOrgMatches(m);
+}
+
+function renderOrgMatches(m){
+  const wrap = document.getElementById('orgMatches');
+  if (!m.hueColour){
+    wrap.innerHTML = '<p class="lede">No Hue identified — complete Step 2 to see matches.</p>';
+    return;
+  }
+  if (m.hueColour === 'GREEN' || m.hueColour === 'GOLD'){
+    wrap.innerHTML = `<div class="rule-box">GREEN and GOLD have not been mapped onto the 74-organization directory yet — that mapping session hasn't happened. Your worker will use your stated destination and RAFT snapshot directly instead of an automated match for now.</div>`;
+    return;
+  }
+  const near = regionFromPostal(STATE.postal);
+  let scored = ORGS.map(o=>{
+    let score = 0;
+    if (o.colours.includes(m.hueColour)) score += 2;
+    if (near && o.r === near) score += 1;
+    if (o.r === 'Province-wide') score += 0.5;
+    return { o, score };
+  }).filter(x=>x.score>0);
+  scored.sort((a,b)=>b.score-a.score);
+  const top = scored.slice(0,6);
+  if (!top.length){
+    wrap.innerHTML = '<p class="lede">No organizations currently coded to this colour.</p>';
+    return;
+  }
+  wrap.innerHTML = (near ? `<p class="lede">Boosted for ${near}, based on your postal code.</p>` : '') +
+    top.map(({o})=>`
+    <div class="match-card" style="border:1px solid var(--border-light);border-radius:8px;padding:14px 16px;margin-bottom:10px;background:var(--surface);">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;">
+        <strong style="font-family:'DM Sans',system-ui,sans-serif;">${o.n}</strong>
+        <span style="font-size:11px;color:var(--ink-tertiary);">${o.r}</span>
+      </div>
+      <div style="font-size:12.5px;color:var(--ink-secondary);margin-top:4px;">${o.note} · ${o.f} · ${o.d}</div>
+      <div style="margin-top:6px;">${o.colours.map(c=>`<span class="colour-tag" style="background:${colourBg(c)};color:${colourVar(c)};border:1px solid ${colourVar(c)};font-size:10.5px;padding:3px 9px;">${c}</span>`).join(' ')}</div>
+    </div>`).join('');
+}
+
+</script>
