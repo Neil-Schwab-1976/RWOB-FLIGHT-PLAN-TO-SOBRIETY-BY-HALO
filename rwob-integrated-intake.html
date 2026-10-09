@@ -1073,7 +1073,7 @@ function renderCrisisNotice(){
   const hits = SAFETY_ITEMS.filter(it => STATE.safety[it.id] === 'yes');
   const ref = 'RWOB-' + new Date().toISOString().slice(2,10).replace(/-/g,'') + '-' + (mem.fsa || 'NA');
   box.innerHTML = '<div class="demo-box"><div class="demo-tag">PROTOTYPE — STAFF NOTICE THAT WOULD GO OUT (NOTHING SENT)</div><p class="fhint">Everyone who leaves at the safety gate still lands in the pipeline, so a worker can follow up. This is what staff would receive.</p></div>' +
-    emailCard('RWOB Pipeline — navigator queue (cc Carby Sum, CEO)', 'pipeline@recoverywithoutborders.org; carby@recoverywithoutborders.org (placeholders)',
+    emailCard('RWOB Pipeline — Carby Sum, CEO (navigator queue)', 'toronto@recoverywithoutborders.org',
       'URGENT FOLLOW-UP — safety gate — ' + mem.name + ' — ' + ref,
       'Case ' + ref + '\n' + mem.name + ' created a profile and stopped at the safety gate. They saw the crisis resources. Please follow up within 48 hours (sooner if you can).\n\nSAFETY ITEMS ANSWERED YES\n' + hits.map(it => '- ' + it.text).join('\n') +
       '\n\nHOW TO REACH THEM\n' + contactBlock(true) + '\n\nNo further answers were collected. No clinician matching was done and nothing was shared outside RWOB.\n\nSTATUS: NEW — URGENT — not yet contacted\n\n— Sent from the RWOB Integrated Intake prototype (demo)');
@@ -1281,7 +1281,7 @@ function renderEmailPreviews(){
   const ref = 'RWOB-' + new Date().toISOString().slice(2,10).replace(/-/g,'') + '-' + (mem.fsa || 'NA');
   const flagLines = pipelineFlags(m);
   const others = (STATE.lastRank || []).filter(x => !chosenIds.includes(x.c.id)).slice(0,3);
-  html += emailCard('RWOB Pipeline — navigator queue (cc Carby Sum, CEO)', 'pipeline@recoverywithoutborders.org; carby@recoverywithoutborders.org (placeholders — no addresses on file)',
+  html += emailCard('RWOB Pipeline — Carby Sum, CEO (navigator queue)', 'toronto@recoverywithoutborders.org',
     'PIPELINE — ready for call — ' + name + ' — ' + ref,
     'Case ' + ref + '\n' + name + ' created a profile and finished the integrated intake. Consent to share with the people below was given on screen. Call them FIRST, talk through the clinician options, then make the warm handoff. Nobody else should contact them before you do.\n\nFLAGS FOR THE CALL\n' + flagLines.map(l => '- ' + l).join('\n') +
     '\n\nHOW TO REACH THEM\n' + contactBlock(true) +
@@ -1301,7 +1301,7 @@ function renderEmailPreviews(){
       '\n- ' + x.mode + ' · ' + distanceText(x.km) + (x.hueHit ? '\n- Colour profile also matches yours (' + m.hueColour + ')' : '') +
       '\n\nWHAT THE MEMBER TOLD US\n' + summary +
       '\n\nCONTACT PREFERENCES (phone and email stay with RWOB until the introduction)\n' + contactBlock(false) +
-      '\n\nRWOB contact for this handoff: Carby Sum, CEO (carby@recoverywithoutborders.org — placeholder)\n\n— Sent from the RWOB Integrated Intake prototype (demo)');
+      '\n\nRWOB contact for this handoff: Carby Sum, CEO (toronto@recoverywithoutborders.org)\n\n— Sent from the RWOB Integrated Intake prototype (demo)');
   });
   if (!chosen.length) html += '<div class="rule-box">No clinician was chosen — only the member and RWOB notifications above would go out.</div>';
   wrap.innerHTML = html;
