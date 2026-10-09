@@ -569,6 +569,15 @@ table.dir-table {
 
 .rule-box { background:var(--surface); border-left:3px solid var(--accent); border-radius:0 8px 8px 0; padding:12px 16px; font-size:12.5px; color:var(--ink-secondary); margin:14px 0; }
 
+.demo-box { background:var(--surface); border:1.5px dashed var(--accent); border-radius:8px; padding:14px 16px; margin:16px 0; }
+.demo-tag { display:inline-block; font-size:10px; font-weight:700; letter-spacing:0.08em; color:var(--accent); background:var(--accent-light); padding:3px 8px; border-radius:4px; margin-bottom:10px; }
+.email-card { border:1px solid var(--border-light); border-radius:8px; padding:16px; margin-bottom:14px; background:var(--surface); }
+.email-card .em-to { font-size:11px; color:var(--ink-tertiary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2px; }
+.email-card .em-addr { font-family:'DM Sans',system-ui,sans-serif; font-weight:700; font-size:14px; margin-bottom:10px; }
+.email-card .em-subject { font-weight:600; font-size:13px; margin-bottom:8px; }
+.email-card .em-body { font-size:12.5px; color:var(--ink-secondary); line-height:1.65; white-space:pre-wrap; background:var(--surface-alt); border-radius:6px; padding:12px; margin-bottom:8px; }
+.email-card .em-copy { font-size:11px; }
+
 body { background: var(--ground); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; }
 </style>
 
@@ -591,8 +600,24 @@ body { background: var(--ground); color: var(--ink); font-family: 'Inter', syste
         <input type="text" id="startPostal" maxlength="7" placeholder="e.g. M5V or M5V 2T6">
         <div class="fhint" id="startPostalNote"></div>
       </div>
+      <div class="demo-box">
+        <div class="demo-tag">PRACTICUM DEMO MODE</div>
+        <p class="fhint" style="margin-bottom:10px;">For this walkthrough only — not part of the real intake. These two fields let the end-of-flow screen show you exactly what a notification email would contain. Nothing is sent anywhere; nothing leaves this browser tab.</p>
+        <div class="field">
+          <label class="flabel">Your name (demo only)</label>
+          <input type="text" id="demoName" placeholder="e.g. Neil Schwab">
+        </div>
+        <div class="field">
+          <label class="flabel">Your email (demo only)</label>
+          <input type="text" id="demoEmail" placeholder="e.g. neil.schwab@live.ca">
+        </div>
+        <label style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--ink-secondary);margin-top:6px;">
+          <input type="checkbox" id="demoConsent" style="margin-top:2px;">
+          <span>I understand that in a real deployment, continuing past this point would mean my answers are shared with RWOB staff and the clinician(s) I'm matched to, for the purpose of a warm handoff — and that this requires a real consent screen before this feature ever goes live. For this demo, nothing actually leaves the browser; I'm just checking the box to see what that screen and those messages would look like.</span>
+        </label>
+      </div>
       <div class="disclosure"><strong>What this is:</strong> a prototype navigation layer built on top of RWOB's existing intake script. It detects, flags, and routes — it does not diagnose or treat. Everything below is either a validated public screening instrument used as intended, or is clearly marked as not yet built / pending review.</div>
-      <div class="btn-row"><button class="btn btn-primary" onclick="goTo('safety')">Begin</button></div>
+      <div class="btn-row"><button class="btn btn-primary" onclick="startIntake()">Begin</button></div>
     </div>
   </div>
 
@@ -746,6 +771,13 @@ body { background: var(--ground); color: var(--ink); font-family: 'Inter', syste
       <h3>Suggested organizations</h3>
       <div id="orgMatches"></div>
     </div>
+    <div class="panel match-section">
+      <div class="demo-tag">PRACTICUM DEMO MODE</div>
+      <h3 style="margin-top:8px;">Clinician match &amp; warm-handoff notifications</h3>
+      <p class="lede">This part is the demonstration piece: it shows what would happen if this prototype matched you to a named clinician and generated the notifications for a warm handoff — one to you, one to RWOB staff, one to the clinician — so RWOB can call you before any introduction is made.</p>
+      <div class="btn-row"><button class="btn btn-primary" onclick="renderEmailPreviews()">Generate notifications (demo)</button></div>
+      <div id="emailPreviews" style="margin-top:14px;"></div>
+    </div>
     <div class="btn-row"><button class="btn btn-secondary" onclick="goTo('start')">Start over</button></div>
   </div>
 
@@ -847,6 +879,113 @@ const ORGS = [
   {n:'Sioux Lookout Meno Ya Win Health',r:'Northwestern Ontario',c:'substance',colours:['BLUE','WHITE','BLACK'],f:'OHIP',d:'Inpatient + community',note:'Remote/fly-in community mental health & addiction'},
 ];
 
+// ------------------------------------------------------------------
+// DEMO ONLY — three fictional clinicians, invented for this practicum
+// walkthrough. Not real RWOB-affiliated clinicians. Colour tags and
+// modalities are placeholders to show how clinician-level matching
+// would work on top of the same Hue/Shade scoring above.
+// ------------------------------------------------------------------
+const CLINICIANS = [
+  {n:'(Demo) Priya Nair, RP', colours:['WHITE','BLUE'], modality:'Motivational Interviewing + CBT, concurrent disorders', email:'demo.priya.nair@example-clinician.test', note:'Fictional — for demo purposes only'},
+  {n:'(Demo) Marcus Allenby, RSW', colours:['BLACK','BLUE'], modality:'Trauma-informed, CENAPS relapse-prevention model', email:'demo.marcus.allenby@example-clinician.test', note:'Fictional — for demo purposes only'},
+  {n:'(Demo) Sarah Okafor, RP-Q', colours:['YELLOW','WHITE'], modality:'DBT skills, emotion regulation, crisis stabilization', email:'demo.sarah.okafor@example-clinician.test', note:'Fictional — for demo purposes only'},
+];
+
+function matchClinicians(hueColour){
+  if (!hueColour) return [];
+  let scored = CLINICIANS.map(c=>({c, score: c.colours.includes(hueColour) ? (c.colours[0]===hueColour?2:1) : 0}))
+    .filter(x=>x.score>0);
+  scored.sort((a,b)=>b.score-a.score);
+  return scored.map(x=>x.c);
+}
+
+function plainTextSummary(){
+  const r = STATE.raft, s = STATE.screening, m = computeMatch();
+  const lines = [];
+  lines.push('Primary colour: ' + (m.hueColour || 'not identified') + (STATE.hue.selfPick ? ' (self-identified)' : ''));
+  lines.push('Named destination / target: ' + (r.target || '—'));
+  lines.push('Roof tonight: ' + (r.roof || '—'));
+  lines.push('Fundamentals needed: ' + (r.fundamentals.length ? r.fundamentals.join(', ') : 'none selected'));
+  const screenLines = [];
+  if (s.cageaid) screenLines.push('CAGE-AID ' + s.cageaid.score + '/4' + (s.cageaid.positive ? ' (positive screen)' : ''));
+  if (s.scoff) screenLines.push('SCOFF ' + s.scoff.score + '/5' + (s.scoff.positive ? ' (positive screen)' : ''));
+  if (s.phq2) screenLines.push('PHQ-2 ' + s.phq2.score + '/6' + (s.phq2.positive ? ' (positive screen)' : ''));
+  if (s.gad2) screenLines.push('GAD-2 ' + s.gad2.score + '/6' + (s.gad2.positive ? ' (positive screen)' : ''));
+  if (s.pcptsd5) screenLines.push('PC-PTSD-5 ' + s.pcptsd5.score + '/5' + (s.pcptsd5.positive ? ' (positive screen)' : ''));
+  if (s.bbgs) screenLines.push('Gambling screen: ' + (s.bbgs.positive ? 'positive' : 'negative'));
+  if (r.flags.includes('sexual')) screenLines.push('Compulsive sexual behaviour flagged — worker follow-up only, no instrument used');
+  lines.push('Screening results: ' + (screenLines.length ? screenLines.join('; ') : 'none completed'));
+  return lines.join('\n');
+}
+
+function escapeHtml(str){
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function emailCard(to, addr, subject, body){
+  const id = 'em_' + Math.random().toString(36).slice(2,9);
+  return `<div class="email-card">
+    <div class="em-to">To — ${escapeHtml(to)}</div>
+    <div class="em-addr">${escapeHtml(addr)}</div>
+    <div class="em-subject">${escapeHtml(subject)}</div>
+    <div class="em-body" id="${id}">${escapeHtml(body)}</div>
+    <button class="btn btn-secondary em-copy" onclick="copyEmailBody('${id}')">Copy this email</button>
+  </div>`;
+}
+
+function copyEmailBody(id){
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).catch(()=>{});
+}
+
+function renderEmailPreviews(){
+  const wrap = document.getElementById('emailPreviews');
+  const m = computeMatch();
+  if (!STATE.demoConsent){
+    wrap.innerHTML = '<div class="rule-box" style="border-color:var(--yellow);">The demo consent box on the first screen was not checked, so in a real deployment this step would not run. Go back and check it to see the preview anyway for this walkthrough.</div>';
+    return;
+  }
+  const clinicians = matchClinicians(m.hueColour);
+  STATE.matchedClinicians = clinicians;
+  const summary = plainTextSummary();
+  const name = STATE.demoName || 'there';
+  const selfEmail = STATE.demoEmail || '(no email entered)';
+
+  let html = '<div class="demo-box"><div class="demo-tag">SIMULATED — NOTHING ACTUALLY SENT</div><p class="fhint">These three emails show exactly what a real notification would contain once this feature has gone through a privacy and consent review and is wired to a real email account. Copy any of them to see the full text.</p></div>';
+
+  // 1. To the client (self)
+  html += emailCard(
+    'You (the person who just finished the intake)',
+    selfEmail,
+    'Your Recovery Without Borders intake — your matches',
+    `Hi ${name},\n\nThanks for going through the intake. Here is what you told us and who it matched you with, so you have a record of it.\n\n${summary}\n\nMatched clinician(s):\n${clinicians.length ? clinicians.map(c=>'- '+c.n+' — '+c.modality).join('\n') : 'No clinician matched yet — a worker will follow up directly.'}\n\nSomeone from Recovery Without Borders will reach out to help set up a first conversation. If anything above doesn't feel right, tell them — you're not locked into this.\n\n— Recovery Without Borders`
+  );
+
+  // 2. To Carby / RWOB staff
+  html += emailCard(
+    'Carby — RWOB staff (for warm handoff)',
+    'carby@recoverywithoutborders.org (placeholder — no address on file for Carby)',
+    'New intake match — ' + (name !== 'there' ? name : 'demo client') + ' — ready for warm handoff',
+    `Hi Carby,\n\n${name} just completed the integrated intake. Full answers below so you can call them before connecting them to the matched clinician(s).\n\n${summary}\n\nMatched clinician(s):\n${clinicians.length ? clinicians.map(c=>'- '+c.n+' ('+c.email+') — '+c.modality).join('\n') : 'No clinician matched yet.'}\n\nContact: ${selfEmail}\n\nSuggested next step: call ${name} first, confirm they still want the referral, then make the introduction to the clinician(s) above.\n\n— Sent from the RWOB Integrated Intake prototype (demo)`
+  );
+
+  // 3. To each matched clinician
+  if (clinicians.length){
+    clinicians.forEach(c=>{
+      html += emailCard(
+        c.n + ' (' + c.note + ')',
+        c.email,
+        'Warm handoff — new client match from Recovery Without Borders',
+        `Hi ${c.n.replace('(Demo) ','')},\n\nRecovery Without Borders has a client who matched to your profile (${c.modality}). RWOB staff will call the client first, then connect you directly — this is a heads-up, not a referral to act on yet.\n\nWhat the client told us:\n${summary}\n\nRWOB contact for this handoff: Carby (carby@recoverywithoutborders.org — placeholder)\n\n— Sent from the RWOB Integrated Intake prototype (demo)`
+      );
+    });
+  } else {
+    html += '<div class="rule-box">No clinician colour-matched this profile — in a real deployment this would route to a worker for manual matching instead of an automatic clinician email.</div>';
+  }
+
+  wrap.innerHTML = html;
+}
+
 // ============================================================
 // RWOB Integrated Intake & Navigation — prototype
 // Built by Neil J. Schwab. Not an official RWOB system.
@@ -854,13 +993,23 @@ const ORGS = [
 
 let STATE = {
   postal: '',
+  demoName: '',
+  demoEmail: '',
   safety: {},
   raft: { roof:null, addiction:'none', fundamentals:[], target:'', flags:[] },
   screening: {},
   hcs: '',
   hue: { white:0, blue:0, selfPick:null },
   shade: { done:false, skipped:true, score:0 },
+  matchedClinicians: [],
 };
+
+function startIntake(){
+  STATE.demoName = (document.getElementById('demoName').value || '').trim();
+  STATE.demoEmail = (document.getElementById('demoEmail').value || '').trim();
+  STATE.demoConsent = document.getElementById('demoConsent').checked;
+  goTo('safety');
+}
 
 const VIEWS = ['start','safety','raft','screening','palette','results'];
 
