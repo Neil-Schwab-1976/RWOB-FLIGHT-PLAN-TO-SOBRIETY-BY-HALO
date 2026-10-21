@@ -621,7 +621,7 @@ body { background: var(--ground); color: var(--ink); font-family: 'Inter', syste
     <p class="sub">One intake: Member profile → Safety check → RAFT → Targeted screens → Check-in + how you like to work (OCEAN) → Colour profile → Services and clinicians (with a clinician sign-up side) → Your choice → <strong>Your Flight Plan</strong> (PAWS hurdles, G.A.P.S. tools, 72-hour plan). Built by HALO Antifragile AI (Neil J. Schwab) for Recovery Without Borders to review — not yet an official RWOB system and not yet clinically reviewed.</p>
   </div>
 
-  <div class="rule-box" style="border-color:var(--yellow);margin-top:0;"><strong>DEMO — for review only, not yet in service.</strong> This page does not store your answers and cannot contact anyone. In an emergency call <strong>9-1-1</strong>. For crisis support call or text <strong>9-8-8</strong>.</div>
+  <div class="rule-box" style="border-color:var(--yellow);margin-top:0;"><strong>DEMO — for review only, not yet in service.</strong> This page doesn't store your answers. It sends them to Recovery Without Borders only if you choose to at the end. <strong>Please use made-up details while this is a demo.</strong> In an emergency call <strong>9-1-1</strong>. For crisis support call or text <strong>9-8-8</strong>.</div>
   <p class="no-print" style="text-align:center;font-size:13px;color:var(--ink-secondary);margin:-4px 0 12px;"><strong>Free. No cost to you, ever.</strong> Read this in your own language: use your browser's Translate (in Chrome, right-click the page and choose "Translate").</p>
   <div class="no-print" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:0 0 14px;">
     <button class="btn btn-secondary" style="font-size:13px;padding:7px 14px;" onclick="showMemberSide()">I'm looking for support</button>
@@ -687,7 +687,7 @@ body { background: var(--ground); color: var(--ink); font-family: 'Inter', syste
       </label>
       <div class="demo-box">
         <div class="demo-tag">PROTOTYPE — HOW YOUR DETAILS ARE HANDLED</div>
-        <p class="fhint" style="margin:0;">Nothing you type here is saved or sent anywhere — it stays in this browser tab and is gone when you close it. Use made-up details if you like. At the end, the system shows the emails it <em>would</em> generate; a real version needs a privacy and consent review first.</p>
+        <p class="fhint" style="margin:0;">Nothing you type is saved. At the end, you can choose to send your intake to Recovery Without Borders by email. Nothing is sent unless you press that button. <strong>This is a demo: please use made-up details.</strong> A real version needs a privacy and consent review first.</p>
       </div>
       <div class="disclosure"><strong>What this is:</strong> a prototype navigation layer built on top of RWOB's existing intake script. It detects, flags and suggests — it does not diagnose or treat. The targeted screens are validated public instruments used as intended. The check-in and the HALO-WBBRY colour key are HALO's own design and have not yet been clinically reviewed.</div>
       <div class="form-error" id="mFormError" role="alert"></div>
@@ -847,6 +847,7 @@ body { background: var(--ground); color: var(--ink); font-family: 'Inter', syste
       <label class="consent-row"><input type="checkbox" id="shareConsent"><span>I agree that my answers and the contact preferences I gave can be shared with Recovery Without Borders and the clinician(s) I've checked, so I don't have to repeat my story.</span></label>
       <div class="btn-row"><button class="btn btn-primary" onclick="renderEmailPreviews()">Generate notifications for my selected choice(s) (demo)</button></div>
       <div id="emailPreviews" style="margin-top:14px;"></div>
+      <div id="sendPanelResults"></div>
     </div>
     <div class="panel">
       <details>
@@ -1012,6 +1013,7 @@ body { background: var(--ground); color: var(--ink); font-family: 'Inter', syste
     <div class="panel no-print">
       <h2>Keep it</h2>
       <p class="lede">This page keeps nothing once it's closed. To keep your Flight Plan, print it, save it as a PDF from the print window, or copy the text.</p>
+      <div id="sendPanel"></div>
       <div class="btn-row" style="margin-top:8px;">
         <button class="btn btn-primary" onclick="window.print()">Print or save as PDF</button>
         <button class="btn btn-secondary" onclick="copyFlightPlan(this)">Copy as text</button>
@@ -1620,6 +1622,7 @@ function goTo(name){
   document.getElementById('view-crisis').classList.remove('active');
   renderDots(name);
   if (name === 'fp1') initFp1();
+  if (name === 'results' || name === 'fp4') mountSendPanels();
   window.scrollTo(0,0);
 }
 
@@ -2683,6 +2686,96 @@ function styleSummaryHtml(){
   const st = STATE.style;
   if (!st || st.answered < 5) return '<p style="font-size:13.5px;color:var(--ink-tertiary);margin:0;">You skipped these questions, so matches use your needs and distance only.</p>';
   return st.lines.map(l => `<p style="margin:4px 0;font-size:14px;"><strong>${escapeHtml(l[0])}:</strong> ${escapeHtml(l[1])}</p>`).join('');
+}
+
+
+// ============================================================
+// SEND TO RWOB — real email for the demo, via FormSubmit (formsubmit.co).
+// Goes to RWOB_SEND.to with RWOB_SEND.cc copied. FormSubmit sends an activation
+// email to RWOB_SEND.to on first use; nothing is delivered until that link is clicked.
+// After activation, swap the address in RWOB_SEND.to for the random alias FormSubmit
+// gives you, so the address isn't visible in the page source.
+// Demo only: answers pass through FormSubmit's servers. Use made-up details until
+// RWOB completes a privacy review and moves this to its own system (e.g. GoHighLevel).
+// ============================================================
+const RWOB_SEND = {
+  to: 'neil.s@recoverywithoutborders.org',
+  cc: 'toronto@recoverywithoutborders.org',
+  endpoint: function(){ return 'https://formsubmit.co/ajax/' + encodeURIComponent(this.to); }
+};
+function intakeEmailText(){
+  const L = [];
+  const mem = STATE.member || {};
+  L.push('FLIGHT PLAN TO SOBRIETY — INTAKE RECEIVED (demo)');
+  L.push('Sent ' + new Date().toLocaleString('en-CA'));
+  L.push('');
+  L.push('MEMBER');
+  L.push('  Name: ' + (mem.name || '—') + (mem.anon ? ' (no contact details given)' : ''));
+  if (!mem.anon){
+    L.push('  Phone: ' + (mem.phone || '—') + ' · Email: ' + (mem.email || '—'));
+    L.push('  Prefers: ' + (PREFER_LABEL[mem.prefer] || mem.prefer || '—') + ' · Safe to leave a message: ' + (SAFEMSG_LABEL[mem.safeMsg] || mem.safeMsg || '—') + ' · Best time: ' + (TIME_LABEL[mem.bestTime] || '—'));
+  }
+  L.push('  Postal code: ' + (STATE.postal || '—'));
+  L.push('');
+  try { L.push('INTAKE SUMMARY'); L.push(plainTextSummary()); L.push(''); } catch (e) {}
+  try { L.push('STAFF FLAGS'); pipelineFlags(computeMatch()).forEach(f => L.push('  • ' + f)); L.push(''); } catch (e) {}
+  const orgs = [...document.querySelectorAll('.orgChoice:checked')].map(el => el.value);
+  const clinIds = [...document.querySelectorAll('.clinChoice:checked')].map(el => el.value);
+  const clins = (STATE.lastRank || []).filter(x => clinIds.includes(x.c.id)).map(x => x.c.n + ', ' + x.c.cred + ' <' + x.c.email + '>');
+  L.push('MEMBER CHOSE');
+  L.push('  Services: ' + (orgs.length ? orgs.join('; ') : 'none ticked'));
+  L.push('  Clinicians: ' + (clins.length ? clins.join('; ') : 'none ticked'));
+  L.push('');
+  if (document.getElementById('fpWorkerRecord') && document.getElementById('fpWorkerRecord').textContent.trim()){
+    L.push(document.getElementById('fpWorkerRecord').textContent);
+    L.push('');
+    L.push('— FLIGHT PLAN (as the member sees it) —');
+    L.push(flightPlanText());
+  } else {
+    L.push('(The member had not built their Flight Plan when this was sent.)');
+  }
+  return L.join('\n');
+}
+function sendPanelHtml(where){
+  return `<div class="panel" style="border:2px solid var(--accent);margin-top:14px;">
+    <h2>Send this to Recovery Without Borders</h2>
+    <p class="lede">So a worker can call you and make a warm introduction, and you don't have to tell your story again. It goes by email to the RWOB intake team${where === 'fp' ? ', with your Flight Plan' : ''}. Nothing is sent until you press the button.</p>
+    <label class="consent-row"><input type="checkbox" id="sendConsent_${where}"><span>I agree to send my answers, my contact details and the choices I made to Recovery Without Borders.</span></label>
+    <div class="btn-row" style="margin-top:8px;"><button class="btn btn-primary" id="sendBtn_${where}" onclick="sendToRwob('${where}')">Send to Recovery Without Borders</button></div>
+    <div id="sendStatus_${where}" role="status" style="margin-top:10px;font-size:13.5px;"></div>
+  </div>`;
+}
+function mountSendPanels(){
+  const a = document.getElementById('sendPanelResults'); if (a && !a.dataset.built){ a.innerHTML = sendPanelHtml('results'); a.dataset.built = '1'; }
+  const b = document.getElementById('sendPanel'); if (b && !b.dataset.built){ b.innerHTML = sendPanelHtml('fp'); b.dataset.built = '1'; }
+}
+async function sendToRwob(where){
+  const status = document.getElementById('sendStatus_' + where), btn = document.getElementById('sendBtn_' + where);
+  if (!document.getElementById('sendConsent_' + where).checked){ status.innerHTML = '<span style="color:var(--red);">Tick the box first. Nothing is sent without your agreement.</span>'; return; }
+  const mem = STATE.member || {};
+  const body = {
+    _subject: 'New intake — Flight Plan to Sobriety' + (mem.name && mem.name !== 'Member' ? ' — ' + mem.name : '') + (STATE.safetyTriggered ? ' — SAFETY FLAG, CALL FIRST' : ''),
+    _cc: RWOB_SEND.cc,
+    _template: 'box',
+    _captcha: 'false',
+    name: mem.name || 'Member',
+    email: (mem.email && !mem.anon) ? mem.email : RWOB_SEND.to,
+    intake: intakeEmailText()
+  };
+  btn.disabled = true; btn.textContent = 'Sending…'; status.textContent = '';
+  try {
+    const r = await fetch(RWOB_SEND.endpoint(), { method:'POST', headers:{ 'Content-Type':'application/json', 'Accept':'application/json' }, body: JSON.stringify(body) });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok && (j.success === true || j.success === 'true')){
+      status.innerHTML = '<strong style="color:var(--accent);">Sent.</strong> Recovery Without Borders has your intake. In the full version, a worker calls you to make the introduction. If you\'re in crisis, don\'t wait: call or text 9-8-8.';
+      btn.textContent = 'Sent';
+    } else {
+      throw new Error(j.message || ('status ' + r.status));
+    }
+  } catch (e) {
+    btn.disabled = false; btn.textContent = 'Try again';
+    status.innerHTML = '<span style="color:var(--red);">It didn\'t send (' + escapeHtml(String(e.message || e)) + ').</span> You can copy your Flight Plan and email it to <strong>' + escapeHtml(RWOB_SEND.to) + '</strong> yourself.';
+  }
 }
 
 </script>
