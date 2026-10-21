@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flight Plan to Sobriety — Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--ground:#FFFFFF;--surface:#F5F2F7;--ink:#25252A;--ink-2:#4A4A50;--ink-3:#6A6A72;--border:#C8C3B8;--border-light:#E3DFD8;--accent:#752761;--accent-light:#F1E6EE;--teal:#3B7E7A;--red:#B82828;--red-bg:#FBEDED;--white-c:#8A8580;--blue-c:#1A6F8F;--yellow-c:#9A7A08;--black-c:#3A3A3E;--yellow-bg:#FBF5E3}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#1A1A1E;--surface:#222228;--ink:#E8E6EA;--ink-2:#B8B4BE;--ink-3:#8E8A94;--border:#3A3840;--border-light:#32303A;--accent:#C98BB9;--accent-light:#3A2534;--teal:#5CB8B2;--red:#E06060;--red-bg:#3A2224;--white-c:#B0ACA5;--blue-c:#4AB0D8;--yellow-c:#D4A820;--black-c:#B8B8C0;--yellow-bg:#3A3320;color-scheme:dark}}
+:root[data-theme="dark"]{--ground:#1A1A1E;--surface:#222228;--ink:#E8E6EA;--ink-2:#B8B4BE;--ink-3:#8E8A94;--border:#3A3840;--border-light:#32303A;--accent:#C98BB9;--accent-light:#3A2534;--teal:#5CB8B2;--red:#E06060;--red-bg:#3A2224;--white-c:#B0ACA5;--blue-c:#4AB0D8;--yellow-c:#D4A820;--black-c:#B8B8C0;--yellow-bg:#3A3320;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font:15.5px/1.65 Inter,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:820px;margin:0 auto;padding-inline:20px;padding-block:28px 80px}
+header.top{border-bottom:1px solid var(--border-light);padding-bottom:22px;margin-bottom:8px}
+.eyebrow{font:600 11.5px/1 'DM Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font:700 clamp(26px,4.5vw,36px)/1.15 'DM Sans',sans-serif;margin:10px 0 8px;text-wrap:balance}
+h2{font:700 22px/1.25 'DM Sans',sans-serif;margin:44px 0 10px;text-wrap:balance;scroll-margin-top:16px}
+h3{font:600 16.5px/1.3 'DM Sans',sans-serif;margin:24px 0 8px}
+p{margin:0 0 12px;max-width:68ch}
+a{color:var(--accent)}
+.lede{color:var(--ink-2);font-size:16.5px}
+.banner{background:var(--yellow-bg);border-left:4px solid var(--yellow-c);border-radius:0 8px 8px 0;padding:12px 16px;font-size:14px;margin:16px 0}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{display:inline-block;padding:10px 18px;border-radius:8px;font:600 14px 'DM Sans',sans-serif;text-decoration:none;border:1.5px solid var(--accent)}
+.btn.primary{background:var(--accent);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#1A1A1E}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.primary{color:#1A1A1E}}
+.btn.secondary{color:var(--accent);background:transparent}
+nav.toc{background:var(--surface);border-radius:10px;padding:14px 18px;margin:22px 0 0;font-size:14px}
+nav.toc ol{margin:6px 0 0;padding-left:20px;columns:2;column-gap:28px}
+@media (max-width:560px){nav.toc ol{columns:1}}
+ul,ol{padding-left:22px;margin:0 0 14px}
+li{margin:4px 0;max-width:68ch}
+.tbl{overflow-x:auto;margin:10px 0 18px;border:1px solid var(--border-light);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--border-light)}
+th{background:var(--surface);font:600 13px 'DM Sans',sans-serif;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip{display:inline-block;font:700 11px 'DM Sans',sans-serif;letter-spacing:.06em;padding:2px 8px;border-radius:4px;border:1.5px solid currentColor}
+.c-white{color:var(--white-c)}.c-blue{color:var(--blue-c)}.c-yellow{color:var(--yellow-c)}.c-black{color:var(--black-c)}.c-red{color:var(--red)}
+.crisis{background:var(--red-bg);border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:14.5px}
+.flow{margin:14px 0 6px;overflow-x:auto}
+.flow svg{width:100%;min-width:560px;height:auto;display:block}
+.check{list-style:none;padding-left:0}
+.check li::before{content:"☐  ";color:var(--accent)}
+footer{border-top:1px solid var(--border-light);margin-top:48px;padding-top:16px;font-size:12.5px;color:var(--ink-3)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media print{.btns,nav.toc{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="eyebrow">Recovery Without Borders · by HALO Antifragile AI</div>
+  <h1>Flight Plan to Sobriety: synopsis and user guide</h1>
+  <p class="lede">How the onboarding works for people seeking support, for clinicians and programs, and for RWOB staff. Version 8, October 21, 2026.</p>
+  <div class="banner"><strong>Demo for leadership review.</strong> Not yet an RWOB service and not clinically reviewed. Use made-up details only.</div>
+  <div class="btns">
+    <a class="btn primary" href="./">Open the onboarding demo</a>
+    <a class="btn secondary" href="#guide-member">Jump to the user guides</a>
+  </div>
+  <nav class="toc" aria-label="Contents"><strong>Contents</strong>
+    <ol>
+      <li><a href="#synopsis">Synopsis</a></li>
+      <li><a href="#member-side">How it works: member side</a></li>
+      <li><a href="#clinician-side">How it works: clinician side</a></li>
+      <li><a href="#match">How the match works</a></li>
+      <li><a href="#guide-member">Guide: people seeking support</a></li>
+      <li><a href="#guide-clinician">Guide: clinicians and programs</a></li>
+      <li><a href="#guide-staff">Guide: RWOB staff</a></li>
+      <li><a href="#limits">Privacy, safety and limits</a></li>
+      <li><a href="#next">What's next and versions</a></li>
+    </ol>
+  </nav>
+</header>
+
+<h2 id="synopsis">Synopsis</h2>
+<p>Flight Plan to Sobriety is a free, self-guided onboarding page for Recovery Without Borders, built by HALO Antifragile AI. A person seeking help answers questions privately, at their own pace, in any language their browser translates to. They leave with a personal Flight Plan, and RWOB receives their intake by email so a worker can call and make a warm introduction to a matched clinician or program nearby.</p>
+<p>The page has two sides:</p>
+<ul>
+  <li><strong>Member side:</strong> a safety gate, a short practical snapshot (RAFT), targeted screens, a needs check-in mapped to the HALO-WBBRY colour key, ten "how you like to work" questions (OCEAN), then matched services and clinicians, a Flight Plan with a dated Future Ripple, and a Send button.</li>
+  <li><strong>Clinician side:</strong> clinics and clinicians list themselves: postal code, services, how they work, treatment length and wait time. Their services are coded to the same colour key, so the match runs on one shared language.</li>
+</ul>
+<p>The match weighs how well a clinician's ways of working fit the person's answers, how close they are, and colour fit. Long waits lower the score a little. The person always chooses; nothing is assigned.</p>
+
+<h2 id="member-side">How it works: member side</h2>
+<p>The person moves through nine steps. Only the safety gate must come before anything else; everything after it can be skipped or left blank.</p>
+<div class="flow" role="img" aria-label="Member flow: profile, safety gate, RAFT, screens, check-in and OCEAN, profile and matches, use and HALT, hurdles and 72-hour plan, Flight Plan and Send">
+<svg viewBox="0 0 760 336" font-family="Inter, system-ui, sans-serif" font-size="13">
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--border)"/></marker></defs>
+  <g fill="none" stroke="var(--border)" stroke-width="1.25">
+    <path d="M244 56H262" marker-end="url(#ar)"/><path d="M482 56H500" marker-end="url(#ar)"/>
+    <path d="M610 88V112H134V128" marker-end="url(#ar)"/>
+    <path d="M244 160H262" marker-end="url(#ar)"/><path d="M482 160H500" marker-end="url(#ar)"/>
+    <path d="M610 192V216H134V232" marker-end="url(#ar)"/>
+    <path d="M244 264H262" marker-end="url(#ar)"/><path d="M482 264H500" marker-end="url(#ar)"/>
+  </g>
+  <g>
+    <rect x="24" y="24" width="220" height="64" rx="8" fill="none" stroke="var(--border)" stroke-width="1.25"/>
+    <text x="40" y="50" font-weight="600" fill="var(--ink)">1. Profile</text><text x="40" y="70" font-size="11.5" fill="var(--ink-2)">Postal code; contact optional</text>
+    <rect x="262" y="24" width="220" height="64" rx="8" fill="var(--red-bg)" stroke="var(--red)" stroke-width="1.5"/>
+    <text x="278" y="50" font-weight="600" fill="var(--ink)">2. Safety gate</text><text x="278" y="70" font-size="11.5" fill="var(--ink-2)">9 yes/no; any yes = crisis lines</text>
+    <rect x="500" y="24" width="220" height="64" rx="8" fill="none" stroke="var(--border)" stroke-width="1.25"/>
+    <text x="516" y="50" font-weight="600" fill="var(--ink)">3. RAFT snapshot</text><text x="516" y="70" font-size="11.5" fill="var(--ink-2)">Roof, medical, basics, own words</text>
+    <rect x="24" y="128" width="220" height="64" rx="8" fill="none" stroke="var(--border)" stroke-width="1.25"/>
+    <text x="40" y="154" font-weight="600" fill="var(--ink)">4. Targeted screens</text><text x="40" y="174" font-size="11.5" fill="var(--ink-2)">Open only off RAFT flags</text>
+    <rect x="262" y="128" width="220" height="64" rx="8" fill="none" stroke="var(--border)" stroke-width="1.25"/>
+    <text x="278" y="154" font-weight="600" fill="var(--ink)">5. Check-in + OCEAN</text><text x="278" y="174" font-size="11.5" fill="var(--ink-2)">26 needs + 10 how-you-work</text>
+    <rect x="500" y="128" width="220" height="64" rx="8" fill="none" stroke="var(--border)" stroke-width="1.25"/>
+    <text x="516" y="154" font-weight="600" fill="var(--ink)">6. Profile + matches</text><text x="516" y="174" font-size="11.5" fill="var(--ink-2)">Colour, RWOB pathway, clinicians</text>
+    <rect x="24" y="232" width="220" height="64" rx="8" fill="none" stroke="var(--border)" stroke-width="1.25"/>
+    <text x="40" y="258" font-weight="600" fill="var(--ink)">7. Use + HALT</text><text x="40" y="278" font-size="11.5" fill="var(--ink-2)">Optional; places them on PAWS</text>
+    <rect x="262" y="232" width="220" height="64" rx="8" fill="none" stroke="var(--border)" stroke-width="1.25"/>
+    <text x="278" y="258" font-weight="600" fill="var(--ink)">8. Hurdles + 72-hr plan</text><text x="278" y="278" font-size="11.5" fill="var(--ink-2)">They tick; plan in own words</text>
+    <rect x="500" y="232" width="220" height="64" rx="8" fill="var(--accent-light)" stroke="var(--accent)" stroke-width="2"/>
+    <text x="516" y="258" font-weight="600" fill="var(--ink)">9. Flight Plan + Send</text><text x="516" y="278" font-size="11.5" fill="var(--ink-2)">Keep it; send if they agree</text>
+  </g>
+</svg>
+</div>
+<ol>
+  <li><strong>Profile.</strong> Name they go by and the first three characters of their postal code. Phone and email are optional and only needed if they want a call.</li>
+  <li><strong>Safety gate.</strong> Nine yes/no questions modelled on the C-SSRS: suicidal thoughts, plan, past attempt, harm to others, dangerous withdrawal, urgent medical need, psychosis, being unsafe tonight. Any "yes" opens a crisis screen with 9-8-8, text CONNECT to 686868, 9-1-1 and NEDIC. They can choose to continue.</li>
+  <li><strong>RAFT snapshot.</strong> Roof tonight, any urgent medical or withdrawal concern, basic needs, and in their own words what they need most.</li>
+  <li><strong>Targeted screens.</strong> Open only when RAFT points to them: CAGE-AID, SCOFF, PHQ-2, GAD-2, PC-PTSD-5 and a brief gambling screen. Results are flags for a worker, never a diagnosis.</li>
+  <li><strong>Check-in and "how you like to work."</strong> They name where they want to go and be, rate 26 statements about the past two weeks, and answer 10 optional OCEAN questions.</li>
+  <li><strong>Profile and matches.</strong> Their HALO-WBBRY colour profile, two RWOB pathways, colour-matched services from 74 sample Ontario organizations, and clinicians ranked by fit, distance and availability. They tick what they want.</li>
+  <li><strong>Use and HALT.</strong> Optional: main substance, years, days since last use, past attempts, overdose history, medications, and four HALT sliders. Stopping alcohol or benzodiazepines in the first week triggers a medical-safety warning.</li>
+  <li><strong>Hurdles and 72-hour plan.</strong> The likely PAWS hurdles for their profile are shown and they tick the ones that feel true. Then four lines in their own words: one thing tomorrow, who they'll call, next appointment, one thing different in three days.</li>
+  <li><strong>Flight Plan and Send.</strong> One page to print or save: hurdles, matched G.A.P.S. tools, lanes, services, Future Ripple, check-in dates and crisis lines. Send emails everything to RWOB, only after they tick consent.</li>
+</ol>
+
+<h2 id="clinician-side">How it works: clinician side</h2>
+<p>A clinic or clinician presses <strong>"I'm a clinician or program"</strong> and fills in one form. Their services are colour-coded automatically as they tick them, and RWOB reviews that mapping before a real listing goes live.</p>
+<div class="tbl"><table>
+<thead><tr><th>Part of the form</th><th>What they enter</th><th>What it does in the match</th></tr></thead>
+<tbody>
+<tr><td>Who and where</td><td>Name or program, role, organization, referral email, postal code</td><td>Postal code sets distance to each member</td></tr>
+<tr><td>How they see people</td><td>In person + virtual, in person only, or virtual</td><td>In-person-only listings over 150 km away are dropped</td></tr>
+<tr><td>Services offered</td><td>Ticked in four colour groups</td><td>Sets their HALO-WBBRY colour code</td></tr>
+<tr><td>Treatment in their own words</td><td>A plain description of the program</td><td>Read by RWOB to check the colour mapping</td></tr>
+<tr><td>Typical length</td><td>Days, weeks, months or sessions, or "ongoing"</td><td>Feeds the member's Future Ripple timeline</td></tr>
+<tr><td>Usual wait</td><td>Within a week, 1–2 weeks, 2–8 weeks, 8+ weeks</td><td>Longer waits lower the score a little</td></tr>
+<tr><td>How they work</td><td>MI, CBT, DBT, trauma therapy, harm reduction, family, group and more</td><td>Matched against the member's needs (55% of the score)</td></tr>
+<tr><td>Who and cost</td><td>Populations, fee type, taking new people</td><td>"Not taking new people" hides them from matching</td></tr>
+<tr><td>Consent</td><td>Agree to be listed</td><td>Required</td></tr>
+</tbody></table></div>
+<h3>How services are colour-coded</h3>
+<ul>
+  <li><span class="chip c-white">WHITE</span> Navigation, harm reduction, housing stabilization, primary care, information-only services</li>
+  <li><span class="chip c-blue">BLUE</span> Community counselling, outpatient, family or couples therapy, grief work, concurrent-disorder counselling, 2SLGBTQ2S+-affirming care</li>
+  <li><span class="chip c-yellow">YELLOW</span> Crisis support, withdrawal management, RAAM clinics, problem gambling</li>
+  <li><span class="chip c-black">BLACK</span> Residential, hospital or inpatient care, intensive addiction medicine, trauma or PTSD programs, long-term recovery, eating disorder specialty</li>
+  <li><span class="chip c-red">RED</span> Never matched to a listing. Anyone in danger is sent to 9-8-8 or 9-1-1.</li>
+</ul>
+
+<h2 id="match">How the match works</h2>
+<p>Both sides speak the same HALO-WBBRY colour key, so a member's needs and a clinician's services meet in the middle. Every match card shows what it matched on, so a worker can check it.</p>
+<h3>1. The member's colour: what they need</h3>
+<p>The 26 check-in statements score White, Blue, Yellow and Black. Red comes only from the safety gate and RAFT, never from statements. The highest colour is primary; a second above 25% is secondary.</p>
+<div class="tbl"><table>
+<thead><tr><th>Colour</th><th>Stands for</th><th>Example signs</th><th>Services that address it</th></tr></thead>
+<tbody>
+<tr><td><span class="chip c-white">WHITE</span></td><td>Foundation, orientation</td><td>Fog, overwhelm, not knowing where to start</td><td>Navigation, harm reduction, housing, primary care</td></tr>
+<tr><td><span class="chip c-blue">BLUE</span></td><td>Health and depth, connection</td><td>Numbness, grief, shame, loneliness</td><td>Counselling, outpatient, family and grief work</td></tr>
+<tr><td><span class="chip c-yellow">YELLOW</span></td><td>Reactivity and response</td><td>Stress reactions, cravings, anger</td><td>Crisis support, withdrawal management, RAAM</td></tr>
+<tr><td><span class="chip c-black">BLACK</span></td><td>Shadow and transformation</td><td>Loss of enjoyment, identity, sleep collapse, trauma</td><td>Residential, inpatient, trauma programs</td></tr>
+<tr><td><span class="chip c-red">RED</span></td><td>Emergency</td><td>Immediate danger</td><td>9-8-8, 9-1-1 (not matched to listings)</td></tr>
+</tbody></table></div>
+<h3>2. How they like to work: OCEAN</h3>
+<p>Ten optional questions shape which ways of working rise, never the colour. Comfortable sharing raises group options; slow to trust raises one-to-one first. Liking clear steps raises structured approaches (CBT); liking new things raises flexible ones (ACT). Feelings that often overwhelm raise emotion-regulation skills (DBT). Valuing connection raises relational, talk-it-through workers.</p>
+<h3>3. The clinician score</h3>
+<div class="tbl"><table>
+<thead><tr><th>Part</th><th>Weight</th><th>How it's measured</th></tr></thead>
+<tbody>
+<tr><td>Ways of working fit</td><td class="num">55%</td><td>Share of the member's needs (from RAFT, screens, colour and OCEAN) that the clinician covers</td></tr>
+<tr><td>Distance</td><td class="num">35%</td><td>Straight-line distance between postal codes: full marks within 25 km, falling to zero at 150 km; virtual listings score as virtual</td></tr>
+<tr><td>Colour fit</td><td class="num">10%</td><td>The clinician's colour code includes the member's primary colour</td></tr>
+<tr><td>Availability</td><td class="num">× 0.80–1.00</td><td>Within a week ×1.00, 1–2 weeks ×0.97, 2–8 weeks ×0.90, 8+ weeks ×0.80</td></tr>
+</tbody></table></div>
+<p>A clinician must cover at least one real need beyond motivational interviewing to appear at all.</p>
+<h3>4. RWOB's own pathways</h3>
+<p>Two options at most, from the CEO's routing matrix. A positive mood, anxiety, trauma or eating screen puts Free Therapy Referral first; a substance concern or Yellow profile puts the 24/7 Digital App first; Blue puts Peer Support Groups first; otherwise Weekly City Forums. Each comes with its matrix second choice.</p>
+<h3>5. Services directory</h3>
+<p>74 sample Ontario organizations, colour-coded from public information and not yet confirmed by them, ranked by colour fit with a boost for the member's region.</p>
+
+<h2 id="guide-member">User guide: people seeking support</h2>
+<p>It takes about 15 to 25 minutes, it's free, and you can stop at any point. There are no right or wrong answers; you are the expert on your own life.</p>
+<ol>
+  <li><strong>Open the link</strong> on a phone, tablet or computer. To read it in another language, use your browser's Translate (in Chrome, right-click the page and choose "Translate").</li>
+  <li><strong>Make your profile.</strong> Type the name you go by and the first three characters of your postal code. Add a phone or email only if you want someone to reach you; otherwise press <strong>Continue without contact details</strong>.</li>
+  <li><strong>Answer the safety questions honestly.</strong> A "yes" isn't a judgment. It shows you who to call right now, and you can still carry on.</li>
+  <li><strong>Fill in the quick snapshot:</strong> roof tonight, any urgent medical concern, what you need today, and in your own words what matters most.</li>
+  <li><strong>Answer any short follow-up questions</strong> that open. They help a worker know what to prioritize.</li>
+  <li><strong>Say where you want to go and be,</strong> then rate the 26 statements. Open each coloured section to answer it. The 10 "how you like to work" questions are optional but make your match better.</li>
+  <li><strong>Look at your results:</strong> your colour profile, two Recovery Without Borders options, and services and clinicians near you. Tick any you'd like to move forward with. Nothing is final until you choose.</li>
+  <li><strong>Build your Flight Plan</strong> (optional, about 10 minutes): a little about your use, the hurdles that feel true for you, and your next 72 hours in your own words.</li>
+  <li><strong>Keep it.</strong> Press <strong>Print or save as PDF</strong>, or <strong>Copy as text</strong>. The page keeps nothing once you close it.</li>
+  <li><strong>Send it to RWOB if you want a call.</strong> Tick the agreement box and press <strong>Send to Recovery Without Borders</strong>. A worker can then introduce you to the service you chose, so you don't have to tell your story again.</li>
+</ol>
+<div class="crisis">If it gets to be too much at any point: call or text <strong>9-8-8</strong> (24/7), text <strong>CONNECT</strong> to <strong>686868</strong>, or call <strong>9-1-1</strong> in an emergency.</div>
+
+<h2 id="guide-clinician">User guide: clinicians and programs</h2>
+<p>Listing takes about five minutes. People are matched to you by what they need, the ways you work, how close you are and how soon you can see them.</p>
+<ol>
+  <li><strong>Open the link</strong> and press <strong>I'm a clinician or program</strong> at the top.</li>
+  <li><strong>Enter who and where:</strong> your name or the program's, your role, organization, an email for referrals, and the postal code where you see people. Choose in person, virtual, or both. Virtual-only listings don't need a postal code.</li>
+  <li><strong>Tick the services you actually provide.</strong> Your colour code builds as you tick. Members whose profile leans those colours see you higher.</li>
+  <li><strong>Describe your treatment in your own words.</strong> RWOB reads this to check your colour mapping before a real listing goes live.</li>
+  <li><strong>Add the typical length of treatment</strong> (or tick "ongoing") and your <strong>usual wait</strong> for a first appointment. Members see both, and their Future Ripple uses them.</li>
+  <li><strong>Tick how you work.</strong> This is the biggest part of the match, so tick only what you offer.</li>
+  <li><strong>Add who you specialise in, your cost and whether you're taking new people.</strong> "Not right now" keeps you out of matching.</li>
+  <li><strong>Agree to be listed</strong> and press <strong>Add me to the list</strong>.</li>
+</ol>
+<p>Members see your name, role, area, distance, how you see people, treatment length, wait, colour code and the ways of working that matched them. You receive a member's details only when they choose you and agree to share them. In this demo a listing lasts only in that browser tab; the <strong>Copy the list for the RWOB team</strong> box holds it in a form RWOB can load into its own system.</p>
+
+<h2 id="guide-staff">User guide: RWOB staff</h2>
+<p>A finished intake arrives at <strong>neil.s@recoverywithoutborders.org</strong>, copied to <strong>toronto@recoverywithoutborders.org</strong>, once the person ticks consent and presses Send. The worker reads it, calls, and makes the warm introduction.</p>
+<h3>One-time setup, before the first demo</h3>
+<ul class="check">
+  <li>Complete one intake with made-up details and press Send. It will say it didn't send because the form "needs activation." That is expected.</li>
+  <li>Open the activation email from FormSubmit in neil.s@ (check spam) and click the link.</li>
+  <li>Send once more and confirm it lands in neil.s@ with toronto@ copied.</li>
+  <li>Optional: swap the visible address for the alias FormSubmit provides.</li>
+</ul>
+<h3>What the email contains</h3>
+<ol>
+  <li>Subject "New intake — Flight Plan to Sobriety — [name]", with <strong>SAFETY FLAG, CALL FIRST</strong> added if any safety question was answered yes.</li>
+  <li>Contact details, how and when they want to be reached, and whether it's safe to leave a message.</li>
+  <li>Intake summary: colour profile, four wellbeing areas, suggested RWOB pathway, their own words, roof, substance, basic needs, screen results.</li>
+  <li>Staff flags: safety gate, housing, colour, positive screens, "live call only."</li>
+  <li>Services and clinicians they chose.</li>
+  <li>The G.A.P.S. onboarding record: PFD snapshot, substance profile, HALT baseline, PAWS position, hurdles picked, tools loaded, 72-hour plan, how they like to work, Future Ripple, check-in dates, and a one-line encounter prompt.</li>
+  <li>Their whole Flight Plan, exactly as they see it.</li>
+</ol>
+<p><strong>Suggested call:</strong> open with their own words from RAFT, confirm the safety flags, offer the one or two choices they ticked, and book the Day 1 and Day 3 check-ins from their Flight Plan.</p>
+<h3>Five-minute walkthrough for leadership</h3>
+<ol>
+  <li>Open the demo and point out the banner, "Free" and the translate line.</li>
+  <li>Make a profile with made-up details and answer "no" to the safety questions. Go back, answer one "yes", and show the crisis screen.</li>
+  <li>Pick alcohol in RAFT, answer the screens, rate the check-in, and answer the OCEAN questions two different ways to show the match shift.</li>
+  <li>Show results: colour, RWOB pathways, services, clinicians and what each matched on.</li>
+  <li>Switch to "I'm a clinician or program", list a Newmarket clinic, return to the member side, and show it ranking near the top at under 1 km.</li>
+  <li>Build the Flight Plan, show the Future Ripple, then press Send and open the email.</li>
+</ol>
+
+<h2 id="limits">Privacy, safety and current limits</h2>
+<p>The demo is safe to show with made-up details. It is not ready for real clients until the items below are resolved with RWOB leadership and its clinical and legal advisors.</p>
+<ul>
+  <li>Nothing is saved on the device or a server. Closing the page clears everything.</li>
+  <li>Nothing is sent unless the person ticks consent and presses Send. The intake then goes by email through FormSubmit, a third-party US service: acceptable for made-up demo data only, not real health information.</li>
+  <li>The page cannot contact anyone in a crisis. It shows 9-8-8, 686868, 9-1-1 and NEDIC instead, and says so plainly.</li>
+</ul>
+<div class="tbl"><table>
+<thead><tr><th>Limit</th><th>Why it matters</th><th>What fixes it</th></tr></thead>
+<tbody>
+<tr><td>Clinician listings last one browser tab</td><td>A clinic that signs up on its phone doesn't appear on a member's phone</td><td>One shared database (RWOB's GoHighLevel or a hosted store)</td></tr>
+<tr><td>No remembered login</td><td>People can't come back to their Flight Plan</td><td>Sign-in through RWOB's existing GHL accounts</td></tr>
+<tr><td>Only RWOB's email is really sent</td><td>Member and clinician emails are previews</td><td>The same server step</td></tr>
+<tr><td>Email goes through a third party</td><td>Health information outside RWOB's control</td><td>Move sending into RWOB's system after a privacy review</td></tr>
+<tr><td>Machine translation</td><td>Crisis lines and screens may be translated imperfectly</td><td>Human-checked versions of the key screens</td></tr>
+<tr><td>Not clinically reviewed</td><td>Screens, colour mapping, hurdle weights and OCEAN rules are HALO's starting points</td><td>Review by RWOB's clinical advisor</td></tr>
+<tr><td>Sample directory</td><td>74 organizations and 3 demo clinicians, none confirmed</td><td>Real listings through the clinician sign-up</td></tr>
+</tbody></table></div>
+<p><strong>Safety built in:</strong> the safety gate runs first; any "yes" shows crisis lines before anything else; answering "Hopeless" about the future shows 9-8-8 on the spot; stopping alcohol or benzodiazepines in the first week triggers a seizure-risk warning; screens are labelled as flags, not diagnoses; nothing claims a worker has been notified.</p>
+
+<h2 id="next">What's next and version history</h2>
+<p>The next real step is a server behind the page. One decision unlocks shared listings, remembered login and real emails to every party: whether RWOB's GoHighLevel can receive intakes and listings by webhook.</p>
+<ul class="check">
+  <li>RWOB leadership decides where intakes and listings are stored</li>
+  <li>Privacy and consent review of what is collected, sent and stored</li>
+  <li>Clinical advisor reviews the screens, colour mapping, PAWS weights and OCEAN rules</li>
+  <li>Invite the first real clinics to list themselves</li>
+  <li>Human-checked translations of the safety gate and crisis screen</li>
+</ul>
+<div class="tbl"><table>
+<thead><tr><th>Version</th><th>Date</th><th>What changed</th></tr></thead>
+<tbody>
+<tr><td>v8</td><td class="num">Oct 21, 2026</td><td>Send to RWOB by email (consent required); live on the main link</td></tr>
+<tr><td>v7</td><td class="num">Oct 20, 2026</td><td>"How you like to work": 10 OCEAN questions shape the clinician match</td></tr>
+<tr><td>v6</td><td class="num">Oct 20, 2026</td><td>Treatment length and wait time; Future Ripple; "Free" and translate line</td></tr>
+<tr><td>v5</td><td class="num">Oct 20, 2026</td><td>Clinician and program sign-up joins matching</td></tr>
+<tr><td>v4</td><td class="num">Oct 20, 2026</td><td>Flight Plan: use profile, HALT, PAWS hurdles, 72-hour plan, worker record</td></tr>
+<tr><td>v3</td><td class="num">Oct 20, 2026</td><td>Merged the two intakes; RWOB's own pathways; own-words boxes</td></tr>
+<tr><td>v2</td><td class="num">Oct 6, 2026</td><td>Brand guide, HALO-WBBRY, motivational interviewing tone, safety wording</td></tr>
+</tbody></table></div>
+
+<footer>Flight Plan to Sobriety · by HALO Antifragile AI, for Recovery Without Borders to review. A prototype: not a diagnosis or treatment, not yet an RWOB service. In crisis call or text 9-8-8; emergency 9-1-1.</footer>
+</div>
+</body>
+</html>
